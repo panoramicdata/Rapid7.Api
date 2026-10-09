@@ -1,3 +1,6 @@
+using Rapid7.Api.Handlers;
+using System.Text.RegularExpressions;
+
 namespace Rapid7.Api;
 
 /// <summary>
@@ -41,7 +44,11 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 			? $"https://{Region}.api.insight.rapid7.com/"
 			: BaseUrl.EndsWith('/') ? BaseUrl : BaseUrl + "/");
 
-	internal void Validate()
+	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
+	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), readOnlyPosts, innerHandler);
+
+	internal override void Validate()
 	{
 		if (string.IsNullOrWhiteSpace(BaseUrl))
 		{

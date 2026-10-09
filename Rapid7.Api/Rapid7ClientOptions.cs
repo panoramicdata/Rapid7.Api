@@ -1,3 +1,6 @@
+using Rapid7.Api.Handlers;
+using System.Text.RegularExpressions;
+
 namespace Rapid7.Api;
 
 /// <summary>
@@ -32,7 +35,11 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 	/// </summary>
 	public bool ReadOnly { get; set; }
 
-	internal void Validate()
+	/// <summary>The client core for a console client at <paramref name="baseAddress"/>, authenticating with these credentials.</summary>
+	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), readOnlyPosts, innerHandler);
+
+	internal override void Validate()
 	{
 		ValidateBaseUrl(BaseUrl, nameof(BaseUrl));
 		if (string.IsNullOrWhiteSpace(Username) || string.IsNullOrEmpty(Password))

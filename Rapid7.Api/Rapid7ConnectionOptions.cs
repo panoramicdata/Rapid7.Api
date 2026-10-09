@@ -113,6 +113,21 @@ public abstract class Rapid7ConnectionOptions
 		return at < 0 ? url : $"{url[..start]}***{url[(start + at)..]}";
 	}
 
+	/// <summary>
+	/// Validates <paramref name="options"/> and returns them. Clients call this before creating the network handler, so
+	/// invalid options do not leave an undisposed handler behind.
+	/// </summary>
+	/// <exception cref="ArgumentNullException"><paramref name="options"/> is <see langword="null"/>.</exception>
+	internal static T Validated<T>(T options) where T : Rapid7ConnectionOptions
+	{
+		ArgumentNullException.ThrowIfNull(options);
+		options.Validate();
+		return options;
+	}
+
+	/// <summary>Checks every setting, throwing an <see cref="ArgumentException"/> for the first invalid one.</summary>
+	internal abstract void Validate();
+
 	/// <summary>Checks the certificate, timeout and retry settings.</summary>
 	private protected void ValidateConnection()
 	{

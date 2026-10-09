@@ -1,5 +1,3 @@
-using Rapid7.Api.Handlers;
-using Refit;
 using System.Text.RegularExpressions;
 
 namespace Rapid7.Api;
@@ -21,12 +19,11 @@ namespace Rapid7.Api;
 /// </remarks>
 public sealed partial class Rapid7Client : IDisposable
 {
-	private readonly HttpMessageHandler _pipeline;
-	private readonly HttpClient _httpClient;
+	private readonly Rapid7ClientCore _core;
 
 	/// <summary>Creates a client.</summary>
 	/// <param name="options">Connection options.</param>
-	public Rapid7Client(Rapid7ClientOptions options) : this(options, Rapid7Transport.Create(Validated(options)))
+	public Rapid7Client(Rapid7ClientOptions options) : this(options, Rapid7Transport.Create(Rapid7ConnectionOptions.Validated(options)))
 	{
 	}
 
@@ -40,15 +37,8 @@ public sealed partial class Rapid7Client : IDisposable
 	public Rapid7Client(Rapid7ClientOptions options, HttpMessageHandler innerHandler)
 	{
 		ArgumentNullException.ThrowIfNull(innerHandler);
-		Validated(options);
-		BaseAddress = Rapid7Pipeline.WithTrailingSlash(options.BaseUrl);
-		_pipeline = Rapid7Pipeline.Create(
-			options,
-			BaseAddress,
-			new BasicAuthenticationHandler(options.Username, options.Password, options.TwoFactorToken),
-			options.ReadOnly ? ReadOnlyPosts() : null,
-			innerHandler);
-		_httpClient = Rapid7Pipeline.CreateHttpClient(_pipeline, BaseAddress);
+		BaseAddress = Rapid7Pipeline.WithTrailingSlash(Rapid7ConnectionOptions.Validated(options).BaseUrl);
+		_core = options.CreateCore(BaseAddress, options.ReadOnly ? ReadOnlyPosts() : null, innerHandler);
 	}
 
 	/// <summary>The console address every endpoint path is appended to, always ending in <c>/</c>.</summary>
@@ -58,20 +48,8 @@ public sealed partial class Rapid7Client : IDisposable
 	[GeneratedRegex("^api/3/(assets/search|sonar_queries/search)$", RegexOptions.CultureInvariant)]
 	private static partial Regex ReadOnlyPosts();
 
-	// Validation comes before the transport is created, so invalid options do not leave an undisposed network handler.
-	private static Rapid7ClientOptions Validated(Rapid7ClientOptions options)
-	{
-		ArgumentNullException.ThrowIfNull(options);
-		options.Validate();
-		return options;
-	}
-
-	internal T For<T>() => RestService.For<T>(_httpClient, Rapid7Pipeline.Settings);
+	internal T For<T>() => _core.For<T>();
 
 	/// <inheritdoc />
-	public void Dispose()
-	{
-		_httpClient.Dispose();
-		_pipeline.Dispose();
-	}
+	public void Dispose() => _core.Dispose();
 }
