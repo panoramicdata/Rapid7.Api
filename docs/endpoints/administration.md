@@ -6,10 +6,10 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| POST | `api/3/administration/commands` |  |  |
-| GET | `api/3/administration/info` |  |  |
-| GET | `api/3/administration/license` |  |  |
-| POST | `api/3/administration/license` |  |  |
-| GET | `api/3/administration/logs` |  |  |
-| GET | `api/3/administration/properties` |  |  |
-| GET | `api/3/administration/settings` |  |  |
+| POST | `api/3/administration/commands` | `IAdministration.ExecuteCommandAsync` | `AdministrationTests.ExecuteCommandAsync_PostsTheCommandAsPlainText` |
+| GET | `api/3/administration/info` | `IAdministration.GetInfoAsync` | `AdministrationTests.GetInfoAsync_SendsGetToInfo` |
+| GET | `api/3/administration/license` | `IAdministration.GetLicenseAsync` | `AdministrationTests.GetLicenseAsync_SendsGetToLicense` |
+| POST | `api/3/administration/license` | `IAdministration.ActivateLicenseAsync`, `IAdministration.UploadLicenseAsync` | `AdministrationTests.ActivateLicenseAsync_PostsTheKeyInTheQueryWithoutABody`, `AdministrationTests.UploadLicenseAsync_PostsTheFileAsTheLicensePart` |
+| GET | `api/3/administration/logs` | `IAdministration.GetLogsAsync` | `AdministrationTests.GetLogsAsync_AsksForAZipOfTheNamedLogs` |
+| GET | `api/3/administration/properties` | `IAdministration.GetPropertiesAsync` | `AdministrationTests.GetPropertiesAsync_SendsGetToProperties` |
+| GET | `api/3/administration/settings` | `IAdministration.GetSettingsAsync` | `AdministrationTests.GetSettingsAsync_SendsGetToSettings` |
