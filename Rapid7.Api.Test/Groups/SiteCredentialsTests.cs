@@ -14,14 +14,14 @@ public class SiteCredentialsTests
 	private static readonly string ExpectedAccount = JsonSerializer.Serialize(Account(), Rapid7Json.Options);
 
 	private static readonly string ExpectedCredential =
-		$$"""{"account":{{ExpectedAccount}},"description":"Linux scan account","enabled":true,"hostRestriction":"10.0.0.5","name":"Scanner SSH","portRestriction":22}""";
+		$$"""{"account":{{ExpectedAccount}},"description":"Linux scan account","enabled":true,"hostRestriction":"192.0.2.5","name":"Scanner SSH","portRestriction":22}""";
 
 	private const string CredentialJson = """
 		{
 			"account": { "service": "ssh", "username": "scanner" },
 			"description": "Linux scan account",
 			"enabled": true,
-			"hostRestriction": "10.0.0.5",
+			"hostRestriction": "192.0.2.5",
 			"id": 17,
 			"name": "Scanner SSH",
 			"portRestriction": 22
@@ -57,7 +57,7 @@ public class SiteCredentialsTests
 		Account = Account(),
 		Description = "Linux scan account",
 		Enabled = true,
-		HostRestriction = "10.0.0.5",
+		HostRestriction = "192.0.2.5",
 		Name = "Scanner SSH",
 		PortRestriction = 22
 	};
@@ -77,7 +77,7 @@ public class SiteCredentialsTests
 
 		var credential = list.Resources.Should().ContainSingle().Subject;
 		ShouldBeTheScannerCredential(credential);
-		list.Items.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/site_credentials");
+		list.Links.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/site_credentials");
 	}
 
 	[Fact]
@@ -104,7 +104,7 @@ public class SiteCredentialsTests
 			"""{"id":17,"links":[{"href":"https://console.test:3780/api/3/sites/7/site_credentials/17","rel":"self"}]}""");
 
 		created.Id.Should().Be(17);
-		created.Items.Should().ContainSingle().Which.Href.Should().EndWith("/site_credentials/17");
+		created.Links.Should().ContainSingle().Which.Href.Should().EndWith("/site_credentials/17");
 	}
 
 	[Fact]
@@ -173,8 +173,8 @@ public class SiteCredentialsTests
 		shared.Id.Should().Be(21);
 		shared.Name.Should().Be("Domain admin");
 		shared.Service.Should().Be(CredentialService.Cifs);
-		shared.Items.Should().ContainSingle().Which.Href.Should().EndWith("/shared_credentials/21");
-		list.Items.Should().ContainSingle();
+		shared.Links.Should().ContainSingle().Which.Href.Should().EndWith("/shared_credentials/21");
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -206,7 +206,7 @@ public class SiteCredentialsTests
 		credential.Account.Should().NotBeNull();
 		credential.Description.Should().Be("Linux scan account");
 		credential.Enabled.Should().BeTrue();
-		credential.HostRestriction.Should().Be("10.0.0.5");
+		credential.HostRestriction.Should().Be("192.0.2.5");
 		credential.Id.Should().Be(17);
 		credential.Name.Should().Be("Scanner SSH");
 		credential.PortRestriction.Should().Be(22);

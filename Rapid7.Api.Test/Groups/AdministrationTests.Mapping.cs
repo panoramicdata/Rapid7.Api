@@ -11,7 +11,7 @@ public partial class AdministrationTests
 		var output = await TestClient.ReadAsync((c, ct) => c.Administration.ExecuteCommandAsync("ver", ct), AdministrationJson.CommandOutput);
 
 		output.Output.Should().Be("Security Console version 6.6.250");
-		output.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		output.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
@@ -32,7 +32,7 @@ public partial class AdministrationTests
 		info.Memory!.Free!.Bytes.Should().Be(45006848);
 		info.Memory.Free.Formatted.Should().Be("42.9 MB");
 		info.Memory.Total!.Bytes.Should().Be(17179869184);
-		info.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		info.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
@@ -103,7 +103,7 @@ public partial class AdministrationTests
 				}
 			}
 		});
-		license.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		license.Links.ShouldBeSelfOnly();
 	}
 
 	[Theory]
@@ -131,7 +131,7 @@ public partial class AdministrationTests
 			["os.name"] = "Linux",
 			["nexpose.port"] = "3780"
 		});
-		properties.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		properties.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
@@ -149,7 +149,7 @@ public partial class AdministrationTests
 		settings.Smtp.Should().BeEquivalentTo(new SmtpSettings { Host = "mail.example.test", Port = 25, Sender = "security@example.test", DistributionId = "d-1" });
 		settings.Updates.Should().BeEquivalentTo(new UpdateSettings { Enabled = true, ProductAutoUpdate = false, ContentAutoUpdate = true });
 		settings.Web.Should().BeEquivalentTo(new WebSettings { Port = 3780, MinThreads = 10, MaxThreads = 100, SessionTimeout = "PT10M" });
-		settings.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		settings.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]

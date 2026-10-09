@@ -12,7 +12,7 @@ public class SharedCredentialsTests
 			"id": 17,
 			"name": "Linux estate",
 			"description": "Root via sudo",
-			"hostRestriction": "10.0.0.0/8",
+			"hostRestriction": "198.51.100.0/24",
 			"portRestriction": 22,
 			"siteAssignment": "specific-sites",
 			"sites": [3, 5],
@@ -70,12 +70,12 @@ public class SharedCredentialsTests
 		SiteAssignment = CredentialSiteAssignment.SpecificSites,
 		Sites = [3, 5],
 		Description = "Root via sudo",
-		HostRestriction = "10.0.0.0/8",
+		HostRestriction = "198.51.100.0/24",
 		PortRestriction = 22,
 		Account = new CredentialAccount { Service = CredentialService.Ssh, Username = "scanner", Password = "fake-secret" }
 	};
 
-	private const string SshRequestJson = """{"name":"Linux estate","account":{"service":"ssh","username":"scanner","password":"fake-secret"},"siteAssignment":"specific-sites","sites":[3,5],"description":"Root via sudo","hostRestriction":"10.0.0.0/8","portRestriction":22}""";
+	private const string SshRequestJson = """{"name":"Linux estate","account":{"service":"ssh","username":"scanner","password":"fake-secret"},"siteAssignment":"specific-sites","sites":[3,5],"description":"Root via sudo","hostRestriction":"198.51.100.0/24","portRestriction":22}""";
 
 	[Fact]
 	public async Task ListAsync_SendsGetToSharedCredentials()
@@ -91,7 +91,7 @@ public class SharedCredentialsTests
 		var credentials = await TestClient.ReadAsync((c, ct) => c.SharedCredentials.ListAsync(ct), CredentialsJson);
 
 		ShouldBeTheLinuxCredential(credentials.Resources.Should().ContainSingle().Subject);
-		credentials.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		credentials.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
@@ -185,7 +185,7 @@ public class SharedCredentialsTests
 		credential.Id.Should().Be(17);
 		credential.Name.Should().Be("Linux estate");
 		credential.Description.Should().Be("Root via sudo");
-		credential.HostRestriction.Should().Be("10.0.0.0/8");
+		credential.HostRestriction.Should().Be("198.51.100.0/24");
 		credential.PortRestriction.Should().Be(22);
 		credential.SiteAssignment.Should().Be(CredentialSiteAssignment.SpecificSites);
 		credential.Sites.Should().Equal(3, 5);

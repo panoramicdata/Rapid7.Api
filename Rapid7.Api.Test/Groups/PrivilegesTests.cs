@@ -19,7 +19,7 @@ public class PrivilegesTests
 		var privileges = await TestClient.ReadAsync((c, ct) => c.Privileges.ListAsync(ct), UserJson.Privileges);
 
 		privileges.Resources.Should().Equal("all-permissions", "manage-sites");
-		privileges.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/privileges");
+		privileges.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/privileges");
 	}
 
 	[Fact]

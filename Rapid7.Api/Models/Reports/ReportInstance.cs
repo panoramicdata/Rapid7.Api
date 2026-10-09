@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Reports;
 
 /// <summary>One generation (history entry) of a report.</summary>
-public sealed class ReportInstance : Links
+public sealed class ReportInstance : LinksResource
 {
 	/// <summary>The identifier of the report instance.</summary>
 	[JsonPropertyName("id")]

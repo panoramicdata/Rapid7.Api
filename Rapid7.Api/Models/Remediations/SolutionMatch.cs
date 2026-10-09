@@ -4,7 +4,7 @@ using Rapid7.Api.Models;
 namespace Rapid7.Api.Models.Remediations;
 
 /// <summary>One match the console made when selecting a solution for an asset.</summary>
-public sealed class SolutionMatch : Links
+public sealed class SolutionMatch : LinksResource
 {
 	/// <summary>The identifier of the vulnerability check.</summary>
 	[JsonPropertyName("check")]

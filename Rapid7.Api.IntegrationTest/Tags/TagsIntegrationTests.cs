@@ -14,12 +14,6 @@ public class TagsIntegrationTests(Rapid7Fixture fixture)
 
 	private Rapid7Client Client => fixture.Client;
 
-	private static SearchCriteria NoAssets() => new()
-	{
-		Match = SearchMatch.All,
-		Filters = [new SearchFilter(SearchField.HostName, SearchOperator.Is) { Value = Rapid7Fixture.UniqueName("no-such-host") }],
-	};
-
 	[Fact]
 	public async Task ListAsync_FiltersByType()
 	{
@@ -61,7 +55,7 @@ public class TagsIntegrationTests(Rapid7Fixture fixture)
 			await Client.Tags.UpdateAsync(tagId, new TagRequest { Name = name, Type = TagType.Custom, Color = TagColor.Orange }, Ct);
 			(await Client.Tags.GetAsync(tagId, Ct)).Color.Should().Be(TagColor.Orange);
 
-			await Client.Tags.UpdateSearchCriteriaAsync(tagId, NoAssets(), Ct);
+			await Client.Tags.UpdateSearchCriteriaAsync(tagId, Rapid7Fixture.NoAssets(), Ct);
 			var criteria = await Client.Tags.GetSearchCriteriaAsync(tagId, Ct);
 			criteria.Filters.Should().ContainSingle().Which.Field.Should().Be(SearchField.HostName);
 			await Client.Tags.DeleteSearchCriteriaAsync(tagId, Ct);

@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using Rapid7.Api.Models.Assets;
 
 namespace Rapid7.Api.IntegrationTest;
 
@@ -66,6 +67,13 @@ public sealed class Rapid7Fixture : IDisposable
 
 	/// <summary>A unique, recognisable name for an object a test creates.</summary>
 	public static string UniqueName(string what) => $"{Prefix}{what}-{Guid.NewGuid():N}";
+
+	/// <summary>Search criteria that match no asset (a unique host name), so a dynamic group or tag using them stays empty.</summary>
+	public static SearchCriteria NoAssets() => new()
+	{
+		Match = SearchMatch.All,
+		Filters = [new SearchFilter(SearchField.HostName, SearchOperator.Is) { Value = UniqueName("no-such-host") }],
+	};
 
 	private string Required(string key)
 		=> Configuration[key] is { Length: > 0 } value

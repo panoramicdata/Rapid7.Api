@@ -19,6 +19,24 @@ public class ParquetTests
 		return records;
 	}
 
+	private static async Task<AssetVulnerabilityRecord> ReadAssetVulnerabilityAsync()
+		=> (await ReadAsync<AssetVulnerabilityRecord>(await ParquetFile.WriteAsync([new AssetVulnerabilityRow()]))).Single();
+
+	/// <summary>Asserts the columns <see cref="DetailRowBase"/> writes.</summary>
+	private static void ShouldHaveTheDetailColumns(VulnerabilityDetailRecord record)
+	{
+		record.VulnId.Should().Be("openssl-cve-2024-0001");
+		record.FirstFoundTimestamp.Should().Be(ParquetFile.WhenOffset);
+		record.ReintroducedTimestamp.Should().Be(ParquetFile.WhenOffset.AddDays(1));
+		record.Title.Should().Be("OpenSSL: CVE-2024-0001");
+		record.Description.Should().Be("<p>An issue.</p>");
+		record.DatePublished.Should().Be(ParquetFile.WhenOffset.AddDays(-30));
+		record.DateAdded.Should().Be(ParquetFile.WhenOffset.AddDays(-20));
+		record.DateModified.Should().Be(ParquetFile.WhenOffset.AddDays(-10));
+		record.EpssScore.Should().Be(0.25);
+		record.EpssPercentile.Should().Be(0.9);
+	}
+
 	[Fact]
 	public async Task Asset_MapsEveryColumn()
 	{
@@ -31,7 +49,7 @@ public class ParquetTests
 		record.AzureResourceId.Should().Be("/subscriptions/1/vm");
 		record.GcpObjectId.Should().Be("gcp-1");
 		record.Mac.Should().Be("00:50:56:8B:62:45");
-		record.Ip.Should().Be("10.0.0.1");
+		record.Ip.Should().Be("192.0.2.1");
 		record.HostName.Should().Be("host.example.test");
 		record.OsArchitecture.Should().Be("x86_64");
 		record.OsFamily.Should().Be("Linux");
@@ -102,15 +120,11 @@ public class ParquetTests
 	{
 		var record = (await ReadAsync<VulnerabilityRemediationRecord>(await ParquetFile.WriteAsync([new RemediationRow()]))).Single();
 
+		ShouldHaveTheDetailColumns(record);
 		record.CveId.Should().Be("CVE-2024-0001");
-		record.VulnId.Should().Be("openssl-cve-2024-0001");
 		record.Proof.Should().Be("<p>fixed</p>");
-		record.FirstFoundTimestamp.Should().Be(ParquetFile.WhenOffset);
-		record.ReintroducedTimestamp.Should().Be(ParquetFile.WhenOffset.AddDays(1));
 		record.LastDetected.Should().Be(ParquetFile.WhenOffset.AddDays(2));
 		record.LastRemoved.Should().Be(ParquetFile.WhenOffset.AddDays(3));
-		record.Title.Should().Be("OpenSSL: CVE-2024-0001");
-		record.Description.Should().Be("<p>An issue.</p>");
 		record.CvssV2Score.Should().Be(5.0);
 		record.CvssV3Score.Should().Be(7.5);
 		record.CvssV2Severity.Should().Be("Medium");
@@ -118,27 +132,43 @@ public class ParquetTests
 		record.CvssV2AttackVector.Should().Be("NETWORK");
 		record.CvssV3AttackVector.Should().Be("NETWORK");
 		record.RiskScoreV2.Should().Be(650);
-		record.DatePublished.Should().Be(ParquetFile.WhenOffset.AddDays(-30));
-		record.DateAdded.Should().Be(ParquetFile.WhenOffset.AddDays(-20));
-		record.DateModified.Should().Be(ParquetFile.WhenOffset.AddDays(-10));
-		record.EpssScore.Should().Be(0.25);
-		record.EpssPercentile.Should().Be(0.9);
 	}
 
 	[Fact]
 	public async Task AssetVulnerability_MapsEveryColumn_ConvertingWideIntegers()
 	{
-		var r = (await ReadAsync<AssetVulnerabilityRecord>(await ParquetFile.WriteAsync([new AssetVulnerabilityRow()]))).Single();
+		var r = await ReadAssetVulnerabilityAsync();
 
 		r.OrgId.Should().Be("org-1");
-		r.VulnId.Should().Be("openssl-cve-2024-0001");
+		ShouldHaveTheDetailColumns(r);
 		r.Port.Should().Be(443);
 		r.Protocol.Should().Be("TCP");
 		r.Nic.Should().Be("eth0");
 		r.Proof.Should().Be("<p>version 3.0.2</p>");
-		r.FirstFoundTimestamp.Should().Be(ParquetFile.WhenOffset);
-		r.Title.Should().Be("OpenSSL: CVE-2024-0001");
-		r.Description.Should().Be("<p>An issue.</p>");
+		r.SkillLevel.Should().Be("Novice");
+		r.SkillLevelRank.Should().Be(1);
+		r.Severity.Should().Be("Severe");
+		r.SeverityRank.Should().Be(2);
+		r.SeverityScore.Should().Be(7);
+		r.HasExploits.Should().BeTrue();
+		r.ThreatFeedExists.Should().BeFalse();
+		r.PciCompliant.Should().BeFalse();
+		r.PciSeverity.Should().Be(4);
+		r.RiskScore.Should().Be(612.5);
+		r.RiskScoreV2.Should().Be(700);
+		r.Cves.Should().Equal("CVE-2024-0001", "CVE-2024-0002");
+		r.Tags.Should().Equal("openssl");
+		r.CheckId.Should().Be("openssl-check");
+		r.BestSolutionSummary.Should().Be("Upgrade OpenSSL");
+		r.BestSolutionFix.Should().Be("<p>Upgrade to 3.0.13.</p>");
+		r.BestSolutionType.Should().Be("patch");
+	}
+
+	[Fact]
+	public async Task AssetVulnerability_MapsTheCvssColumns()
+	{
+		var r = await ReadAssetVulnerabilityAsync();
+
 		r.CvssAccessComplexity.Should().Be("L");
 		r.CvssAccessVector.Should().Be("N");
 		r.CvssAuthentication.Should().Be("N");
@@ -157,29 +187,6 @@ public class ParquetTests
 		r.CvssV3Score.Should().Be(7.5);
 		r.CvssV3Severity.Should().Be("High");
 		r.CvssV3SeverityRank.Should().Be(3);
-		r.SkillLevel.Should().Be("Novice");
-		r.SkillLevelRank.Should().Be(1);
-		r.Severity.Should().Be("Severe");
-		r.SeverityRank.Should().Be(2);
-		r.SeverityScore.Should().Be(7);
-		r.HasExploits.Should().BeTrue();
-		r.ThreatFeedExists.Should().BeFalse();
-		r.PciCompliant.Should().BeFalse();
-		r.PciSeverity.Should().Be(4);
-		r.RiskScore.Should().Be(612.5);
-		r.RiskScoreV2.Should().Be(700);
-		r.Cves.Should().Equal("CVE-2024-0001", "CVE-2024-0002");
-		r.DateAdded.Should().Be(ParquetFile.WhenOffset.AddDays(-20));
-		r.DateModified.Should().Be(ParquetFile.WhenOffset.AddDays(-10));
-		r.DatePublished.Should().Be(ParquetFile.WhenOffset.AddDays(-30));
-		r.Tags.Should().Equal("openssl");
-		r.CheckId.Should().Be("openssl-check");
-		r.ReintroducedTimestamp.Should().Be(ParquetFile.WhenOffset.AddDays(1));
-		r.EpssScore.Should().Be(0.25);
-		r.EpssPercentile.Should().Be(0.9);
-		r.BestSolutionSummary.Should().Be("Upgrade OpenSSL");
-		r.BestSolutionFix.Should().Be("<p>Upgrade to 3.0.13.</p>");
-		r.BestSolutionType.Should().Be("patch");
 	}
 
 	[Fact]
@@ -228,11 +235,11 @@ public class ParquetTests
 	}
 
 	[Fact]
-	public async Task ReadAsync_RejectsANullStream()
+	public void ReadAsync_RejectsANullStream_WhenCalled()
 	{
-		var act = async () => await Rapid7Parquet.ReadAsync<AssetRecord>(null!, CancellationToken.None).GetAsyncEnumerator().MoveNextAsync();
+		var act = () => Rapid7Parquet.ReadAsync<AssetRecord>(null!, CancellationToken.None);
 
-		await act.Should().ThrowAsync<ArgumentNullException>();
+		act.Should().Throw<ArgumentNullException>().Which.ParamName.Should().Be("parquet");
 	}
 
 	[Fact]

@@ -23,5 +23,5 @@ public interface ISiteScanTemplate
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's scan template.</returns>
 	[Put("api/3/sites/{siteId}/scan_template")]
-	Task<Links> SetAsync(int siteId, [Body(BodySerializationMethod.Serialized)] string scanTemplateId, CancellationToken cancellationToken);
+	Task<LinksResource> SetAsync(int siteId, [Body(BodySerializationMethod.Serialized)] string scanTemplateId, CancellationToken cancellationToken);
 }

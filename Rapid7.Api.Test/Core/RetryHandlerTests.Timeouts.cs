@@ -73,7 +73,7 @@ public partial class RetryHandlerTests
 
 		var root = await client.Root.GetAsync(TestContext.Current.CancellationToken);
 
-		root.Items.Should().BeEmpty();
+		root.Links.Should().BeEmpty();
 		stub.Calls.Should().HaveCount(2);
 	}
 

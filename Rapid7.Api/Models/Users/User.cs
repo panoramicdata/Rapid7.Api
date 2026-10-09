@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Users;
 
 /// <summary>A Security Console user account. Passwords are never returned.</summary>
-public sealed class User : Links
+public sealed class User : LinksResource
 {
 	/// <summary>The identifier of the user.</summary>
 	[JsonPropertyName("id")]

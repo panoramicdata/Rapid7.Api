@@ -103,8 +103,7 @@ public class PolicyOverridesTests
 
 		var created = await TestClient.ReadAsync((c, ct) => c.PolicyOverrides.CreateAsync(request, ct), """{"id":420,"links":[{"href":"https://console.test:3780/api/3/policy_overrides/420","rel":"self"}]}""");
 
-		created.Id.Should().Be(420);
-		created.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(420);
 	}
 
 	[Fact]
@@ -143,7 +142,7 @@ public class PolicyOverridesTests
 
 	[Fact]
 	public async Task DeleteAsync_ReadsTheLinks()
-		=> (await TestClient.ReadAsync((c, ct) => c.PolicyOverrides.DeleteAsync(420, ct), LinksJson)).Items.Should().ContainSingle().Which.Rel.Should().Be("Policy Overrides");
+		=> (await TestClient.ReadAsync((c, ct) => c.PolicyOverrides.DeleteAsync(420, ct), LinksJson)).Links.Should().ContainSingle().Which.Rel.Should().Be("Policy Overrides");
 
 	[Theory]
 	[InlineData(PolicyOverrideStatusChange.Approve, "approve")]
@@ -203,8 +202,8 @@ public class PolicyOverridesTests
 	{
 		Expires = new DateTimeOffset(2026, 12, 31, 0, 0, 0, TimeSpan.Zero),
 		Id = 420L,
-		Items = new[] { new { Rel = "self" } },
-		Review = new { Comment = "Accepted.", Date = new DateTimeOffset(2026, 10, 2, 9, 30, 0, TimeSpan.Zero), Name = "reviewer", User = 9, Items = Array.Empty<object>() },
+		Links = new[] { new { Rel = "self" } },
+		Review = new { Comment = "Accepted.", Date = new DateTimeOffset(2026, 10, 2, 9, 30, 0, TimeSpan.Zero), Name = "reviewer", User = 9, Links = Array.Empty<object>() },
 		Scope = new
 		{
 			Asset = 282L,
@@ -212,7 +211,7 @@ public class PolicyOverridesTests
 			OriginalResult = PolicyCheckResult.Fail,
 			Rule = 53L,
 			Type = PolicyOverrideScopeType.SpecificAsset,
-			Items = Array.Empty<object>()
+			Links = Array.Empty<object>()
 		},
 		State = PolicyOverrideState.Approved,
 		Submit = new { Comment = "A compensating control is in place.", Date = new DateTimeOffset(2026, 10, 1, 8, 0, 0, TimeSpan.Zero), Name = "submitter", User = 7 }

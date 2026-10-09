@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Sites;
 
 /// <summary>What HTML form and HTTP header web authentications of a site have in common.</summary>
-public abstract class WebAuthentication : Links
+public abstract class WebAuthentication : LinksResource
 {
 	/// <summary>The address every path of the target web site starts from, including the scheme (<c>http://example.test</c>).</summary>
 	[JsonPropertyName("baseURL")]

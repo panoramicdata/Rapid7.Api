@@ -27,10 +27,17 @@ public static class Rapid7Parquet
 	/// </param>
 	/// <param name="cancellationToken">A cancellation token, checked before each row group.</param>
 	/// <returns>The records, in file order.</returns>
-	public static async IAsyncEnumerable<T> ReadAsync<T>(Stream parquet, [EnumeratorCancellation] CancellationToken cancellationToken)
+	/// <exception cref="ArgumentNullException"><paramref name="parquet"/> is <see langword="null"/>.</exception>
+	public static IAsyncEnumerable<T> ReadAsync<T>(Stream parquet, CancellationToken cancellationToken)
 		where T : BulkExportRecord, new()
 	{
 		ArgumentNullException.ThrowIfNull(parquet);
+		return ReadStreamAsync<T>(parquet, cancellationToken);
+	}
+
+	private static async IAsyncEnumerable<T> ReadStreamAsync<T>(Stream parquet, [EnumeratorCancellation] CancellationToken cancellationToken)
+		where T : BulkExportRecord, new()
+	{
 		if (parquet.CanSeek)
 		{
 			await foreach (var record in ReadSeekableAsync<T>(parquet, cancellationToken).ConfigureAwait(false))
@@ -42,8 +49,8 @@ public static class Rapid7Parquet
 		}
 
 		var buffer = new FileStream(
-			Path.GetTempFileName(),
-			FileMode.Create,
+			Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()),
+			FileMode.CreateNew,
 			FileAccess.ReadWrite,
 			FileShare.None,
 			CopyBufferSize,

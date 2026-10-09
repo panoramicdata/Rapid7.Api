@@ -16,7 +16,7 @@ internal static class PolicyAssertions
 		FailedRulesCount = 12,
 		Id = "xccdf_org.example_profile_Level_1",
 		IsCustom = false,
-		Items = new[] { new { Href = "https://console.test:3780/api/3/policies/84", Rel = "self" } },
+		Links = new[] { new { Href = "https://console.test:3780/api/3/policies/84", Rel = "self" } },
 		NotApplicableAssetsCount = 1,
 		NotApplicableRulesCount = 4,
 		PassedAssetsCount = 7,
@@ -33,12 +33,12 @@ internal static class PolicyAssertions
 
 	public static void ShouldBeExampleItem(this PolicyItem item) => item.Should().BeEquivalentTo(new
 	{
-		Assets = new { Total = 10, TotalFailed = 3, TotalNotApplicable = 1, TotalPassed = 6, Items = Array.Empty<object>() },
+		Assets = new { Total = 10, TotalFailed = 3, TotalNotApplicable = 1, TotalPassed = 6, Links = Array.Empty<object>() },
 		Description = "Password settings.",
 		HasOverride = true,
 		Id = 71L,
 		IsUnscored = false,
-		Items = new[] { new { Rel = "self" } },
+		Links = new[] { new { Rel = "self" } },
 		Name = "xccdf_org.example_group_1.1",
 		Policy = ExamplePolicyMetadata,
 		Rules = new { Total = 5, TotalFailed = 1, TotalNotApplicable = 0, TotalPassed = 4, Unscored = 1 },
@@ -55,7 +55,7 @@ internal static class PolicyAssertions
 		Description = "Keeps a history of passwords.",
 		Id = "xccdf_org.example_rule_1.1.1",
 		IsCustom = true,
-		Items = new[] { new { Href = "https://console.test:3780/api/3/policies/84/rules/53" } },
+		Links = new[] { new { Href = "https://console.test:3780/api/3/policies/84/rules/53" } },
 		Name = "xccdf_org.example_rule_1.1.1",
 		Role = PolicyRuleRole.Unscored,
 		Scope = "Custom",
@@ -70,7 +70,7 @@ internal static class PolicyAssertions
 		Benchmark = ExampleBenchmark,
 		Description = "Account policies.",
 		Id = "xccdf_org.example_group_1",
-		Items = new[] { new { Href = "https://console.test:3780/api/3/policies/84/groups/71" } },
+		Links = new[] { new { Href = "https://console.test:3780/api/3/policies/84/groups/71" } },
 		Name = "xccdf_org.example_group_1",
 		Policy = ExamplePolicyMetadata,
 		Scope = "Built-in",
@@ -84,12 +84,12 @@ internal static class PolicyAssertions
 		Hostname = "server01.example.test",
 		Id = 282L,
 		Ip = "192.0.2.10",
-		Items = new[] { new { Rel = "Asset" } },
+		Links = new[] { new { Rel = "Asset" } },
 		Status = PolicyAssetStatus.Failed,
 		Os = new
 		{
 			Architecture = "x86_64",
-			Configurations = new[] { new { Name = "kernel", Value = (string?)"5.15" }, new { Name = "selinux", Value = (string?)null } },
+			Configurations = new[] { new Configuration { Name = "kernel", Value = "5.15" }, new Configuration { Name = "selinux" } },
 			Cpe = new
 			{
 				Edition = "enterprise",
@@ -122,7 +122,7 @@ internal static class PolicyAssertions
 		Name = "xccdf_org.example_profile_Level_1",
 		Title = "Example Server Level 1",
 		Version = "1.4.0",
-		Items = Array.Empty<object>()
+		Links = Array.Empty<object>()
 	};
 
 	private static readonly object ExampleBenchmark = new
@@ -130,6 +130,6 @@ internal static class PolicyAssertions
 		Name = "xccdf_org.example_benchmark",
 		Title = "CIS Example Server Benchmark",
 		Version = "1.4.0",
-		Items = Array.Empty<object>()
+		Links = Array.Empty<object>()
 	};
 }

@@ -20,7 +20,7 @@ public interface IPrivileges
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the privilege and related resources.</returns>
 	[Get("api/3/privileges/{id}")]
-	Task<Links> GetAsync(string id, CancellationToken cancellationToken);
+	Task<LinksResource> GetAsync(string id, CancellationToken cancellationToken);
 
 	/// <summary>Lists the users whose role grants a privilege (<c>GET api/3/privileges/{id}/users</c>).</summary>
 	/// <param name="id">The privilege identifier.</param>

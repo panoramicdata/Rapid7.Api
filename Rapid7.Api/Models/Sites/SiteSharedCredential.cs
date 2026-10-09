@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Sites;
 
 /// <summary>A shared credential as assigned to one site, with whether that site's scans use it.</summary>
-public sealed class SiteSharedCredential : Links
+public sealed class SiteSharedCredential : LinksResource
 {
 	/// <summary>Whether the site's scans use the shared credential.</summary>
 	[JsonPropertyName("enabled")]

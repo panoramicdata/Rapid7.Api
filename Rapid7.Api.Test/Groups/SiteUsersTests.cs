@@ -41,8 +41,8 @@ public class SiteUsersTests
 		user.Id.Should().Be(9);
 		user.Login.Should().Be("jsmith");
 		user.Name.Should().Be("John Smith");
-		user.Items.Should().ContainSingle().Which.Href.Should().EndWith("/users/9");
-		list.Items.Should().ContainSingle();
+		user.Links.Should().ContainSingle().Which.Href.Should().EndWith("/users/9");
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -67,7 +67,7 @@ public class SiteUsersTests
 		var reference = await TestClient.ReadAsync((c, ct) => c.SiteUsers.AddAsync(7, 9, ct), UserReferenceJson);
 
 		reference.Id.Should().Be(9);
-		reference.Items.Should().ContainSingle().Which.Href.Should().EndWith("/users/9");
+		reference.Links.Should().ContainSingle().Which.Href.Should().EndWith("/users/9");
 	}
 
 	[Fact]

@@ -22,7 +22,7 @@ public class SiteDiscoveryTests
 			"match": "any",
 			"filters": [
 				{ "field": "AWS_REGION", "operator": "IN", "values": [ "eu-west-2", "us-east-1" ] },
-				{ "field": "IP_ADDRESS", "operator": "IN_RANGE", "lower": "10.0.0.1", "upper": "10.0.0.9" },
+				{ "field": "IP_ADDRESS", "operator": "IN_RANGE", "lower": "192.0.2.1", "upper": "192.0.2.9" },
 				{ "field": "AWS_INSTANCE_COUNT", "operator": "IS", "value": 4 }
 			]
 		}
@@ -44,7 +44,7 @@ public class SiteDiscoveryTests
 		connection.Id.Should().Be(3);
 		connection.Name.Should().Be("Corporate vCenter");
 		connection.Type.Should().Be(DiscoveryConnectionType.VSphere);
-		connection.Items.Should().ContainSingle().Which.Href.Should().EndWith("/discovery_connections/3");
+		connection.Links.Should().ContainSingle().Which.Href.Should().EndWith("/discovery_connections/3");
 	}
 
 	[Theory]
@@ -87,13 +87,13 @@ public class SiteDiscoveryTests
 		criteria.ConnectionType.Should().Be(DiscoveryConnectionType.Aws);
 		criteria.Match.Should().Be(DiscoverySearchMatch.Any);
 		criteria.Filters.Should().HaveCount(3);
-		var region = criteria.Filters![0];
+		var region = criteria.Filters[0];
 		region.Field.Should().Be("AWS_REGION");
 		region.Operator.Should().Be("IN");
 		region.Values!.Cast<JsonElement>().Select(v => v.GetString()).Should().Equal("eu-west-2", "us-east-1");
 		var range = criteria.Filters[1];
-		((JsonElement)range.Lower!).GetString().Should().Be("10.0.0.1");
-		((JsonElement)range.Upper!).GetString().Should().Be("10.0.0.9");
+		((JsonElement)range.Lower!).GetString().Should().Be("192.0.2.1");
+		((JsonElement)range.Upper!).GetString().Should().Be("192.0.2.9");
 		((JsonElement)criteria.Filters[2].Value!).GetInt32().Should().Be(4);
 	}
 
@@ -108,7 +108,7 @@ public class SiteDiscoveryTests
 			[
 				new DiscoverySearchCriteriaFilter { Field = "VSPHERE_POWER_STATE", Operator = "IS", Value = "on" },
 				new DiscoverySearchCriteriaFilter { Field = "VSPHERE_HOST", Operator = "IN", Values = ["esx-01", "esx-02"] },
-				new DiscoverySearchCriteriaFilter { Field = "IP_ADDRESS", Operator = "IN_RANGE", Lower = "10.0.0.1", Upper = "10.0.0.9" }
+				new DiscoverySearchCriteriaFilter { Field = "IP_ADDRESS", Operator = "IN_RANGE", Lower = "192.0.2.1", Upper = "192.0.2.9" }
 			]
 		};
 
@@ -117,7 +117,7 @@ public class SiteDiscoveryTests
 		call.ShouldBe(
 			HttpMethod.Put,
 			"/api/3/sites/7/discovery_search_criteria",
-			body: """{"connectionType":"vsphere","filters":[{"field":"VSPHERE_POWER_STATE","operator":"IS","value":"on"},{"field":"VSPHERE_HOST","operator":"IN","values":["esx-01","esx-02"]},{"field":"IP_ADDRESS","lower":"10.0.0.1","operator":"IN_RANGE","upper":"10.0.0.9"}],"match":"all"}""");
+			body: """{"connectionType":"vsphere","filters":[{"field":"VSPHERE_POWER_STATE","operator":"IS","value":"on"},{"field":"VSPHERE_HOST","operator":"IN","values":["esx-01","esx-02"]},{"field":"IP_ADDRESS","lower":"192.0.2.1","operator":"IN_RANGE","upper":"192.0.2.9"}],"match":"all"}""");
 	}
 
 	[Fact]

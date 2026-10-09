@@ -181,13 +181,16 @@ public partial class RetryHandlerTests
 
 	[Theory]
 	[InlineData(null, true)]
-	[InlineData(typeof(StringContent), true)]
-	[InlineData(typeof(StreamContent), false)]
-	public void IsReplayable_OnlyForBufferedContent(Type? type, bool expected)
+	[InlineData("string", true)]
+	[InlineData("stream", false)]
+	public void IsReplayable_OnlyForBufferedContent(string? kind, bool expected)
 	{
-		using HttpContent? content = type == typeof(StringContent) ? new StringContent("x")
-			: type == typeof(StreamContent) ? new StreamContent(Stream.Null)
-			: null;
+		using HttpContent? content = kind switch
+		{
+			"string" => new StringContent("x"),
+			"stream" => new StreamContent(Stream.Null),
+			_ => null
+		};
 
 		RetryHandler.IsReplayable(content).Should().Be(expected);
 	}

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Assets;
 
 /// <summary>A tag applied to an asset, with how it came to be applied.</summary>
-public sealed class AssetTag : Links
+public sealed class AssetTag : LinksResource
 {
 	/// <summary>The display colour.</summary>
 	[JsonPropertyName("color")]

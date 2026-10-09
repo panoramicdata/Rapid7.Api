@@ -8,8 +8,8 @@ public class RootIntegrationTests(Rapid7Fixture fixture)
 	{
 		var links = await fixture.Client.Root.GetAsync(TestContext.Current.CancellationToken);
 
-		links.Items.Should().Contain(l => l.Rel == "self");
-		links.Items.Should().Contain(l => l.Href != null && l.Href.EndsWith("/api/3/sites", StringComparison.Ordinal));
+		links.Links.Should().Contain(l => l.Rel == "self");
+		links.Links.Should().Contain(l => l.Href != null && l.Href.EndsWith("/api/3/sites", StringComparison.Ordinal));
 	}
 
 	[Fact]

@@ -79,7 +79,7 @@ public class ScanEnginePoolsTests
 		pool.Name.Should().Be("Datacentre pool");
 		pool.Engines.Should().Equal(2, 3);
 		pool.Sites.Should().Equal(5, 6);
-		pool.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/scan_engine_pools/7");
+		pool.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/scan_engine_pools/7");
 	}
 
 	[Fact]
@@ -89,18 +89,16 @@ public class ScanEnginePoolsTests
 
 		var pool = pools.Resources.Should().ContainSingle().Subject;
 		pool.Engines.Should().Equal(2, 3);
-		pools.Items.Should().ContainSingle();
+		pools.Links.Should().ContainSingle();
 	}
 
 	[Fact]
-	public async Task ListEnginesAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.ScanEnginePools.ListEnginesAsync(7, ct), ScanJson.Ids))
-			.Resources.Should().Equal(2, 3, 11);
+	public Task ListEnginesAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.ScanEnginePools.ListEnginesAsync(7, ct));
 
 	[Fact]
-	public async Task ListSitesAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.ScanEnginePools.ListSitesAsync(7, ct), ScanJson.Ids))
-			.Resources.Should().Equal(2, 3, 11);
+	public Task ListSitesAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.ScanEnginePools.ListSitesAsync(7, ct));
 
 	[Fact]
 	public async Task CreateAsync_ReadsTheNewIdentifier()

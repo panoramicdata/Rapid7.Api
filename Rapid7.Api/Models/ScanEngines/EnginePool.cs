@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.ScanEngines;
 
 /// <summary>A pool of scan engines that share the scanning of the sites assigned to it.</summary>
-public sealed class EnginePool : Links
+public sealed class EnginePool : LinksResource
 {
 	/// <summary>The engine pool identifier.</summary>
 	[JsonPropertyName("id")]

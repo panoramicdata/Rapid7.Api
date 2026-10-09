@@ -94,7 +94,7 @@ public class ReportInstancesTests
 	{
 		Generated = new DateTimeOffset(2026, 6, 1, 18, 56, 3, TimeSpan.Zero),
 		Id = 5,
-		Items = new[] { new { Rel = "Download" } },
+		Links = new[] { new { Rel = "Download" } },
 		Size = new { Bytes = 24789050L, Formatted = "23.6 MB" },
 		Status = ReportInstanceStatus.Complete,
 		Uri = new Uri("https://console.test:3780/reports/17/5/report.pdf")

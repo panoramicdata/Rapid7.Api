@@ -6,21 +6,6 @@ namespace Rapid7.Api.Test.Core;
 /// <summary>Construction, base addresses, endpoint groups and disposal of the three clients.</summary>
 public class ClientTests
 {
-	/// <summary>A transport that records whether it was disposed.</summary>
-	private sealed class TrackingHandler : HttpMessageHandler
-	{
-		public bool Disposed { get; private set; }
-
-		protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-			=> Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent("""{"links":[]}""") });
-
-		protected override void Dispose(bool disposing)
-		{
-			Disposed = true;
-			base.Dispose(disposing);
-		}
-	}
-
 	[Theory]
 	[InlineData("https://console.test:3780", "https://console.test:3780/")]
 	[InlineData("https://console.test:3780/", "https://console.test:3780/")]
@@ -39,7 +24,7 @@ public class ClientTests
 	public async Task Console_EndpointPaths_AreAppendedToAPathPrefix()
 	{
 		var call = await TestClient.CaptureAsync(
-			(StubHandler stub, Action<Rapid7ClientOptions>? _) => TestClient.Create(stub, o => o.BaseUrl = "https://proxy.test/rapid7"),
+			stub => TestClient.Create(stub, o => o.BaseUrl = "https://proxy.test/rapid7"),
 			(c, ct) => c.Root.GetAsync(ct),
 			"""{"links":[]}""");
 

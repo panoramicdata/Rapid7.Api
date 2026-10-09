@@ -53,10 +53,7 @@ public class CloudAssetsTests
 	[Fact]
 	public async Task SearchAsync_MapsThePage()
 	{
-		var page = await TestClient.ReadAsync(
-			TestClient.CreateCloud,
-			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
-			CloudJson.AssetPage);
+		var page = await ReadAssetPageAsync();
 
 		page.Data.Should().HaveCount(2);
 		page.Metadata!.Number.Should().Be(0);
@@ -66,18 +63,15 @@ public class CloudAssetsTests
 		page.Metadata.Cursor.Should().Be("cursor-1");
 		page.Metadata.EffectiveTime.Should().Be(new DateTimeOffset(2024, 1, 25, 0, 0, 0, TimeSpan.Zero));
 		page.EffectiveTime.Should().Be(new DateTimeOffset(2024, 1, 26, 0, 0, 0, TimeSpan.Zero));
-		page.Items.Should().HaveCount(2);
-		page.Items[1].Rel.Should().Be("next");
+		page.Links.Should().HaveCount(2);
+		page.Links[1].Rel.Should().Be("next");
 		AssertAsset(page.Data[0]);
 	}
 
 	[Fact]
 	public async Task SearchAsync_ReadsASingleUniqueIdentifierObjectAsAList()
 	{
-		var page = await TestClient.ReadAsync(
-			TestClient.CreateCloud,
-			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
-			CloudJson.AssetPage);
+		var page = await ReadAssetPageAsync();
 
 		var identifier = page.Data[1].UniqueIdentifiers.Should().ContainSingle().Subject;
 		identifier.Id.Should().Be("4421d73d");
@@ -141,7 +135,7 @@ public class CloudAssetsTests
 		asset.Id.Should().Be("org-1-default-asset-7912");
 		asset.Type.Should().Be(CloudAssetType.Guest);
 		asset.HostName.Should().Be("host.example.test");
-		asset.Ip.Should().Be("10.1.0.128");
+		asset.Ip.Should().Be("198.51.100.128");
 		asset.Mac.Should().Be("00:50:56:8B:62:45");
 		asset.OsDescription.Should().Be("Microsoft Windows Server 2008 R2, Standard Edition SP1");
 		asset.OsArchitecture.Should().Be("x86_64");
@@ -197,4 +191,10 @@ public class CloudAssetsTests
 		finding.SolutionFix.Should().Be("Take a look at all possible solutions");
 		finding.SolutionType.Should().Be("workaround");
 	}
+
+	private static Task<CursorPage<CloudAsset>> ReadAssetPageAsync()
+		=> TestClient.ReadAsync(
+			TestClient.CreateCloud,
+			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
+			CloudJson.AssetPage);
 }

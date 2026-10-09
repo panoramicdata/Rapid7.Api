@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.AssetDiscovery;
 
 /// <summary>A saved Sonar query: criteria that discover assets from Rapid7 Project Sonar data.</summary>
-public sealed class SonarQuery : Links
+public sealed class SonarQuery : LinksResource
 {
 	/// <summary>The criteria of the query.</summary>
 	[JsonPropertyName("criteria")]

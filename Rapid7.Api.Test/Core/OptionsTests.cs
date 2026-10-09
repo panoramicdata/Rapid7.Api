@@ -68,12 +68,12 @@ public partial class OptionsTests
 
 	[Fact]
 	public void Console_AcceptsAPasswordWithAnyCharacters()
-		=> Construct(TestClient.ConsoleOptions(o => o.Password = "p:a@s/s\u00e9"));
+		=> FluentActions.Invoking(() => Construct(TestClient.ConsoleOptions(o => o.Password = "p:a@s/s\u00e9"))).Should().NotThrow();
 
 	[Theory]
 	[MemberData(nameof(RegionNames))]
 	public void Platform_AcceptsEveryRegion(string region)
-		=> Construct(TestClient.PlatformOptions(o => (o.BaseUrl, o.Region) = (null, region)));
+		=> FluentActions.Invoking(() => Construct(TestClient.PlatformOptions(o => (o.BaseUrl, o.Region) = (null, region)))).Should().NotThrow();
 
 	public static TheoryData<string> RegionNames => [.. Rapid7PlatformOptions.Regions];
 

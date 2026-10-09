@@ -69,7 +69,7 @@ internal static class TolerantReader
 
 		// The upper bound is exclusive: (double)long.MaxValue rounds up to 2^63, which would saturate to long.MaxValue.
 		if (double.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out var number)
-			&& number == Math.Floor(number)
+			&& double.IsInteger(number)
 			&& number >= long.MinValue
 			&& number < -(double)long.MinValue)
 		{

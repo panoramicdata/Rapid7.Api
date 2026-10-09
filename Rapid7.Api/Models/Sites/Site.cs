@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Sites;
 
 /// <summary>A site: a set of assets the console scans together, with its configuration and a risk summary.</summary>
-public sealed class Site : Links
+public sealed class Site : LinksResource
 {
 	/// <summary>The site identifier.</summary>
 	[JsonPropertyName("id")]

@@ -4,80 +4,80 @@ namespace Rapid7.Api.Models.Assets;
 public static class SearchOperator
 {
 	/// <summary><c>are</c>: takes a string value.</summary>
-	public const string Are = "are";
+	public static string Are { get; } = "are";
 
 	/// <summary><c>contains</c>: takes a string value.</summary>
-	public const string Contains = "contains";
+	public static string Contains { get; } = "contains";
 
 	/// <summary><c>does-not-contain</c>: takes a string value.</summary>
-	public const string DoesNotContain = "does-not-contain";
+	public static string DoesNotContain { get; } = "does-not-contain";
 
 	/// <summary><c>does-not-include</c>: takes an array of strings.</summary>
-	public const string DoesNotInclude = "does-not-include";
+	public static string DoesNotInclude { get; } = "does-not-include";
 
 	/// <summary><c>ends-with</c>: takes a string value.</summary>
-	public const string EndsWith = "ends-with";
+	public static string EndsWith { get; } = "ends-with";
 
 	/// <summary><c>in</c>: takes an array of strings (or numbers, for enumerated fields).</summary>
-	public const string In = "in";
+	public static string In { get; } = "in";
 
 	/// <summary><c>in-range</c>: takes numeric lower and upper bounds (or addresses, for <c>ip-address</c>).</summary>
-	public const string InRange = "in-range";
+	public static string InRange { get; } = "in-range";
 
 	/// <summary><c>includes</c>: takes an array of strings.</summary>
-	public const string Includes = "includes";
+	public static string Includes { get; } = "includes";
 
 	/// <summary><c>is</c>: takes a string value.</summary>
-	public const string Is = "is";
+	public static string Is { get; } = "is";
 
 	/// <summary><c>is-applied</c>: takes no operand.</summary>
-	public const string IsApplied = "is-applied";
+	public static string IsApplied { get; } = "is-applied";
 
 	/// <summary><c>is-between</c>: takes lower and upper date bounds.</summary>
-	public const string IsBetween = "is-between";
+	public static string IsBetween { get; } = "is-between";
 
 	/// <summary><c>is-earlier-than</c>: takes a number of days.</summary>
-	public const string IsEarlierThan = "is-earlier-than";
+	public static string IsEarlierThan { get; } = "is-earlier-than";
 
 	/// <summary><c>is-empty</c>: takes no operand.</summary>
-	public const string IsEmpty = "is-empty";
+	public static string IsEmpty { get; } = "is-empty";
 
 	/// <summary><c>is-greater-than</c>: takes a numeric value.</summary>
-	public const string IsGreaterThan = "is-greater-than";
+	public static string IsGreaterThan { get; } = "is-greater-than";
 
 	/// <summary><c>is-less-than</c>: takes a numeric value.</summary>
-	public const string IsLessThan = "is-less-than";
+	public static string IsLessThan { get; } = "is-less-than";
 
 	/// <summary><c>is-like</c>: takes a string value (a pattern).</summary>
-	public const string IsLike = "is-like";
+	public static string IsLike { get; } = "is-like";
 
 	/// <summary><c>is-not</c>: takes a string value.</summary>
-	public const string IsNot = "is-not";
+	public static string IsNot { get; } = "is-not";
 
 	/// <summary><c>is-not-applied</c>: takes no operand.</summary>
-	public const string IsNotApplied = "is-not-applied";
+	public static string IsNotApplied { get; } = "is-not-applied";
 
 	/// <summary><c>is-not-empty</c>: takes no operand.</summary>
-	public const string IsNotEmpty = "is-not-empty";
+	public static string IsNotEmpty { get; } = "is-not-empty";
 
 	/// <summary><c>is-on-or-after</c>: takes a date value.</summary>
-	public const string IsOnOrAfter = "is-on-or-after";
+	public static string IsOnOrAfter { get; } = "is-on-or-after";
 
 	/// <summary><c>is-on-or-before</c>: takes a date value.</summary>
-	public const string IsOnOrBefore = "is-on-or-before";
+	public static string IsOnOrBefore { get; } = "is-on-or-before";
 
 	/// <summary><c>is-within-the-last</c>: takes a number of days.</summary>
-	public const string IsWithinTheLast = "is-within-the-last";
+	public static string IsWithinTheLast { get; } = "is-within-the-last";
 
 	/// <summary><c>not-in</c>: takes an array of strings (or numbers, for enumerated fields).</summary>
-	public const string NotIn = "not-in";
+	public static string NotIn { get; } = "not-in";
 
 	/// <summary><c>not-in-range</c>: takes lower and upper bounds.</summary>
-	public const string NotInRange = "not-in-range";
+	public static string NotInRange { get; } = "not-in-range";
 
 	/// <summary><c>not-like</c>: takes a string value (a pattern).</summary>
-	public const string NotLike = "not-like";
+	public static string NotLike { get; } = "not-like";
 
 	/// <summary><c>starts-with</c>: takes a string value.</summary>
-	public const string StartsWith = "starts-with";
+	public static string StartsWith { get; } = "starts-with";
 }

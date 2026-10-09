@@ -10,5 +10,5 @@ public interface IRoot
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>A link to each top-level resource.</returns>
 	[Get("api/3")]
-	Task<Links> GetAsync(CancellationToken cancellationToken);
+	Task<LinksResource> GetAsync(CancellationToken cancellationToken);
 }

@@ -11,8 +11,8 @@ namespace Rapid7.Api.Serialization;
 internal sealed class Rapid7UrlParameterFormatter : DefaultUrlParameterFormatter
 {
 	/// <inheritdoc />
-	public override string? Format(object? parameterValue, ICustomAttributeProvider attributeProvider, Type type)
-		=> parameterValue switch
+	public override string? Format(object? value, ICustomAttributeProvider attributeProvider, Type type)
+		=> value switch
 		{
 			null => null,
 			bool flag => flag ? "true" : "false",
@@ -20,6 +20,6 @@ internal sealed class Rapid7UrlParameterFormatter : DefaultUrlParameterFormatter
 			DateTimeOffset moment => moment.ToString("yyyy-MM-ddTHH:mm:ss.fffK", CultureInfo.InvariantCulture),
 			DateTime moment => moment.ToString("yyyy-MM-ddTHH:mm:ss.fffK", CultureInfo.InvariantCulture),
 			DateOnly day => day.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
-			_ => base.Format(parameterValue, attributeProvider, type)
+			_ => base.Format(value, attributeProvider, type)
 		};
 }

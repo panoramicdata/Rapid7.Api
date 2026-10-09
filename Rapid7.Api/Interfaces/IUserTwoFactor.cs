@@ -35,5 +35,5 @@ public interface IUserTwoFactor
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/2FA")]
-	Task<Links> SetKeyAsync(int id, [Body(BodySerializationMethod.Serialized)] string key, CancellationToken cancellationToken);
+	Task<LinksResource> SetKeyAsync(int id, [Body(BodySerializationMethod.Serialized)] string key, CancellationToken cancellationToken);
 }

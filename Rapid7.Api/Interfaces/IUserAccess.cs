@@ -23,14 +23,14 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/sites")]
-	Task<Links> SetSitesAsync(int id, [Body] IEnumerable<int> siteIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetSitesAsync(int id, [Body] IEnumerable<int> siteIds, CancellationToken cancellationToken);
 
 	/// <summary>Revokes the user's access to every site (<c>DELETE api/3/users/{id}/sites</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}/sites")]
-	Task<Links> RevokeAllSitesAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> RevokeAllSitesAsync(int id, CancellationToken cancellationToken);
 
 	/// <summary>Grants the user access to one site (<c>PUT api/3/users/{id}/sites/{siteId}</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
@@ -38,7 +38,7 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/sites/{siteId}")]
-	Task<Links> GrantSiteAsync(int id, int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> GrantSiteAsync(int id, int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Revokes the user's access to one site (<c>DELETE api/3/users/{id}/sites/{siteId}</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
@@ -46,7 +46,7 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}/sites/{siteId}")]
-	Task<Links> RevokeSiteAsync(int id, int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> RevokeSiteAsync(int id, int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the asset groups the user can access (<c>GET api/3/users/{id}/asset_groups</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
@@ -61,14 +61,14 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/asset_groups")]
-	Task<Links> SetAssetGroupsAsync(int id, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetAssetGroupsAsync(int id, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
 
 	/// <summary>Revokes the user's access to every asset group (<c>DELETE api/3/users/{id}/asset_groups</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}/asset_groups")]
-	Task<Links> RevokeAllAssetGroupsAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> RevokeAllAssetGroupsAsync(int id, CancellationToken cancellationToken);
 
 	/// <summary>Grants the user access to one asset group (<c>PUT api/3/users/{id}/asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
@@ -76,7 +76,7 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/asset_groups/{assetGroupId}")]
-	Task<Links> GrantAssetGroupAsync(int id, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> GrantAssetGroupAsync(int id, int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Revokes the user's access to one asset group (<c>DELETE api/3/users/{id}/asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="id">The identifier of the user.</param>
@@ -84,5 +84,5 @@ public interface IUserAccess
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}/asset_groups/{assetGroupId}")]
-	Task<Links> RevokeAssetGroupAsync(int id, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> RevokeAssetGroupAsync(int id, int assetGroupId, CancellationToken cancellationToken);
 }

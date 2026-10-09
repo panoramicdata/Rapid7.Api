@@ -19,14 +19,14 @@ public interface IAssetGroupTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/asset_groups/{assetGroupId}/tags")]
-	Task<Links> SetAsync(int assetGroupId, [Body] IEnumerable<int> tagIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetAsync(int assetGroupId, [Body] IEnumerable<int> tagIds, CancellationToken cancellationToken);
 
 	/// <summary>Removes every tag from an asset group (<c>DELETE api/3/asset_groups/{id}/tags</c>).</summary>
 	/// <param name="assetGroupId">The identifier of the group.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/asset_groups/{assetGroupId}/tags")]
-	Task<Links> RemoveAllAsync(int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllAsync(int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Applies a tag to an asset group (<c>PUT api/3/asset_groups/{id}/tags/{tagId}</c>).</summary>
 	/// <param name="assetGroupId">The identifier of the group.</param>
@@ -34,7 +34,7 @@ public interface IAssetGroupTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/asset_groups/{assetGroupId}/tags/{tagId}")]
-	Task<Links> AddAsync(int assetGroupId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> AddAsync(int assetGroupId, int tagId, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from an asset group (<c>DELETE api/3/asset_groups/{id}/tags/{tagId}</c>).</summary>
 	/// <param name="assetGroupId">The identifier of the group.</param>
@@ -42,5 +42,5 @@ public interface IAssetGroupTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/asset_groups/{assetGroupId}/tags/{tagId}")]
-	Task<Links> RemoveAsync(int assetGroupId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAsync(int assetGroupId, int tagId, CancellationToken cancellationToken);
 }

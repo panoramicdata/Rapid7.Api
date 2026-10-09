@@ -37,14 +37,22 @@ public sealed partial class Rapid7BulkExportClient
 	/// <param name="dataset">The dataset, one of <see cref="ExportDatasets"/>.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>The records of every file of the dataset.</returns>
-	public async IAsyncEnumerable<T> ReadRecordsAsync<T>(
+	/// <exception cref="ArgumentNullException"><paramref name="export"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentException"><paramref name="dataset"/> is <see langword="null"/>, empty or white space.</exception>
+	public IAsyncEnumerable<T> ReadRecordsAsync<T>(Export export, string dataset, CancellationToken cancellationToken)
+		where T : BulkExportRecord, new()
+	{
+		ArgumentNullException.ThrowIfNull(export);
+		ArgumentException.ThrowIfNullOrWhiteSpace(dataset);
+		return ReadDatasetAsync<T>(export, dataset, cancellationToken);
+	}
+
+	private async IAsyncEnumerable<T> ReadDatasetAsync<T>(
 		Export export,
 		string dataset,
 		[EnumeratorCancellation] CancellationToken cancellationToken)
 		where T : BulkExportRecord, new()
 	{
-		ArgumentNullException.ThrowIfNull(export);
-		ArgumentException.ThrowIfNullOrWhiteSpace(dataset);
 		foreach (var url in export.Result.Where(r => IsDataset(r.Prefix, dataset)).SelectMany(r => r.Urls))
 		{
 			await foreach (var record in ReadRecordsAsync<T>(url, cancellationToken).ConfigureAwait(false))

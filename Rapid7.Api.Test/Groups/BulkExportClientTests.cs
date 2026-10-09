@@ -170,12 +170,10 @@ public sealed class BulkExportClientTests : IDisposable
 		Answer(response);
 		using var client = CreateClient();
 
-		var act = () => client.GetExportAsync("missing", TestContext.Current.CancellationToken);
+		Task Act() => client.GetExportAsync("missing", TestContext.Current.CancellationToken);
 
-		var thrown = (await act.Should().ThrowAsync<Rapid7GraphQLException>()).Which;
-		thrown.Message.Should().Be("The Bulk Export API returned no export with id missing.");
+		var thrown = await TestClient.ShouldFailWithGraphQLAsync(Act, HttpStatusCode.OK, "The Bulk Export API returned no export with id missing.");
 		thrown.Errors.Should().BeEmpty();
-		thrown.StatusCode.Should().Be(HttpStatusCode.OK);
 	}
 
 	[Fact]

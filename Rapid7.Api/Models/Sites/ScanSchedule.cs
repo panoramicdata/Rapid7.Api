@@ -6,7 +6,7 @@ namespace Rapid7.Api.Models.Sites;
 /// A schedule for scanning a site, or part of it, at a start time and optionally repeatedly. Read, created and updated
 /// as it is; links and <see cref="NextRuntimes"/> are ignored when sent.
 /// </summary>
-public sealed class ScanSchedule : Links
+public sealed class ScanSchedule : LinksResource
 {
 	/// <summary>The schedule identifier (assigned by the console; leave it unset when creating).</summary>
 	[JsonPropertyName("id")]

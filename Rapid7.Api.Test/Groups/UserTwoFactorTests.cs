@@ -19,7 +19,7 @@ public class UserTwoFactorTests
 		var key = await TestClient.ReadAsync((c, ct) => c.UserTwoFactor.GetKeyAsync(9, ct), UserJson.TwoFactorKey);
 
 		key.Key.Should().Be("FAKESEEDFAKESEED");
-		key.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9/2FA");
+		key.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9/2FA");
 	}
 
 	[Fact]

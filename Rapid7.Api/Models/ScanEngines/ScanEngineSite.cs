@@ -7,7 +7,7 @@ namespace Rapid7.Api.Models.ScanEngines;
 /// A site as listed for the scan engine it is assigned to (<c>GET api/3/scan_engines/{id}/sites</c>). The console uses
 /// its general site schema here.
 /// </summary>
-public sealed class ScanEngineSite : Links
+public sealed class ScanEngineSite : LinksResource
 {
 	/// <summary>The site identifier.</summary>
 	[JsonPropertyName("id")]

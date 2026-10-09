@@ -1,3 +1,5 @@
+using Rapid7.Api.Test.Support;
+
 namespace Rapid7.Api.Test.Groups;
 
 /// <summary>Response shapes shared by the user, credential and administration tests (hosts replaced).</summary>
@@ -16,13 +18,13 @@ internal static class AccessJson
 	public static string Error(string status, string message) => $$"""{"status":"{{status}}","message":"{{message}}","links":[]}""";
 
 	/// <summary>Asserts that <paramref name="links"/> is the one self link of <see cref="LinksOnly"/> or <see cref="Created"/>.</summary>
-	public static void ShouldBeTheSelfLink(Models.Links links)
-		=> links.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
+	public static void ShouldBeTheSelfLink(Models.LinksResource links)
+		=> links.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
 
 	/// <summary>Asserts that <paramref name="ids"/> is the list in <see cref="Ids"/>.</summary>
 	public static void ShouldBeTheIds(Models.ResourceList<int> ids)
 	{
 		ids.Resources.Should().Equal(9, 12, 37);
-		ids.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		ids.Links.ShouldBeSelfOnly();
 	}
 }

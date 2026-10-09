@@ -23,7 +23,7 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag and asset.</returns>
 	[Put("api/3/tags/{tagId}/assets/{assetId}")]
-	Task<Links> AddAssetAsync(int tagId, long assetId, CancellationToken cancellationToken);
+	Task<LinksResource> AddAssetAsync(int tagId, long assetId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes a tag applied directly to an asset (<c>DELETE api/3/tags/{id}/assets/{assetId}</c>). An asset tagged
@@ -34,7 +34,7 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/assets/{assetId}")]
-	Task<Links> RemoveAssetAsync(int tagId, long assetId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAssetAsync(int tagId, long assetId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the identifiers of the asset groups a tag is applied to (<c>GET api/3/tags/{id}/asset_groups</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -49,14 +49,14 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag's asset groups.</returns>
 	[Put("api/3/tags/{tagId}/asset_groups")]
-	Task<Links> SetAssetGroupsAsync(int tagId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetAssetGroupsAsync(int tagId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from every asset group (<c>DELETE api/3/tags/{id}/asset_groups</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/asset_groups")]
-	Task<Links> RemoveAllAssetGroupsAsync(int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllAssetGroupsAsync(int tagId, CancellationToken cancellationToken);
 
 	/// <summary>Applies a tag to an asset group (<c>PUT api/3/tags/{id}/asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -64,7 +64,7 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag and asset group.</returns>
 	[Put("api/3/tags/{tagId}/asset_groups/{assetGroupId}")]
-	Task<Links> AddAssetGroupAsync(int tagId, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> AddAssetGroupAsync(int tagId, int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from an asset group (<c>DELETE api/3/tags/{id}/asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -72,7 +72,7 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/asset_groups/{assetGroupId}")]
-	Task<Links> RemoveAssetGroupAsync(int tagId, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAssetGroupAsync(int tagId, int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the identifiers of the sites a tag is applied to (<c>GET api/3/tags/{id}/sites</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -87,14 +87,14 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag's sites.</returns>
 	[Put("api/3/tags/{tagId}/sites")]
-	Task<Links> SetSitesAsync(int tagId, [Body] IEnumerable<int> siteIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetSitesAsync(int tagId, [Body] IEnumerable<int> siteIds, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from every site (<c>DELETE api/3/tags/{id}/sites</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/sites")]
-	Task<Links> RemoveAllSitesAsync(int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllSitesAsync(int tagId, CancellationToken cancellationToken);
 
 	/// <summary>Applies a tag to a site (<c>PUT api/3/tags/{id}/sites/{siteId}</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -102,7 +102,7 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag and site.</returns>
 	[Put("api/3/tags/{tagId}/sites/{siteId}")]
-	Task<Links> AddSiteAsync(int tagId, int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> AddSiteAsync(int tagId, int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from a site (<c>DELETE api/3/tags/{id}/sites/{siteId}</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -110,5 +110,5 @@ public interface ITagMembers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/sites/{siteId}")]
-	Task<Links> RemoveSiteAsync(int tagId, int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveSiteAsync(int tagId, int siteId, CancellationToken cancellationToken);
 }

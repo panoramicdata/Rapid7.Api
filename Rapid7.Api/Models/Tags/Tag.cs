@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Tags;
 
 /// <summary>A tag: a label applied to assets directly, through sites or asset groups, or by search criteria.</summary>
-public sealed class Tag : Links
+public sealed class Tag : LinksResource
 {
 	/// <summary>The tag identifier.</summary>
 	[JsonPropertyName("id")]

@@ -29,6 +29,6 @@ internal static class SiteMembershipJson
 	public const string NotFoundMessage = "The resource with identifier 404 could not be found.";
 
 	/// <summary>Asserts the single self link of <see cref="Links"/> and <see cref="Reference"/>.</summary>
-	public static void ShouldLinkToSite(this Rapid7.Api.Models.Links links)
-		=> links.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7");
+	public static void ShouldLinkToSite(this Rapid7.Api.Models.LinksResource links)
+		=> links.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7");
 }

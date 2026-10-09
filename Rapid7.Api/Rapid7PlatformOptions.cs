@@ -43,8 +43,8 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 		=> string.IsNullOrWhiteSpace(BaseUrl) ? new Uri($"https://{Region}.api.insight.rapid7.com/") : BaseAddressOf(BaseUrl);
 
 	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
-	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
-		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), readOnlyPosts, innerHandler);
+	internal override Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), ReadOnly ? readOnlyPosts : null, innerHandler);
 
 	internal override void Validate()
 	{
@@ -52,7 +52,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 		{
 			if (!Regions.Contains(Region, StringComparer.Ordinal))
 			{
-				throw new ArgumentException($"Region must be one of {string.Join(", ", Regions)}, or set BaseUrl.", nameof(Region));
+				throw InvalidOption($"Region must be one of {string.Join(", ", Regions)}, or set BaseUrl.", nameof(Region));
 			}
 		}
 		else
@@ -62,7 +62,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 
 		if (string.IsNullOrWhiteSpace(ApiKey))
 		{
-			throw new ArgumentException("Set ApiKey to an Insight platform API key.", nameof(ApiKey));
+			throw InvalidOption("Set ApiKey to an Insight platform API key.", nameof(ApiKey));
 		}
 
 		ValidateHeaderValue(ApiKey, nameof(ApiKey));

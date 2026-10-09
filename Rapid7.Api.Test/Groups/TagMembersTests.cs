@@ -91,16 +91,16 @@ public class TagMembersTests
 		assets.Resources[0].Sources.Should().Equal(TaggedAssetSource.Tag, TaggedAssetSource.Site);
 		assets.Resources[1].Sources.Should().Equal(
 			TaggedAssetSource.AssetGroup, TaggedAssetSource.Criteria, TaggedAssetSource.Unknown, TaggedAssetSource.Unknown);
-		assets.Items.Should().ContainSingle();
+		assets.Links.Should().ContainSingle();
 	}
 
 	[Fact]
-	public async Task ListAssetGroupsAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.TagMembers.ListAssetGroupsAsync(6, ct), ScanJson.Ids)).Resources.Should().Equal(2, 3, 11);
+	public Task ListAssetGroupsAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.TagMembers.ListAssetGroupsAsync(6, ct));
 
 	[Fact]
-	public async Task ListSitesAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.TagMembers.ListSitesAsync(6, ct), ScanJson.Ids)).Resources.Should().Equal(2, 3, 11);
+	public Task ListSitesAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.TagMembers.ListSitesAsync(6, ct));
 
 	[Fact]
 	public Task AddAssetAsync_MissingAsset_RaisesRapid7ApiException()

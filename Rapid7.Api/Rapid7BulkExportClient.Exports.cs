@@ -20,11 +20,8 @@ public sealed partial class Rapid7BulkExportClient
 	/// <returns>The succeeded export, with fresh download URLs.</returns>
 	/// <exception cref="Rapid7ExportFailedException">The export failed.</exception>
 	/// <exception cref="TimeoutException">The export did not finish within <see cref="ExportWaitOptions.Timeout"/>.</exception>
-	public async Task<Export> ExportPoliciesAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
-	{
-		var response = await Exports.CreatePolicyExportAsync(new CreatePolicyExportRequest(), cancellationToken).ConfigureAwait(false);
-		return await WaitForExportAsync(CreatedId(response.Data?.Export), options, cancellationToken).ConfigureAwait(false);
-	}
+	public Task<Export> ExportPoliciesAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
+		=> StartAndWaitAsync(Exports.CreatePolicyExportAsync(new CreatePolicyExportRequest(), cancellationToken), options, cancellationToken);
 
 	/// <summary>
 	/// Starts a vulnerability export and waits for it to succeed. Its files hold the <c>asset</c>,
@@ -35,11 +32,8 @@ public sealed partial class Rapid7BulkExportClient
 	/// <returns>The succeeded export, with fresh download URLs.</returns>
 	/// <exception cref="Rapid7ExportFailedException">The export failed.</exception>
 	/// <exception cref="TimeoutException">The export did not finish within <see cref="ExportWaitOptions.Timeout"/>.</exception>
-	public async Task<Export> ExportVulnerabilitiesAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
-	{
-		var response = await Exports.CreateVulnerabilityExportAsync(new CreateVulnerabilityExportRequest(), cancellationToken).ConfigureAwait(false);
-		return await WaitForExportAsync(CreatedId(response.Data?.Export), options, cancellationToken).ConfigureAwait(false);
-	}
+	public Task<Export> ExportVulnerabilitiesAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
+		=> StartAndWaitAsync(Exports.CreateVulnerabilityExportAsync(new CreateVulnerabilityExportRequest(), cancellationToken), options, cancellationToken);
 
 	/// <summary>
 	/// Starts a vulnerability remediation export for a date range and waits for it to succeed. Its files hold the
@@ -53,15 +47,14 @@ public sealed partial class Rapid7BulkExportClient
 	/// <exception cref="ArgumentOutOfRangeException">The date range is empty, reversed or longer than 31 days.</exception>
 	/// <exception cref="Rapid7ExportFailedException">The export failed.</exception>
 	/// <exception cref="TimeoutException">The export did not finish within <see cref="ExportWaitOptions.Timeout"/>.</exception>
-	public async Task<Export> ExportVulnerabilityRemediationsAsync(
+	public Task<Export> ExportVulnerabilityRemediationsAsync(
 		DateOnly startDate,
 		DateOnly endDate,
 		ExportWaitOptions? options,
 		CancellationToken cancellationToken)
 	{
 		var request = new CreateVulnerabilityRemediationExportRequest(startDate, endDate);
-		var response = await Exports.CreateVulnerabilityRemediationExportAsync(request, cancellationToken).ConfigureAwait(false);
-		return await WaitForExportAsync(CreatedId(response.Data?.Export), options, cancellationToken).ConfigureAwait(false);
+		return StartAndWaitAsync(Exports.CreateVulnerabilityRemediationExportAsync(request, cancellationToken), options, cancellationToken);
 	}
 
 	/// <summary>
@@ -73,11 +66,8 @@ public sealed partial class Rapid7BulkExportClient
 	/// <returns>The succeeded export, with fresh download URLs.</returns>
 	/// <exception cref="Rapid7ExportFailedException">The export failed.</exception>
 	/// <exception cref="TimeoutException">The export did not finish within <see cref="ExportWaitOptions.Timeout"/>.</exception>
-	public async Task<Export> ExportAssetSoftwareAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
-	{
-		var response = await Exports.CreateAssetSoftwareExportAsync(new CreateAssetSoftwareExportRequest(), cancellationToken).ConfigureAwait(false);
-		return await WaitForExportAsync(CreatedId(response.Data?.Export), options, cancellationToken).ConfigureAwait(false);
-	}
+	public Task<Export> ExportAssetSoftwareAsync(ExportWaitOptions? options, CancellationToken cancellationToken)
+		=> StartAndWaitAsync(Exports.CreateAssetSoftwareExportAsync(new CreateAssetSoftwareExportRequest(), cancellationToken), options, cancellationToken);
 
 	/// <summary>Reads an export: its status and, once it has succeeded, fresh download URLs (valid for 15 minutes).</summary>
 	/// <param name="exportId">The export identifier.</param>
@@ -110,12 +100,14 @@ public sealed partial class Rapid7BulkExportClient
 		while (true)
 		{
 			var export = await GetExportAsync(exportId, cancellationToken).ConfigureAwait(false);
-			switch (export.Status)
+			if (export.Status == ExportStatus.Succeeded)
 			{
-				case ExportStatus.Succeeded:
-					return export;
-				case ExportStatus.Failed:
-					throw new Rapid7ExportFailedException(export);
+				return export;
+			}
+
+			if (export.Status == ExportStatus.Failed)
+			{
+				throw new Rapid7ExportFailedException(export);
 			}
 
 			if (TimeProvider.GetElapsedTime(started) >= options.Timeout)
@@ -125,6 +117,17 @@ public sealed partial class Rapid7BulkExportClient
 
 			await Delay(options.PollInterval, cancellationToken).ConfigureAwait(false);
 		}
+	}
+
+	/// <summary>Waits for the export a create mutation started.</summary>
+	private async Task<Export> StartAndWaitAsync<TData>(
+		Task<GraphQLResponse<TData>> create,
+		ExportWaitOptions? options,
+		CancellationToken cancellationToken)
+		where TData : class, ICreatedExportData
+	{
+		var response = await create.ConfigureAwait(false);
+		return await WaitForExportAsync(CreatedId(response.Data?.Export), options, cancellationToken).ConfigureAwait(false);
 	}
 
 	private static string CreatedId(ExportReference? created)

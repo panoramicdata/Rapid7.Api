@@ -151,7 +151,8 @@ public sealed class TransportTests : IDisposable
 	{
 		using var handler = Rapid7Transport.Create(new Rapid7PlatformOptions { TrustedServerCertificateThumbprint = TestCertificates.Sha256(_pinned) });
 
-		handler.SslOptions.RemoteCertificateValidationCallback!(_sender, _pinned, null, SslPolicyErrors.RemoteCertificateChainErrors).Should().BeTrue();
-		handler.SslOptions.RemoteCertificateValidationCallback!(_sender, _other, null, SslPolicyErrors.RemoteCertificateChainErrors).Should().BeFalse();
+		var callback = handler.SslOptions.RemoteCertificateValidationCallback!;
+		callback(_sender, _pinned, null, SslPolicyErrors.RemoteCertificateChainErrors).Should().BeTrue();
+		callback(_sender, _other, null, SslPolicyErrors.RemoteCertificateChainErrors).Should().BeFalse();
 	}
 }

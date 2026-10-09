@@ -32,7 +32,7 @@ public class ScanEnginesTests
 		}
 		""";
 
-	private static readonly ScanEngineRequest Request = new() { Name = "Branch engine", Address = "10.0.0.5", Port = 40814, Sites = [1, 2] };
+	private static readonly ScanEngineRequest Request = new() { Name = "Branch engine", Address = "192.0.2.5", Port = 40814, Sites = [1, 2] };
 
 	[Fact]
 	public async Task ListAsync_SendsGet()
@@ -42,7 +42,7 @@ public class ScanEnginesTests
 	[Fact]
 	public async Task CreateAsync_PostsTheEngine()
 		=> (await TestClient.CaptureAsync((c, ct) => c.ScanEngines.CreateAsync(Request, ct), """{"id":9,"links":[]}"""))
-			.ShouldBe(HttpMethod.Post, "/api/3/scan_engines", body: """{"name":"Branch engine","address":"10.0.0.5","port":40814,"sites":[1,2]}""");
+			.ShouldBe(HttpMethod.Post, "/api/3/scan_engines", body: """{"name":"Branch engine","address":"192.0.2.5","port":40814,"sites":[1,2]}""");
 
 	[Fact]
 	public async Task GetAsync_SendsGet()
@@ -95,7 +95,7 @@ public class ScanEnginesTests
 		engine.IsAwsPreAuthorizedEngine.Should().BeFalse();
 		engine.LastRefreshedDate.Should().Be(new DateTimeOffset(2026, 9, 1, 10, 0, 0, TimeSpan.Zero));
 		engine.LastUpdatedDate.Should().Be(new DateTimeOffset(2026, 9, 2, 11, 30, 0, 500, TimeSpan.Zero));
-		engine.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		engine.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
@@ -157,7 +157,7 @@ public class ScanEnginesTests
 		site.ScanEngine.Should().Be(2);
 		site.ScanTemplate.Should().Be("full-audit-without-web-spider");
 		site.Vulnerabilities!.Total.Should().Be(6);
-		site.Items.Should().ContainSingle();
+		site.Links.Should().ContainSingle();
 		page.PageInfo!.Number.Should().Be(1);
 	}
 

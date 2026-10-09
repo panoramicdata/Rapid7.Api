@@ -33,6 +33,14 @@ internal sealed class TestSite : IAsyncDisposable
 		return new TestSite(client, created.Id, name);
 	}
 
+	/// <summary>Runs <paramref name="test"/> against a new empty static site, deleting the site afterwards.</summary>
+	public static async Task UsingAsync(Rapid7Client client, Func<TestSite, CancellationToken, Task> test)
+	{
+		var cancellationToken = TestContext.Current.CancellationToken;
+		await using var site = await CreateAsync(client, cancellationToken);
+		await test(site, cancellationToken);
+	}
+
 	/// <inheritdoc />
 	public async ValueTask DisposeAsync() => await _client.Sites.DeleteAsync(Id, CancellationToken.None);
 }

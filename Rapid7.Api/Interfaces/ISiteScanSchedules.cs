@@ -27,7 +27,7 @@ public interface ISiteScanSchedules
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's scan schedules.</returns>
 	[Put("api/3/sites/{siteId}/scan_schedules")]
-	Task<Links> ReplaceAllAsync(int siteId, [Body] IEnumerable<ScanSchedule> schedules, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceAllAsync(int siteId, [Body] IEnumerable<ScanSchedule> schedules, CancellationToken cancellationToken);
 
 	/// <summary>Adds a scan schedule to a site (<c>POST api/3/sites/{id}/scan_schedules</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -42,7 +42,7 @@ public interface ISiteScanSchedules
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Delete("api/3/sites/{siteId}/scan_schedules")]
-	Task<Links> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Reads one of a site's scan schedules (<c>GET api/3/sites/{id}/scan_schedules/{scheduleId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -59,7 +59,7 @@ public interface ISiteScanSchedules
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the scan schedule.</returns>
 	[Put("api/3/sites/{siteId}/scan_schedules/{scheduleId}")]
-	Task<Links> UpdateAsync(int siteId, int scheduleId, [Body] ScanSchedule schedule, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int siteId, int scheduleId, [Body] ScanSchedule schedule, CancellationToken cancellationToken);
 
 	/// <summary>Deletes one of a site's scan schedules (<c>DELETE api/3/sites/{id}/scan_schedules/{scheduleId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -67,5 +67,5 @@ public interface ISiteScanSchedules
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's scan schedules.</returns>
 	[Delete("api/3/sites/{siteId}/scan_schedules/{scheduleId}")]
-	Task<Links> DeleteAsync(int siteId, int scheduleId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int siteId, int scheduleId, CancellationToken cancellationToken);
 }

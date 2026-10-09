@@ -67,7 +67,7 @@ public class ReportTemplatesTests
 		Builtin = true,
 		Description = "Details of discovered assets, vulnerabilities and users.",
 		Id = "audit-report",
-		Items = new[] { new { Rel = "self" } },
+		Links = new[] { new { Rel = "self" } },
 		Name = "Audit Report",
 		Sections = new List<string> { "Baseline Comparison", "Executive Summary" },
 		Type = ReportTemplateType.Document

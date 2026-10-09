@@ -28,10 +28,10 @@ internal static class SiteFixtures
 	public static void ShouldBeCreated42(this CreatedReference<int> created)
 	{
 		created.Id.Should().Be(42);
-		created.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7/x/42");
+		created.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7/x/42");
 	}
 
 	/// <summary>Asserts that a links-only answer was read.</summary>
-	public static void ShouldBeSiteLinks(this Links links)
-		=> links.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+	public static void ShouldBeSiteLinks(this LinksResource links)
+		=> links.Links.ShouldBeSelfOnly();
 }

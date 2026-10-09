@@ -4,7 +4,7 @@ using Rapid7.Api.Models;
 namespace Rapid7.Api.Models.Vulnerabilities;
 
 /// <summary>A way to remediate one or more vulnerabilities.</summary>
-public class Solution : Links
+public class Solution : LinksResource
 {
 	/// <summary>Further information about the solution.</summary>
 	[JsonPropertyName("additionalInformation")]

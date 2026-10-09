@@ -34,9 +34,9 @@ public class UsersIntegrationTests(Rapid7Fixture fixture)
 
 		user.Login.Should().Be(first.Login);
 		user.Role!.Id.Should().NotBeNullOrEmpty();
-		privileges.Items.Should().NotBeEmpty();
-		sites.Items.Should().NotBeEmpty();
-		assetGroups.Items.Should().NotBeEmpty();
+		privileges.Links.Should().NotBeEmpty();
+		sites.Links.Should().NotBeEmpty();
+		assetGroups.Links.Should().NotBeEmpty();
 	}
 
 	[Fact]

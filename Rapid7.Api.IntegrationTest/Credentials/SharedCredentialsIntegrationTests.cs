@@ -16,7 +16,7 @@ public class SharedCredentialsIntegrationTests(Rapid7Fixture fixture)
 	{
 		var credentials = await fixture.Client.SharedCredentials.ListAsync(Ct);
 
-		credentials.Items.Should().NotBeEmpty();
+		credentials.Links.Should().NotBeEmpty();
 		credentials.Resources.Should().OnlyContain(c => c.Account == null || c.Account.Password == null);
 	}
 

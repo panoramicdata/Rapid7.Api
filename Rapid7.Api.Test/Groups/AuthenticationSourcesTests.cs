@@ -20,7 +20,7 @@ public class AuthenticationSourcesTests
 		var sources = await TestClient.ReadAsync((c, ct) => c.AuthenticationSources.ListAsync(ct), UserJson.AuthenticationSources);
 
 		ShouldBeTheLdapSource(sources.Resources.Should().ContainSingle().Subject);
-		sources.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/authentication_sources");
+		sources.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/authentication_sources");
 	}
 
 	[Fact]
@@ -61,6 +61,6 @@ public class AuthenticationSourcesTests
 		source.Name.Should().Be("Corporate LDAP");
 		source.Type.Should().Be(AuthenticationSourceType.Ldap);
 		source.External.Should().BeTrue();
-		source.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		source.Links.ShouldBeSelfOnly();
 	}
 }

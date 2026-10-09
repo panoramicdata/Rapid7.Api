@@ -48,8 +48,7 @@ public class ReportsTests
 	{
 		var created = await TestClient.ReadAsync((c, ct) => c.Reports.CreateAsync(SqlReport, ct), ReportJson.Created);
 
-		created.Id.Should().Be(17);
-		created.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(17);
 	}
 
 	[Fact]
@@ -85,7 +84,7 @@ public class ReportsTests
 		var links = await client.Reports.UpdateAsync(17, report, ct);
 
 		stub.Calls[1].ShouldBe(HttpMethod.Put, "/api/3/reports/17", body: ReportJson.ReportBody);
-		links.Items.Should().ContainSingle().Which.Rel.Should().Be("Reports");
+		links.Links.Should().ContainSingle().Which.Rel.Should().Be("Reports");
 	}
 
 	[Fact]
@@ -112,7 +111,7 @@ public class ReportsTests
 		var instance = await TestClient.ReadAsync((c, ct) => c.Reports.GenerateAsync(17, ct), json);
 
 		instance.Id.Should().Be(5);
-		instance.Items.Should().ContainSingle().Which.Href.Should().EndWith("/history/5");
+		instance.Links.Should().ContainSingle().Which.Href.Should().EndWith("/history/5");
 	}
 
 	[Fact]

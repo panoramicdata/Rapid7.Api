@@ -43,7 +43,7 @@ public interface ISites
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Put("api/3/sites/{siteId}")]
-	Task<Links> UpdateAsync(int siteId, [Body] SiteUpdateRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int siteId, [Body] SiteUpdateRequest request, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Deletes a site with its configuration and scan history (<c>DELETE api/3/sites/{id}</c>). Assets that belong to no
@@ -53,5 +53,5 @@ public interface ISites
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/sites/{siteId}")]
-	Task<Links> DeleteAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int siteId, CancellationToken cancellationToken);
 }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>Compliance totals across every policy.</summary>
-public sealed class PolicySummary : Links
+public sealed class PolicySummary : LinksResource
 {
 	/// <summary>The number of policies on the console.</summary>
 	[JsonPropertyName("numberOfPolicies")]

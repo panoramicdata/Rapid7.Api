@@ -30,12 +30,12 @@ public class RootTests
 	{
 		var links = await TestClient.ReadAsync((c, ct) => c.Root.GetAsync(ct), RootJson);
 
-		links.Items.Should().HaveCount(4);
-		links.Items[0].Rel.Should().Be("self");
-		links.Items[1].Href.Should().Be("https://console.test:3780/api/3/assets");
-		links.Items[3].Title.Should().Be("Vulnerabilities");
-		links.Items[3].Type.Should().Be("application/json");
-		links.Items[3].ToString().Should().Be("Vulnerabilities: https://console.test:3780/api/3/vulnerabilities");
+		links.Links.Should().HaveCount(4);
+		links.Links[0].Rel.Should().Be("self");
+		links.Links[1].Href.Should().Be("https://console.test:3780/api/3/assets");
+		links.Links[3].Title.Should().Be("Vulnerabilities");
+		links.Links[3].Type.Should().Be("application/json");
+		links.Links[3].ToString().Should().Be("Vulnerabilities: https://console.test:3780/api/3/vulnerabilities");
 	}
 
 	[Fact]

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Scans;
 
 /// <summary>A scan: running, paused or finished.</summary>
-public class Scan : Links
+public class Scan : LinksResource
 {
 	/// <summary>The scan identifier.</summary>
 	[JsonPropertyName("id")]

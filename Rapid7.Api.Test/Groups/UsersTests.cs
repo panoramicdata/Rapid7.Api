@@ -75,24 +75,16 @@ public class UsersTests
 	public async Task GetAsync_MapsEveryField()
 		=> ShouldBeJane(await TestClient.ReadAsync((c, ct) => c.Users.GetAsync(9, ct), UserJson.User));
 
-	[Fact]
-	public async Task UpdateAsync_PutsOnlyTheSetFields()
+	[Theory]
+	[InlineData(null, """{"login":"jsmith","name":"Jane Smith","role":{"id":"user"}}""")]
+	[InlineData("new-fake-secret", """{"password":"new-fake-secret","login":"jsmith","name":"Jane Smith","role":{"id":"user"}}""")]
+	public async Task UpdateAsync_PutsOnlyTheSetFields(string? password, string body)
 	{
-		var request = new UserUpdateRequest { Login = "jsmith", Name = "Jane Smith", Role = new UserRoleAssignment { Id = "user" } };
+		var request = new UserUpdateRequest { Login = "jsmith", Name = "Jane Smith", Role = new UserRoleAssignment { Id = "user" }, Password = password };
 
 		var call = await TestClient.CaptureAsync((c, ct) => c.Users.UpdateAsync(9, request, ct), AccessJson.LinksOnly);
 
-		call.ShouldBe(HttpMethod.Put, "/api/3/users/9", body: """{"login":"jsmith","name":"Jane Smith","role":{"id":"user"}}""");
-	}
-
-	[Fact]
-	public async Task UpdateAsync_CanChangeThePassword()
-	{
-		var request = new UserUpdateRequest { Login = "jsmith", Name = "Jane Smith", Role = new UserRoleAssignment { Id = "user" }, Password = "new-fake-secret" };
-
-		var call = await TestClient.CaptureAsync((c, ct) => c.Users.UpdateAsync(9, request, ct), AccessJson.LinksOnly);
-
-		call.ShouldBe(HttpMethod.Put, "/api/3/users/9", body: """{"password":"new-fake-secret","login":"jsmith","name":"Jane Smith","role":{"id":"user"}}""");
+		call.ShouldBe(HttpMethod.Put, "/api/3/users/9", body: body);
 	}
 
 	[Fact]
@@ -165,7 +157,7 @@ public class UsersTests
 		user.Email.Should().Be("jsmith@example.test");
 		user.Enabled.Should().BeTrue();
 		user.Locked.Should().BeFalse();
-		user.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
+		user.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
 		user.Authentication!.Id.Should().Be(1);
 		user.Authentication.Name.Should().Be("Builtin Users");
 		user.Authentication.Type.Should().Be(AuthenticationSourceType.Normal);

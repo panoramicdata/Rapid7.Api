@@ -29,7 +29,7 @@ public interface IReportInstances
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/reports/{reportId}/history/{instance}")]
-	Task<Links> DeleteInstanceAsync(int reportId, string instance, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteInstanceAsync(int reportId, string instance, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Downloads the file a report instance produced (<c>GET api/3/reports/{id}/history/{instance}/output</c>): a PDF, HTML,

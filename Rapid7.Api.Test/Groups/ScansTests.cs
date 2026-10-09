@@ -50,7 +50,7 @@ public class ScansTests
 						Name = "Urgent recheck",
 						TemplateId = "discovery",
 						EngineId = 3,
-						Hosts = ["10.0.0.1", "web.example.test"],
+						Hosts = ["192.0.2.1", "web.example.test"],
 						AssetGroupIds = [4]
 					},
 					true,
@@ -60,7 +60,7 @@ public class ScansTests
 				HttpMethod.Post,
 				"/api/3/sites/5/scans",
 				"?overrideBlackout=true",
-				"""{"name":"Urgent recheck","templateId":"discovery","engineId":3,"hosts":["10.0.0.1","web.example.test"],"assetGroupIds":[4]}""");
+				"""{"name":"Urgent recheck","templateId":"discovery","engineId":3,"hosts":["192.0.2.1","web.example.test"],"assetGroupIds":[4]}""");
 
 	[Fact]
 	public async Task StartForSiteAsync_WithEmptyRequest_SendsAnEmptyObject_AndNoQuery()
@@ -101,7 +101,7 @@ public class ScansTests
 		scan.Vulnerabilities.Total.Should().Be(95);
 		scan.SiteId.Should().Be(5);
 		scan.SiteName.Should().Be("External");
-		scan.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		scan.Links.ShouldBeSelfOnly();
 		page.Resources[1].Status.Should().Be(ScanStatus.Integrating);
 		page.Resources[1].SiteId.Should().BeNull();
 		page.PageInfo!.TotalPages.Should().Be(1);

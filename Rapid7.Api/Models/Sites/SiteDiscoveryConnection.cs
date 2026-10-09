@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Sites;
 
 /// <summary>The discovery connection a site is assigned to.</summary>
-public sealed class SiteDiscoveryConnection : Links
+public sealed class SiteDiscoveryConnection : LinksResource
 {
 	/// <summary>The identifier of the discovery connection.</summary>
 	[JsonPropertyName("id")]

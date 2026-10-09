@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.PolicyOverrides;
 
 /// <summary>A policy override: a request to treat a policy rule's result differently, and its review.</summary>
-public sealed class PolicyOverride : Links
+public sealed class PolicyOverride : LinksResource
 {
 	/// <summary>The identifier of the policy override.</summary>
 	[JsonPropertyName("id")]
@@ -19,11 +19,11 @@ public sealed class PolicyOverride : Links
 
 	/// <summary>Who submitted the override, when and why.</summary>
 	[JsonPropertyName("submit")]
-	public PolicyOverrideAction Submit { get; init; } = new();
+	public UserAction Submit { get; init; } = new();
 
 	/// <summary>Who reviewed the override, when and why; absent until it is reviewed.</summary>
 	[JsonPropertyName("review")]
-	public PolicyOverrideAction? Review { get; init; }
+	public UserAction? Review { get; init; }
 
 	/// <summary>When the override expires, if it does.</summary>
 	[JsonPropertyName("expires")]

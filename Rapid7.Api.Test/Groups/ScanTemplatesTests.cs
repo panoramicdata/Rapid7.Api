@@ -85,7 +85,7 @@ public class ScanTemplatesTests
 		template.MaxParallelAssets.Should().Be(10);
 		template.MaxScanProcesses.Should().Be(12);
 		template.Web!.Value.GetProperty("maxPages").GetInt32().Should().Be(3000);
-		template.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		template.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]

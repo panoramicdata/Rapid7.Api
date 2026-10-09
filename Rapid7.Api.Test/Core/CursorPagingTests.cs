@@ -74,9 +74,7 @@ public class CursorPagingTests
 		using var cts = new CancellationTokenSource();
 		var calls = 0;
 
-		var act = async () =>
-		{
-			await foreach (var _ in Rapid7CursorPaging.ReadAllAsync(
+		var act = () => Rapid7CursorPaging.ReadAllAsync(
 				(_, _) =>
 				{
 					calls++;
@@ -84,10 +82,9 @@ public class CursorPagingTests
 					return Task.FromResult(Page([1], new CursorPageMetadata { TotalPages = 9 }));
 				},
 				1,
-				cts.Token))
-			{
-			}
-		};
+				cts.Token)
+			.ToListAsync(CancellationToken.None)
+			.AsTask();
 
 		await act.Should().ThrowAsync<OperationCanceledException>();
 		calls.Should().Be(1);

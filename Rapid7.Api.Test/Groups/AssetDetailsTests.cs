@@ -45,7 +45,7 @@ public class AssetDetailsTests
 		var list = await TestClient.ReadAsync((c, ct) => c.AssetDetails.ListDatabasesAsync(282, ct), List(DatabaseJson));
 
 		ShouldRoundTrip(list.Resources.Should().ContainSingle().Subject, DatabaseJson);
-		list.Items.Should().ContainSingle();
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]

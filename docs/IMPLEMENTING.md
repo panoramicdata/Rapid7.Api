@@ -39,9 +39,10 @@ This is the contract for adding operations to Rapid7.Api. `GET api/3` (`IRoot`, 
   spaces: `Sites`, `Assets`, `AssetGroups`, `Vulnerabilities`, `Policies`, `ScanEngines`, `Administration`, ...; v4 in
   `Models/Cloud/`, Bulk Export in `Models/BulkExport/`). Never name a namespace segment `System`. One public type per
   file.
-- **Shared types** already in `Rapid7.Api.Models`: `Link`, `Links` (a links-only response, the usual answer to PUT and
-  DELETE), `CreatedReference<TId>` (the answer to a create: `id` + links), `Page<T>` (`resources`, `page`, links),
-  `PageMetadata`, `ResourceList<T>` (unpaged `resources`), `PageOptions` (`page`, `size`, repeated `sort`). Reuse them;
+- **Shared types** already in `Rapid7.Api.Models`: `Link`, `LinksResource` (a links-only response, the usual answer to PUT
+  and DELETE, and the base of response types that carry links), `CreatedReference<TId>` (the answer to a create: `id` +
+  links), `Page<T>` (`resources`, `page`, links), `PageMetadata`, `ResourceList<T>` (unpaged `resources`),
+  `PageOptions` (`page`, `size`, repeated `sort`), `UserAction` (who submitted or reviewed something, when, and why). Reuse them;
   do not duplicate them. `Rapid7Paging.ReadAllAsync` reads every page. If a schema is shared by several categories (for
   example an address or a reference type), put it in the folder of the category that owns it and say so in your report.
 
@@ -55,7 +56,7 @@ This is the contract for adding operations to Rapid7.Api. `GET api/3` (`IRoot`, 
   callers pass `null`.
 - Request bodies are JSON: `[Body] XRequest request`. The client sends `Accept: application/json` itself.
 - Paged collections return `Task<Page<X>>`; unpaged ones `Task<ResourceList<X>>`; single resources `Task<X>`; creates
-  `Task<CreatedReference<int>>` (or `<string>`, per the spec's id type); updates and deletes `Task<Links>` (or `Task`
+  `Task<CreatedReference<int>>` (or `<string>`, per the spec's id type); updates and deletes `Task<LinksResource>` (or `Task`
   when the spec documents no body). Endpoints whose body is a bare JSON array or value (for example a list of ids, a
   string) take or return exactly that (`[Body] IEnumerable<int> ids`, `Task<IReadOnlyList<int>>`, `Task<string>`).
 - Non-JSON responses (report and scan log downloads, certificates): return `Task<HttpContent>` or `Task<Stream>` (the
@@ -65,6 +66,8 @@ This is the contract for adding operations to Rapid7.Api. `GET api/3` (`IRoot`, 
 
 ## Models
 
+- Hypermedia links are always exposed as `Links` (`[JsonPropertyName("links")]`). A response type with links derives
+  from `LinksResource`; one that already derives from a request type (so cannot) declares its own `Links` property.
 - `[JsonPropertyName("wire")]` on **every** property. Response properties are nullable unless the spec marks them
   required; collections are `IReadOnlyList<T>` defaulting to `[]`; dictionaries `IReadOnlyDictionary<string, T>`;
   numbers `int`/`long`/`double` as the spec's format says; dates `DateTimeOffset?` (or `DateOnly?` for `format: date`).
@@ -81,8 +84,9 @@ This is the contract for adding operations to Rapid7.Api. `GET api/3` (`IRoot`, 
 
 - One test class per interface in `Rapid7.Api.Test/Groups/<Interface without I>Tests.cs` (split into partial files past
   ~300 lines), using `TestClient.CaptureAsync`, `ReadAsync` and `ShouldFailAsync` (the generic overloads take
-  `TestClient.CreateCloud` or `TestClient.CreateBulkExport` for the platform clients) and the
-  `RecordedCall.ShouldBe(method, path, query, body)` assertion. Do not add another extension method named `ShouldBe`.
+  `TestClient.CreateCloud` or `TestClient.CreateBulkExport` for the platform clients), the
+  `RecordedCall.ShouldBe(method, path, query, body)` assertion, and `LinkAssertions` (`ShouldBeSelfOnly`,
+  `ShouldBeCreated`). Do not add another extension method named `ShouldBe`.
 - **Every operation** has a test pinning the exact method, path (`Uri.AbsolutePath`), query and JSON body, and the
   interface has tests mapping realistic responses (built from the spec's examples and schemas; replace hosts and ids
   with neutral values) asserting every modelled field, plus at least one error-path test.

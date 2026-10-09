@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>A NIST SP 800-53 control mapping of a CCE item in a policy rule.</summary>
-public sealed class PolicyControl : Links
+public sealed class PolicyControl : LinksResource
 {
 	/// <summary>The identifier of the control, as text.</summary>
 	[JsonPropertyName("id")]

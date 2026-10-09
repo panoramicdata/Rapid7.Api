@@ -38,14 +38,14 @@ public interface IUsers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the user.</returns>
 	[Put("api/3/users/{id}")]
-	Task<Links> UpdateAsync(int id, [Body] UserUpdateRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int id, [Body] UserUpdateRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a user account (<c>DELETE api/3/users/{id}</c>). Requires Global Administrator.</summary>
 	/// <param name="id">The identifier of the user.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}")]
-	Task<Links> DeleteAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int id, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Unlocks an account locked after too many failed sign-in attempts (<c>DELETE api/3/users/{id}/lock</c>). A disabled
@@ -55,7 +55,7 @@ public interface IUsers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/users/{id}/lock")]
-	Task<Links> UnlockAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> UnlockAsync(int id, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Changes a user's password (<c>PUT api/3/users/{id}/password</c>). Users can change only their own password.
@@ -65,7 +65,7 @@ public interface IUsers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Put("api/3/users/{id}/password")]
-	Task<Links> ResetPasswordAsync(int id, [Body] PasswordChange request, CancellationToken cancellationToken);
+	Task<LinksResource> ResetPasswordAsync(int id, [Body] PasswordChange request, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Lists the privileges a user's role grants them (<c>GET api/3/users/{id}/privileges</c>), such as

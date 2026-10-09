@@ -27,7 +27,7 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/site_credentials")]
-	Task<Links> ReplaceAllAsync(int siteId, [Body] IEnumerable<SiteCredential> credentials, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceAllAsync(int siteId, [Body] IEnumerable<SiteCredential> credentials, CancellationToken cancellationToken);
 
 	/// <summary>Adds a credential to the site (<c>POST api/3/sites/{id}/site_credentials</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -42,7 +42,7 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/site_credentials")]
-	Task<Links> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Gets one of the site's credentials (<c>GET api/3/sites/{id}/site_credentials/{credentialId}</c>). Secrets are not returned.</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -59,7 +59,7 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/site_credentials/{credentialId}")]
-	Task<Links> UpdateAsync(int siteId, int credentialId, [Body] SiteCredential credential, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int siteId, int credentialId, [Body] SiteCredential credential, CancellationToken cancellationToken);
 
 	/// <summary>Deletes one of the site's credentials (<c>DELETE api/3/sites/{id}/site_credentials/{credentialId}</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -67,7 +67,7 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/site_credentials/{credentialId}")]
-	Task<Links> DeleteAsync(int siteId, int credentialId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int siteId, int credentialId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Turns one of the site's credentials on or off for its scans
@@ -79,7 +79,7 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/site_credentials/{credentialId}/enabled")]
-	Task<Links> SetEnabledAsync(int siteId, int credentialId, [Body] bool enabled, CancellationToken cancellationToken);
+	Task<LinksResource> SetEnabledAsync(int siteId, int credentialId, [Body] bool enabled, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Lists the shared credentials assigned to the site, with whether its scans use each
@@ -101,5 +101,5 @@ public interface ISiteCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/shared_credentials/{credentialId}/enabled")]
-	Task<Links> SetSharedEnabledAsync(int siteId, int credentialId, [Body] bool enabled, CancellationToken cancellationToken);
+	Task<LinksResource> SetSharedEnabledAsync(int siteId, int credentialId, [Body] bool enabled, CancellationToken cancellationToken);
 }

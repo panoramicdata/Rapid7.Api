@@ -30,7 +30,7 @@ public interface ISharedCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/shared_credentials")]
-	Task<Links> DeleteAllAsync(CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllAsync(CancellationToken cancellationToken);
 
 	/// <summary>Gets a shared credential (<c>GET api/3/shared_credentials/{id}</c>).</summary>
 	/// <param name="id">The identifier of the credential.</param>
@@ -45,12 +45,12 @@ public interface ISharedCredentials
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the credential.</returns>
 	[Put("api/3/shared_credentials/{id}")]
-	Task<Links> UpdateAsync(int id, [Body] SharedCredentialRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int id, [Body] SharedCredentialRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a shared credential (<c>DELETE api/3/shared_credentials/{id}</c>).</summary>
 	/// <param name="id">The identifier of the credential.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/shared_credentials/{id}")]
-	Task<Links> DeleteAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int id, CancellationToken cancellationToken);
 }

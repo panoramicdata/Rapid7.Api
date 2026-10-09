@@ -6,7 +6,7 @@ namespace Rapid7.Api.Models.Sites;
 /// The settings every kind of site alert shares. The typed alerts (<see cref="SmtpAlert"/>, <see cref="SnmpAlert"/>,
 /// <see cref="SyslogAlert"/>) are read, created and updated as they are; links are ignored when sent.
 /// </summary>
-public abstract class SiteAlertBase : Links
+public abstract class SiteAlertBase : LinksResource
 {
 	/// <summary>Creates an alert delivered by <paramref name="notification"/>.</summary>
 	/// <param name="notification">How the alert is delivered.</param>

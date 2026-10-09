@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>The policy a policy group, rule or child item belongs to.</summary>
-public sealed class PolicyMetadata : Links
+public sealed class PolicyMetadata : LinksResource
 {
 	/// <summary>The name of the policy.</summary>
 	[JsonPropertyName("name")]

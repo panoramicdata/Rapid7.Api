@@ -38,14 +38,14 @@ public interface ITags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag.</returns>
 	[Put("api/3/tags/{tagId}")]
-	Task<Links> UpdateAsync(int tagId, [Body] TagRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int tagId, [Body] TagRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a tag, removing it from every asset (<c>DELETE api/3/tags/{id}</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}")]
-	Task<Links> DeleteAsync(int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int tagId, CancellationToken cancellationToken);
 
 	/// <summary>Gets the search criteria that apply a tag automatically (<c>GET api/3/tags/{id}/search_criteria</c>).</summary>
 	/// <param name="tagId">The tag identifier.</param>
@@ -60,7 +60,7 @@ public interface ITags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the tag's criteria.</returns>
 	[Put("api/3/tags/{tagId}/search_criteria")]
-	Task<Links> UpdateSearchCriteriaAsync(int tagId, [Body] SearchCriteria criteria, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateSearchCriteriaAsync(int tagId, [Body] SearchCriteria criteria, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes a tag's search criteria (<c>DELETE api/3/tags/{id}/search_criteria</c>); assets tagged only through them
@@ -70,5 +70,5 @@ public interface ITags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/tags/{tagId}/search_criteria")]
-	Task<Links> DeleteSearchCriteriaAsync(int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteSearchCriteriaAsync(int tagId, CancellationToken cancellationToken);
 }

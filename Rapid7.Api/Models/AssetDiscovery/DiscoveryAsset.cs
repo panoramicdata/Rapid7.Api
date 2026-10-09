@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.AssetDiscovery;
 
 /// <summary>An asset discovered by a Sonar query.</summary>
-public sealed class DiscoveryAsset : Links
+public sealed class DiscoveryAsset : LinksResource
 {
 	/// <summary>The address of the asset.</summary>
 	[JsonPropertyName("address")]

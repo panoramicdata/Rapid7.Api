@@ -48,7 +48,7 @@ public class AssetGroupMembersTests
 		var list = await TestClient.ReadAsync((c, ct) => c.AssetGroupMembers.ListAssetsAsync(61, ct), List("282,5000000000"));
 
 		list.Resources.Should().Equal(282L, 5000000000L);
-		list.Items.Should().ContainSingle();
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -64,7 +64,7 @@ public class AssetGroupMembersTests
 	{
 		var links = await TestClient.ReadAsync((c, ct) => c.AssetGroupMembers.SetAssetsAsync(61, [282], ct), LinksJson);
 
-		links.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/assets/282");
+		links.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/assets/282");
 	}
 
 	[Fact]
