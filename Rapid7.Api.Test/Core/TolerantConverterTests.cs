@@ -85,7 +85,7 @@ public class TolerantConverterTests
 	public void String_WritesAJsonString()
 		=> Json.Write(new TolerantStringConverter(), "a\"b").Should().Be("\"a\\u0022b\"");
 
-	private sealed class Shapes
+	internal sealed class Shapes
 	{
 		public string? Name { get; init; }
 

@@ -9,7 +9,7 @@ namespace Rapid7.Api.Interfaces;
 /// What a static site scans: its included and excluded targets (<c>api/3/sites/{id}/included_targets</c>,
 /// <c>excluded_targets</c>) and asset groups (<c>included_asset_groups</c>, <c>excluded_asset_groups</c>). Changing them
 /// needs the Specify Scan Targets privilege. Each target is a host name, an IPv4 or IPv6 address, an IPv4 range
-/// (<c>10.0.0.1 - 10.0.0.9</c>) or a CIDR block.
+/// (<c>192.0.2.1 - 192.0.2.9</c>) or a CIDR block.
 /// </summary>
 public interface ISiteTargets
 {

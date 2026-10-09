@@ -207,11 +207,9 @@ public class BulkExportTests
 			""";
 		using var client = TestClient.CreateBulkExport(TestClient.Stub(errors));
 
-		var act = () => client.Exports.GetExportAsync(new GetExportRequest("missing"), TestContext.Current.CancellationToken);
+		Task Act() => client.Exports.GetExportAsync(new GetExportRequest("missing"), TestContext.Current.CancellationToken);
 
-		var thrown = (await act.Should().ThrowAsync<Rapid7GraphQLException>()).Which;
-		thrown.StatusCode.Should().Be(HttpStatusCode.OK);
-		thrown.Message.Should().Be("The Bulk Export API returned GraphQL errors: Export not found (at export.0); Second problem");
+		var thrown = await TestClient.ShouldFailWithGraphQLAsync(Act, HttpStatusCode.OK, "The Bulk Export API returned GraphQL errors: Export not found (at export.0); Second problem");
 		thrown.Errors.Should().HaveCount(2);
 		var first = thrown.Errors[0];
 		first.Locations.Should().ContainSingle();
@@ -227,11 +225,9 @@ public class BulkExportTests
 	{
 		using var client = TestClient.CreateBulkExport(TestClient.Stub("""{"errors":[{}]}""", HttpStatusCode.BadRequest));
 
-		var act = () => client.Exports.CreatePolicyExportAsync(new CreatePolicyExportRequest(), TestContext.Current.CancellationToken);
+		Task Act() => client.Exports.CreatePolicyExportAsync(new CreatePolicyExportRequest(), TestContext.Current.CancellationToken);
 
-		var thrown = (await act.Should().ThrowAsync<Rapid7GraphQLException>()).Which;
-		thrown.StatusCode.Should().Be(HttpStatusCode.BadRequest);
-		thrown.Message.Should().Be("The Bulk Export API returned GraphQL errors: (no message)");
+		var thrown = await TestClient.ShouldFailWithGraphQLAsync(Act, HttpStatusCode.BadRequest, "The Bulk Export API returned GraphQL errors: (no message)");
 		thrown.Errors[0].ToString().Should().Be("(no message)");
 	}
 

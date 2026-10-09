@@ -11,7 +11,7 @@ public class SiteAssetsTests
 			"resources": [
 				{
 					"id": 282,
-					"ip": "10.20.30.40",
+					"ip": "203.0.113.40",
 					"hostName": "workstation-01.example.test",
 					"mac": "AB:12:CD:34:EF:56",
 					"os": "Microsoft Windows Server 2019",
@@ -49,7 +49,7 @@ public class SiteAssetsTests
 
 		var asset = page.Resources.Should().ContainSingle().Subject;
 		asset.Id.Should().Be(282);
-		asset.Ip.Should().Be("10.20.30.40");
+		asset.Ip.Should().Be("203.0.113.40");
 		asset.HostName.Should().Be("workstation-01.example.test");
 		asset.Links.Should().ContainSingle().Which.Href.Should().EndWith("/assets/282");
 		page.PageInfo!.Number.Should().Be(1);

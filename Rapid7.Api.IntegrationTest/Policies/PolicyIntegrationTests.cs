@@ -22,7 +22,7 @@ public class PolicyIntegrationTests(Rapid7Fixture fixture)
 		var summary = await Client.Policies.GetSummaryAsync(Ct);
 
 		summary.NumberOfPolicies.Should().NotBeNull();
-		summary.ScannedPolicies.Should().BeLessThanOrEqualTo(summary.NumberOfPolicies!.Value);
+		summary.ScannedPolicies.Should().BeLessThanOrEqualTo(summary.NumberOfPolicies.Value);
 	}
 
 	[Fact]

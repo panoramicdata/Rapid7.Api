@@ -16,13 +16,6 @@ public class AssetGroupsIntegrationTests(Rapid7Fixture fixture)
 
 	private Rapid7Client Client => fixture.Client;
 
-	// Matches no asset, so the dynamic test group stays empty.
-	private static readonly SearchCriteria NoAssets = new()
-	{
-		Match = SearchMatch.All,
-		Filters = [new SearchFilter(SearchField.HostName, SearchOperator.Is) { Value = Rapid7Fixture.UniqueName("no-such-host") }],
-	};
-
 	[Fact]
 	public async Task ListAsync_FiltersByNameAndType()
 	{
@@ -81,7 +74,7 @@ public class AssetGroupsIntegrationTests(Rapid7Fixture fixture)
 	public async Task DynamicGroup_RoundTripWithSearchCriteria()
 	{
 		var name = Rapid7Fixture.UniqueName("dynamic-group");
-		var created = await Client.AssetGroups.CreateAsync(new AssetGroupRequest { Name = name, Type = AssetGroupType.Dynamic, SearchCriteria = NoAssets }, Ct);
+		var created = await Client.AssetGroups.CreateAsync(new AssetGroupRequest { Name = name, Type = AssetGroupType.Dynamic, SearchCriteria = Rapid7Fixture.NoAssets() }, Ct);
 		var groupId = created.Id;
 		try
 		{

@@ -14,14 +14,14 @@ public class SiteCredentialsTests
 	private static readonly string ExpectedAccount = JsonSerializer.Serialize(Account(), Rapid7Json.Options);
 
 	private static readonly string ExpectedCredential =
-		$$"""{"account":{{ExpectedAccount}},"description":"Linux scan account","enabled":true,"hostRestriction":"10.0.0.5","name":"Scanner SSH","portRestriction":22}""";
+		$$"""{"account":{{ExpectedAccount}},"description":"Linux scan account","enabled":true,"hostRestriction":"192.0.2.5","name":"Scanner SSH","portRestriction":22}""";
 
 	private const string CredentialJson = """
 		{
 			"account": { "service": "ssh", "username": "scanner" },
 			"description": "Linux scan account",
 			"enabled": true,
-			"hostRestriction": "10.0.0.5",
+			"hostRestriction": "192.0.2.5",
 			"id": 17,
 			"name": "Scanner SSH",
 			"portRestriction": 22
@@ -57,7 +57,7 @@ public class SiteCredentialsTests
 		Account = Account(),
 		Description = "Linux scan account",
 		Enabled = true,
-		HostRestriction = "10.0.0.5",
+		HostRestriction = "192.0.2.5",
 		Name = "Scanner SSH",
 		PortRestriction = 22
 	};
@@ -206,7 +206,7 @@ public class SiteCredentialsTests
 		credential.Account.Should().NotBeNull();
 		credential.Description.Should().Be("Linux scan account");
 		credential.Enabled.Should().BeTrue();
-		credential.HostRestriction.Should().Be("10.0.0.5");
+		credential.HostRestriction.Should().Be("192.0.2.5");
 		credential.Id.Should().Be(17);
 		credential.Name.Should().Be("Scanner SSH");
 		credential.PortRestriction.Should().Be(22);

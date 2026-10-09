@@ -89,7 +89,7 @@ internal static class PolicyAssertions
 		Os = new
 		{
 			Architecture = "x86_64",
-			Configurations = new[] { new { Name = "kernel", Value = (string?)"5.15" }, new { Name = "selinux", Value = (string?)null } },
+			Configurations = new[] { new Configuration { Name = "kernel", Value = "5.15" }, new Configuration { Name = "selinux" } },
 			Cpe = new
 			{
 				Edition = "enterprise",

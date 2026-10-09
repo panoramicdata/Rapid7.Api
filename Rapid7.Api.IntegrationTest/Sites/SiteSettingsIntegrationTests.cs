@@ -30,7 +30,7 @@ public class SiteSettingsIntegrationTests(Rapid7Fixture fixture)
 			var engine = await fixture.Client.SiteScanEngine.GetAsync(siteId, ct);
 			engine.Id.Should().NotBeNull();
 
-			await fixture.Client.SiteScanEngine.SetAsync(siteId, engine.Id!.Value, ct);
+			await fixture.Client.SiteScanEngine.SetAsync(siteId, engine.Id.Value, ct);
 
 			(await fixture.Client.SiteScanEngine.GetAsync(siteId, ct)).Id.Should().Be(engine.Id);
 		});
@@ -42,7 +42,7 @@ public class SiteSettingsIntegrationTests(Rapid7Fixture fixture)
 			var template = await fixture.Client.SiteScanTemplate.GetAsync(siteId, ct);
 			template.Id.Should().NotBeNullOrEmpty();
 
-			await fixture.Client.SiteScanTemplate.SetAsync(siteId, template.Id!, ct);
+			await fixture.Client.SiteScanTemplate.SetAsync(siteId, template.Id, ct);
 
 			(await fixture.Client.SiteScanTemplate.GetAsync(siteId, ct)).Id.Should().Be(template.Id);
 		});

@@ -34,8 +34,11 @@ public partial class OptionsTests
 	{
 		static void Limits(Rapid7ConnectionOptions o) => (o.MaxRetries, o.Timeout, o.RetryBaseDelay, o.MaxRetryDelay) = (0, MaxTimer, TimeSpan.Zero, MaxTimer);
 
-		Construct(TestClient.ConsoleOptions(Limits));
-		Construct(TestClient.PlatformOptions(Limits));
+		var console = () => Construct(TestClient.ConsoleOptions(Limits));
+		var platform = () => Construct(TestClient.PlatformOptions(Limits));
+
+		console.Should().NotThrow();
+		platform.Should().NotThrow();
 	}
 
 	[Theory]

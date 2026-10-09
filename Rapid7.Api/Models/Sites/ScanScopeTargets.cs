@@ -6,7 +6,7 @@ namespace Rapid7.Api.Models.Sites;
 public sealed class ScanScopeTargets
 {
 	/// <summary>
-	/// The addresses: each a host name, an IPv4 or IPv6 address, an address range (<c>10.0.0.1 - 10.0.0.50</c>) or a CIDR
+	/// The addresses: each a host name, an IPv4 or IPv6 address, an address range (<c>192.0.2.1 - 192.0.2.50</c>) or a CIDR
 	/// block.
 	/// </summary>
 	[JsonPropertyName("addresses")]

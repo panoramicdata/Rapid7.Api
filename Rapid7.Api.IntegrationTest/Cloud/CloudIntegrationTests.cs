@@ -33,11 +33,11 @@ public class CloudIntegrationTests(Rapid7Fixture fixture)
 
 		page.Data.Count.Should().BeLessThanOrEqualTo(SmallPage);
 		page.Metadata.Should().NotBeNull();
-		page.Metadata!.Size.Should().Be(SmallPage);
+		page.Metadata.Size.Should().Be(SmallPage);
 		foreach (var asset in page.Data)
 		{
 			asset.Id.Should().NotBeNullOrEmpty();
-			var read = await Client.Assets.GetAsync(asset.Id!, new CloudAssetOptions { IncludeUniqueIdentifiers = true }, CancellationToken);
+			var read = await Client.Assets.GetAsync(asset.Id, new CloudAssetOptions { IncludeUniqueIdentifiers = true }, CancellationToken);
 			read.Id.Should().Be(asset.Id);
 		}
 	}

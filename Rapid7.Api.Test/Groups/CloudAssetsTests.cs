@@ -135,7 +135,7 @@ public class CloudAssetsTests
 		asset.Id.Should().Be("org-1-default-asset-7912");
 		asset.Type.Should().Be(CloudAssetType.Guest);
 		asset.HostName.Should().Be("host.example.test");
-		asset.Ip.Should().Be("10.1.0.128");
+		asset.Ip.Should().Be("198.51.100.128");
 		asset.Mac.Should().Be("00:50:56:8B:62:45");
 		asset.OsDescription.Should().Be("Microsoft Windows Server 2008 R2, Standard Edition SP1");
 		asset.OsArchitecture.Should().Be("x86_64");

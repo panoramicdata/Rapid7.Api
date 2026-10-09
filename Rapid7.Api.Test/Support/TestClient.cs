@@ -104,6 +104,18 @@ internal static class TestClient
 		thrown.Which.Message.Should().Be(message);
 	}
 
+	/// <summary>
+	/// Asserts that <paramref name="act"/> raises <see cref="Rapid7GraphQLException"/> with the status and message, and
+	/// returns it for further assertions.
+	/// </summary>
+	public static async Task<Rapid7GraphQLException> ShouldFailWithGraphQLAsync(Func<Task> act, HttpStatusCode status, string message)
+	{
+		var thrown = (await act.Should().ThrowAsync<Rapid7GraphQLException>()).Which;
+		thrown.StatusCode.Should().Be(status);
+		thrown.Message.Should().Be(message);
+		return thrown;
+	}
+
 	private static T Tweaked<T>(T options, Action<T>? tweak)
 	{
 		tweak?.Invoke(options);

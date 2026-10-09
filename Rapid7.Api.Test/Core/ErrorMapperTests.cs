@@ -7,18 +7,6 @@ namespace Rapid7.Api.Test.Core;
 /// <summary>How <see cref="Rapid7ErrorMapper"/> turns error responses (v3 JSON, v4 JSON or XML, anything else) into exceptions.</summary>
 public class ErrorMapperTests
 {
-	/// <summary>Content whose body cannot be read.</summary>
-	private sealed class FailingContent(Exception exception) : HttpContent
-	{
-		protected override Task SerializeToStreamAsync(Stream stream, System.Net.TransportContext? context) => throw exception;
-
-		protected override bool TryComputeLength(out long length)
-		{
-			length = 0;
-			return false;
-		}
-	}
-
 	private static async Task<Rapid7ApiException> MapAsync(HttpContent content, HttpStatusCode status = HttpStatusCode.BadRequest, string? reason = null)
 	{
 		using var response = new HttpResponseMessage(status) { Content = content, ReasonPhrase = reason };

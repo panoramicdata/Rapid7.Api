@@ -13,7 +13,7 @@ public class TagsTests
 			"match": "all",
 			"filters": [
 				{ "field": "risk-score", "operator": "is-greater-than", "value": 5000 },
-				{ "field": "ip-address", "operator": "in-range", "lower": "10.0.0.1", "upper": "10.0.0.255" },
+				{ "field": "ip-address", "operator": "in-range", "lower": "192.0.2.1", "upper": "192.0.2.255" },
 				{ "field": "operating-system", "operator": "in", "values": ["windows", "linux"] }
 			]
 		}
@@ -97,7 +97,7 @@ public class TagsTests
 						Match = SearchMatch.All,
 						Filters =
 						[
-							new SearchFilter(SearchField.IpAddress, SearchOperator.InRange) { Lower = "10.0.0.1", Upper = "10.0.0.255" },
+							new SearchFilter(SearchField.IpAddress, SearchOperator.InRange) { Lower = "192.0.2.1", Upper = "192.0.2.255" },
 							new SearchFilter(SearchField.OperatingSystem, SearchOperator.In) { Values = ["windows", "linux"] },
 						]
 					},
@@ -106,7 +106,7 @@ public class TagsTests
 			.ShouldBe(
 				HttpMethod.Put,
 				"/api/3/tags/6/search_criteria",
-				body: """{"match":"all","filters":[{"field":"ip-address","operator":"in-range","lower":"10.0.0.1","upper":"10.0.0.255"},{"field":"operating-system","operator":"in","values":["windows","linux"]}]}""");
+				body: """{"match":"all","filters":[{"field":"ip-address","operator":"in-range","lower":"192.0.2.1","upper":"192.0.2.255"},{"field":"operating-system","operator":"in","values":["windows","linux"]}]}""");
 
 	[Fact]
 	public async Task DeleteSearchCriteriaAsync_SendsDelete()
@@ -174,8 +174,8 @@ public class TagsTests
 		criteria.Filters[0].Field.Should().Be("risk-score");
 		criteria.Filters[0].Operator.Should().Be("is-greater-than");
 		criteria.Filters[0].Value.Should().BeOfType<JsonElement>().Which.GetInt32().Should().Be(5000);
-		criteria.Filters[1].Lower.Should().BeOfType<JsonElement>().Which.GetString().Should().Be("10.0.0.1");
-		criteria.Filters[1].Upper.Should().BeOfType<JsonElement>().Which.GetString().Should().Be("10.0.0.255");
+		criteria.Filters[1].Lower.Should().BeOfType<JsonElement>().Which.GetString().Should().Be("192.0.2.1");
+		criteria.Filters[1].Upper.Should().BeOfType<JsonElement>().Which.GetString().Should().Be("192.0.2.255");
 		criteria.Filters[2].Values!.Select(v => ((JsonElement)v).GetString()).Should().Equal("windows", "linux");
 	}
 

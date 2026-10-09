@@ -7,7 +7,7 @@ public class SiteTargetsTests
 {
 	private const string TargetsJson = """
 		{
-			"addresses": [ "10.0.0.0/24", "10.0.1.1 - 10.0.1.9", "host.example.test", "fe80::1" ],
+			"addresses": [ "192.0.2.0/24", "198.51.100.1 - 198.51.100.9", "host.example.test", "2001:db8::1" ],
 			"links": [ { "href": "https://console.test:3780/api/3/sites/7/included_targets", "rel": "self" } ]
 		}
 		""";
@@ -29,9 +29,9 @@ public class SiteTargetsTests
 		}
 		""";
 
-	private static readonly string[] Addresses = ["10.0.0.0/24", "host.example.test"];
+	private static readonly string[] Addresses = ["192.0.2.0/24", "host.example.test"];
 
-	private const string AddressesBody = """["10.0.0.0/24","host.example.test"]""";
+	private const string AddressesBody = """["192.0.2.0/24","host.example.test"]""";
 
 	[Fact]
 	public async Task GetIncludedTargetsAsync_SendsGet()
@@ -46,7 +46,7 @@ public class SiteTargetsTests
 	{
 		var targets = await TestClient.ReadAsync((c, ct) => c.SiteTargets.GetIncludedTargetsAsync(7, ct), TargetsJson);
 
-		targets.Addresses.Should().Equal("10.0.0.0/24", "10.0.1.1 - 10.0.1.9", "host.example.test", "fe80::1");
+		targets.Addresses.Should().Equal("192.0.2.0/24", "198.51.100.1 - 198.51.100.9", "host.example.test", "2001:db8::1");
 		targets.Links.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/included_targets");
 	}
 

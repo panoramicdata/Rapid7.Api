@@ -58,7 +58,7 @@ internal sealed class AssetRow : RowBase
 	[JsonPropertyName("azureResourceId")] public string? AzureResourceId { get; set; } = "/subscriptions/1/vm";
 	[JsonPropertyName("gcpObjectId")] public string? GcpObjectId { get; set; } = "gcp-1";
 	[JsonPropertyName("mac")] public string? Mac { get; set; } = "00:50:56:8B:62:45";
-	[JsonPropertyName("ip")] public string? Ip { get; set; } = "10.0.0.1";
+	[JsonPropertyName("ip")] public string? Ip { get; set; } = "192.0.2.1";
 	[JsonPropertyName("hostName")] public string? HostName { get; set; } = "host.example.test";
 	[JsonPropertyName("osArchitecture")] public string? OsArchitecture { get; set; } = "x86_64";
 	[JsonPropertyName("osFamily")] public string? OsFamily { get; set; } = "Linux";

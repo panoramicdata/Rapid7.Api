@@ -23,7 +23,10 @@ public class PagingTests
 		=> new() { Resources = resources, PageInfo = totalPages is { } total ? new PageMetadata { TotalPages = total } : null };
 
 	private static Task<List<int>> ReadAllAsync(PageSource source, int pageSize = 2, CancellationToken? cancellationToken = null)
-		=> Rapid7Paging.ReadAllAsync(source.GetAsync, pageSize, cancellationToken ?? TestContext.Current.CancellationToken).ToListAsync().AsTask();
+	{
+		var token = cancellationToken ?? TestContext.Current.CancellationToken;
+		return Rapid7Paging.ReadAllAsync(source.GetAsync, pageSize, token).ToListAsync(token).AsTask();
+	}
 
 	[Fact]
 	public async Task ReadsUntilTheLastPageTheConsoleReports()
@@ -76,7 +79,7 @@ public class PagingTests
 	[Fact]
 	public async Task ANullPage_IsReported()
 	{
-		var act = () => ReadAllAsync(new PageSource([null]));
+		var act = () => ReadAllAsync(new PageSource((Page<int>?)null));
 
 		await act.Should().ThrowAsync<InvalidOperationException>().WithMessage("*no page*");
 	}
@@ -136,13 +139,11 @@ public class PagingTests
 		using var cts = new CancellationTokenSource();
 		var seen = new List<CancellationToken>();
 
-		await foreach (var _ in Rapid7Paging.ReadAllAsync<int>((_, ct) =>
+		await Rapid7Paging.ReadAllAsync<int>((_, ct) =>
 		{
 			seen.Add(ct);
 			return Task.FromResult(Page([]));
-		}, 2, CancellationToken.None).WithCancellation(cts.Token))
-		{
-		}
+		}, 2, CancellationToken.None).ToListAsync(cts.Token);
 
 		seen.Should().ContainSingle().Which.CanBeCanceled.Should().BeTrue();
 	}
