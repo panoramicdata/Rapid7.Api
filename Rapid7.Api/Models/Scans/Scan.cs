@@ -1,3 +1,4 @@
+using Rapid7.Api.Models.Sites;
 using System.Text.Json.Serialization;
 
 namespace Rapid7.Api.Models.Scans;
@@ -63,5 +64,5 @@ public class Scan : Links
 
 	/// <summary>The vulnerabilities the scan found, by severity.</summary>
 	[JsonPropertyName("vulnerabilities")]
-	public ScanVulnerabilityCounts? Vulnerabilities { get; init; }
+	public VulnerabilityCounts? Vulnerabilities { get; init; }
 }
