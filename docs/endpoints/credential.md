@@ -6,9 +6,9 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| DELETE | `api/3/shared_credentials` |  |  |
-| GET | `api/3/shared_credentials` |  |  |
-| POST | `api/3/shared_credentials` |  |  |
-| DELETE | `api/3/shared_credentials/{id}` |  |  |
-| GET | `api/3/shared_credentials/{id}` |  |  |
-| PUT | `api/3/shared_credentials/{id}` |  |  |
+| DELETE | `api/3/shared_credentials` | `ISharedCredentials.DeleteAllAsync` | `SharedCredentialsTests.DeleteAllAsync_SendsDeleteToSharedCredentials` |
+| GET | `api/3/shared_credentials` | `ISharedCredentials.ListAsync` | `SharedCredentialsTests.ListAsync_SendsGetToSharedCredentials` |
+| POST | `api/3/shared_credentials` | `ISharedCredentials.CreateAsync` | `SharedCredentialsTests.CreateAsync_PostsTheCredential` |
+| DELETE | `api/3/shared_credentials/{id}` | `ISharedCredentials.DeleteAsync` | `SharedCredentialsTests.DeleteAsync_SendsDeleteToTheCredential` |
+| GET | `api/3/shared_credentials/{id}` | `ISharedCredentials.GetAsync` | `SharedCredentialsTests.GetAsync_SendsGetToTheCredential` |
+| PUT | `api/3/shared_credentials/{id}` | `ISharedCredentials.UpdateAsync` | `SharedCredentialsTests.UpdateAsync_PutsTheCredential` |
