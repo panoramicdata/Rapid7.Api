@@ -1,4 +1,4 @@
-using Rapid7.Api.Models.Sites;
+using Rapid7.Api.Models.Assets;
 using System.Text.Json.Serialization;
 
 namespace Rapid7.Api.Models.ScanEngines;
