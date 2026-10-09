@@ -6,8 +6,8 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| GET | `api/3/scans` |  |  |
-| GET | `api/3/scans/{id}` |  |  |
-| POST | `api/3/scans/{id}/{status}` |  |  |
-| GET | `api/3/sites/{id}/scans` |  |  |
-| POST | `api/3/sites/{id}/scans` |  |  |
+| GET | `api/3/scans` | IScans.ListAsync | ScansTests.ListAsync_SendsActiveAndPaging |
+| GET | `api/3/scans/{id}` | IScans.GetAsync | ScansTests.GetAsync_SendsGet |
+| POST | `api/3/scans/{id}/{status}` | IScans.SetStatusAsync | ScansTests.SetStatusAsync_PostsTheChangeInThePath |
+| GET | `api/3/sites/{id}/scans` | IScans.ListForSiteAsync | ScansTests.ListForSiteAsync_SendsActiveFalse |
+| POST | `api/3/sites/{id}/scans` | IScans.StartForSiteAsync | ScansTests.StartForSiteAsync_PostsTheOverrides_AndTheBlackoutFlag |
