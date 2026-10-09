@@ -58,7 +58,7 @@ public sealed partial class Rapid7BulkExportClient : IDisposable
 		return options;
 	}
 
-	internal T For<T>() => RestService.For<T>(_httpClient, Rapid7Pipeline.Settings);
+	internal T For<T>() => RestService.For<T>(_httpClient, Rapid7GraphQL.Settings);
 
 	/// <inheritdoc />
 	public void Dispose()
