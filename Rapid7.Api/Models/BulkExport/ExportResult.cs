@@ -11,7 +11,7 @@ public sealed class ExportResult
 
 	/// <summary>
 	/// Pre-signed download URLs, one per Parquet file, valid for 15 minutes. They point at another host and carry their own
-	/// authorisation: download them without the API key.
+	/// authorisation: download them with <see cref="Rapid7BulkExportClient.DownloadAsync"/>, which sends no API key.
 	/// </summary>
 	[JsonPropertyName("urls")]
 	public IReadOnlyList<Uri> Urls { get; init; } = [];
