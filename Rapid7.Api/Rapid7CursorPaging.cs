@@ -20,13 +20,23 @@ public static class Rapid7CursorPaging
 	/// <param name="pageSize">The page size to request, at least 1.</param>
 	/// <param name="cancellationToken">A cancellation token, checked before each page request.</param>
 	/// <returns>The resources, in the order the pages return them.</returns>
-	public static async IAsyncEnumerable<T> ReadAllAsync<T>(
+	/// <exception cref="ArgumentNullException"><paramref name="getPage"/> is <see langword="null"/>.</exception>
+	/// <exception cref="ArgumentOutOfRangeException"><paramref name="pageSize"/> is less than 1.</exception>
+	public static IAsyncEnumerable<T> ReadAllAsync<T>(
+		Func<CursorPageOptions, CancellationToken, Task<CursorPage<T>>> getPage,
+		int pageSize,
+		CancellationToken cancellationToken)
+	{
+		ArgumentNullException.ThrowIfNull(getPage);
+		ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
+		return ReadPagesAsync(getPage, pageSize, cancellationToken);
+	}
+
+	private static async IAsyncEnumerable<T> ReadPagesAsync<T>(
 		Func<CursorPageOptions, CancellationToken, Task<CursorPage<T>>> getPage,
 		int pageSize,
 		[EnumeratorCancellation] CancellationToken cancellationToken)
 	{
-		ArgumentNullException.ThrowIfNull(getPage);
-		ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
 		string? cursor = null;
 		var number = 0;
 		var more = true;
