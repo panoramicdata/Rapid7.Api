@@ -1,0 +1,24 @@
+# Categories (docs/endpoints/<name>.md) still being implemented. InventoryTests requires every
+# non-deprecated row of any category NOT listed here to name a client method and a test.
+administration
+asset
+asset-discovery
+asset-group
+bulk-export
+cloud-integrations
+credential
+policy
+policy-override
+remediation
+report
+root
+scan
+scan-engine
+scan-template
+site
+tag
+user
+vulnerability
+vulnerability-check
+vulnerability-exception
+vulnerability-result

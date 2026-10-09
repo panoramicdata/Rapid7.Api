@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NeutralResourcesLanguage>en</NeutralResourcesLanguage>
+		<!-- RF006: Refit's source generator falls back to the reflection request builder for some
+		     signatures. The Rapid7 clients create their clients with RestService.For<T>(), which the diagnostic
+		     permits; this library is not trimmed or AOT-published. -->
+		<NoWarn>$(NoWarn);RF006</NoWarn>
+
+		<PackageId>Rapid7.Api</PackageId>
+		<Owners>Panoramic Data Limited</Owners>
+		<PackageProjectUrl>https://github.com/panoramicdata/Rapid7.Api</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/panoramicdata/Rapid7.Api</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>Icon.png</PackageIcon>
+		<Description>A typed, modern .NET client for Rapid7 InsightVM: the Security Console REST API v3 (sites, assets, scans, vulnerabilities, policies, reports, users, tags and more), the Cloud Integrations API v4 and the Bulk Export GraphQL API.</Description>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageTags>Rapid7;InsightVM;Nexpose;VulnerabilityManagement;Security;REST;GraphQL;PanoramicData</PackageTags>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+		<PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" />
+		<PackageReference Include="Refit" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="Icon.png" Pack="true" PackagePath="" />
+		<None Include="..\README.md" Link="README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Rapid7.Api.Test" />
+	</ItemGroup>
+
+</Project>
