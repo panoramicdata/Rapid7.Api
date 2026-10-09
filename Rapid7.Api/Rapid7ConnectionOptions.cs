@@ -94,7 +94,7 @@ public abstract class Rapid7ConnectionOptions
 	private protected static Uri BaseAddressOf(string baseUrl)
 	{
 		var text = new Uri(baseUrl.Trim(), UriKind.Absolute).AbsoluteUri;
-		return new Uri(text.EndsWith('/') ? text : text + '/');
+		return new Uri(UriPaths.WithTrailingSlash(text));
 	}
 
 	/// <summary>

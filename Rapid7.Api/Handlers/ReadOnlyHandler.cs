@@ -38,7 +38,7 @@ internal sealed class ReadOnlyHandler(Uri baseUri, Regex readOnlyPosts) : Delega
 	/// </summary>
 	internal static string? RelativePath(Uri baseUri, Uri requestUri)
 	{
-		var basePath = baseUri.AbsolutePath.EndsWith('/') ? baseUri.AbsolutePath : baseUri.AbsolutePath + '/';
+		var basePath = UriPaths.WithTrailingSlash(baseUri.AbsolutePath);
 		var path = requestUri.AbsolutePath;
 		return path.StartsWith(basePath, StringComparison.Ordinal) ? path[basePath.Length..].TrimEnd('/') : null;
 	}
