@@ -61,7 +61,7 @@ public interface IAssetDetails
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/assets/{assetId}/tags/{tagId}")]
-	Task<Links> AddTagAsync(long assetId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> AddTagAsync(long assetId, int tagId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes a tag applied directly to an asset (<c>DELETE api/3/assets/{id}/tags/{tagId}</c>). A tag applied through a
@@ -72,5 +72,5 @@ public interface IAssetDetails
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/assets/{assetId}/tags/{tagId}")]
-	Task<Links> RemoveTagAsync(long assetId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveTagAsync(long assetId, int tagId, CancellationToken cancellationToken);
 }

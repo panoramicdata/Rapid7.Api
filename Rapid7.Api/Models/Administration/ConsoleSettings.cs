@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Administration;
 
 /// <summary>The console's administration settings (<c>GET api/3/administration/settings</c>).</summary>
-public sealed class ConsoleSettings : Links
+public sealed class ConsoleSettings : LinksResource
 {
 	/// <summary>The unique identifier (UUID) of the console.</summary>
 	[JsonPropertyName("uuid")]

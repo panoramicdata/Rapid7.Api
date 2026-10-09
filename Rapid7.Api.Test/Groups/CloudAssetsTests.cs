@@ -66,8 +66,8 @@ public class CloudAssetsTests
 		page.Metadata.Cursor.Should().Be("cursor-1");
 		page.Metadata.EffectiveTime.Should().Be(new DateTimeOffset(2024, 1, 25, 0, 0, 0, TimeSpan.Zero));
 		page.EffectiveTime.Should().Be(new DateTimeOffset(2024, 1, 26, 0, 0, 0, TimeSpan.Zero));
-		page.Items.Should().HaveCount(2);
-		page.Items[1].Rel.Should().Be("next");
+		page.Links.Should().HaveCount(2);
+		page.Links[1].Rel.Should().Be("next");
 		AssertAsset(page.Data[0]);
 	}
 

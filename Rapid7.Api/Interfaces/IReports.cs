@@ -37,14 +37,14 @@ public interface IReports
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/reports/{id}")]
-	Task<Links> UpdateAsync(int id, [Body] ReportConfiguration report, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int id, [Body] ReportConfiguration report, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a report configuration and its generated instances (<c>DELETE api/3/reports/{id}</c>).</summary>
 	/// <param name="id">The identifier of the report.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/reports/{id}")]
-	Task<Links> DeleteAsync(int id, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int id, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Starts generating a report (<c>POST api/3/reports/{id}/generate</c>). Generation runs in the background, and the

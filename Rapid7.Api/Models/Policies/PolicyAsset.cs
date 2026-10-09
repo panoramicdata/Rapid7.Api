@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>An asset's compliance with a policy, policy group or policy rule.</summary>
-public sealed class PolicyAsset : Links
+public sealed class PolicyAsset : LinksResource
 {
 	/// <summary>The identifier of the asset.</summary>
 	[JsonPropertyName("id")]

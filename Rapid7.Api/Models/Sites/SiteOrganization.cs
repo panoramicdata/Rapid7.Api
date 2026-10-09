@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Sites;
 
 /// <summary>The organization a site belongs to and its contact details, as shown in reports.</summary>
-public sealed class SiteOrganization : Links
+public sealed class SiteOrganization : LinksResource
 {
 	/// <summary>The organization name.</summary>
 	[JsonPropertyName("name")]

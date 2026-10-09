@@ -60,7 +60,7 @@ public class SiteScanSchedulesTests
 		var list = await TestClient.ReadAsync((c, ct) => c.SiteScanSchedules.ListAsync(SiteFixtures.SiteId, ct), ListJson);
 
 		ShouldBeMonthlyAudit(list.Resources.Should().ContainSingle().Subject);
-		list.Items.Should().ContainSingle();
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -176,6 +176,6 @@ public class SiteScanSchedulesTests
 		schedule.Assets.IncludedAssetGroups!.AssetGroupIds.Should().Equal(61);
 		schedule.Assets.ExcludedAssetGroups!.AssetGroupIds.Should().Equal(62);
 		schedule.NextRuntimes.Should().Equal("2026-11-08T04:30:00Z", "2026-12-13T04:30:00Z");
-		schedule.Items.Should().ContainSingle();
+		schedule.Links.Should().ContainSingle();
 	}
 }

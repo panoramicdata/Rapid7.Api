@@ -7,7 +7,7 @@ namespace Rapid7.Api.Models;
 /// next and last pages. Read every page with <see cref="Rapid7Paging"/>.
 /// </summary>
 /// <typeparam name="T">The resource type.</typeparam>
-public sealed class Page<T> : Links
+public sealed class Page<T> : LinksResource
 {
 	/// <summary>The resources on this page.</summary>
 	[JsonPropertyName("resources")]

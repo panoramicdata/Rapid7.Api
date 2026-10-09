@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Users;
 
 /// <summary>A source that authenticates user accounts, such as the console itself, LDAP, Kerberos or SAML.</summary>
-public sealed class AuthenticationSource : Links
+public sealed class AuthenticationSource : LinksResource
 {
 	/// <summary>The identifier of the source.</summary>
 	[JsonPropertyName("id")]

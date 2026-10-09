@@ -55,7 +55,7 @@ public class SiteAssetsTests
 		page.PageInfo!.Number.Should().Be(1);
 		page.PageInfo.TotalPages.Should().Be(3);
 		page.PageInfo.TotalResources.Should().Be(3);
-		page.Items.Should().ContainSingle();
+		page.Links.Should().ContainSingle();
 	}
 
 	[Fact]

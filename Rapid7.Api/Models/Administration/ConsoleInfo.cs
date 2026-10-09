@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Administration;
 
 /// <summary>The Security Console host and installation: CPU, memory, disk, JVM and version (<c>GET api/3/administration/info</c>).</summary>
-public sealed class ConsoleInfo : Links
+public sealed class ConsoleInfo : LinksResource
 {
 	/// <summary>The local host name of the console.</summary>
 	[JsonPropertyName("host")]

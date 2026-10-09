@@ -44,7 +44,7 @@ public interface IPolicyOverrides
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/policy_overrides/{id}")]
-	Task<Links> DeleteAsync(long id, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(long id, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Recalls, approves or rejects a policy override, without a comment (<c>POST api/3/policy_overrides/{id}/{status}</c>).
@@ -80,5 +80,5 @@ public interface IPolicyOverrides
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/policy_overrides/{id}/expires")]
-	Task<Links> SetExpirationAsync(long id, [Body] DateTimeOffset expires, CancellationToken cancellationToken);
+	Task<LinksResource> SetExpirationAsync(long id, [Body] DateTimeOffset expires, CancellationToken cancellationToken);
 }

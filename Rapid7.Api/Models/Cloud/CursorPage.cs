@@ -8,7 +8,7 @@ namespace Rapid7.Api.Models.Cloud;
 /// <see cref="Rapid7CursorPaging"/>.
 /// </summary>
 /// <typeparam name="T">The resource type.</typeparam>
-public sealed class CursorPage<T> : Links
+public sealed class CursorPage<T> : LinksResource
 {
 	/// <summary>The resources on this page.</summary>
 	[JsonPropertyName("data")]

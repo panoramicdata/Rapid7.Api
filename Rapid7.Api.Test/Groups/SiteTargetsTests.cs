@@ -47,7 +47,7 @@ public class SiteTargetsTests
 		var targets = await TestClient.ReadAsync((c, ct) => c.SiteTargets.GetIncludedTargetsAsync(7, ct), TargetsJson);
 
 		targets.Addresses.Should().Equal("10.0.0.0/24", "10.0.1.1 - 10.0.1.9", "host.example.test", "fe80::1");
-		targets.Items.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/included_targets");
+		targets.Links.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/included_targets");
 	}
 
 	[Fact]
@@ -135,7 +135,7 @@ public class SiteTargetsTests
 		group.Assets.Should().Be(768);
 		group.RiskScore.Should().Be(4457823.78);
 		group.Links.Should().ContainSingle().Which.Href.Should().EndWith("/asset_groups/61");
-		list.Items.Should().ContainSingle();
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]

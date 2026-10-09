@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Reports;
 
 /// <summary>A report template.</summary>
-public sealed class ReportTemplate : Links
+public sealed class ReportTemplate : LinksResource
 {
 	/// <summary>The identifier of the template, such as <c>audit-report</c>.</summary>
 	[JsonPropertyName("id")]

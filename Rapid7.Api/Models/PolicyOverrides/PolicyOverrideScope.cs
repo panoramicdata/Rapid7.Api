@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.PolicyOverrides;
 
 /// <summary>What a policy override applies to.</summary>
-public sealed class PolicyOverrideScope : Links
+public sealed class PolicyOverrideScope : LinksResource
 {
 	/// <summary>The identifier of the policy rule.</summary>
 	[JsonPropertyName("rule")]

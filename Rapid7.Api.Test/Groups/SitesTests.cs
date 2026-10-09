@@ -63,7 +63,7 @@ public class SitesTests
 		page.Resources[1].Vulnerabilities.Should().BeNull();
 		page.PageInfo!.Number.Should().Be(1);
 		page.PageInfo.TotalResources.Should().Be(7);
-		page.Items.Should().ContainSingle();
+		page.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -189,6 +189,6 @@ public class SitesTests
 		site.Vulnerabilities.Moderate.Should().Be(3);
 		site.Vulnerabilities.Severe.Should().Be(76);
 		site.Vulnerabilities.Total.Should().Be(95);
-		site.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7");
+		site.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/sites/7");
 	}
 }

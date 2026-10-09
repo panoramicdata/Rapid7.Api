@@ -44,7 +44,7 @@ public class SiteDiscoveryTests
 		connection.Id.Should().Be(3);
 		connection.Name.Should().Be("Corporate vCenter");
 		connection.Type.Should().Be(DiscoveryConnectionType.VSphere);
-		connection.Items.Should().ContainSingle().Which.Href.Should().EndWith("/discovery_connections/3");
+		connection.Links.Should().ContainSingle().Which.Href.Should().EndWith("/discovery_connections/3");
 	}
 
 	[Theory]

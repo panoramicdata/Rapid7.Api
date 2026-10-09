@@ -42,12 +42,12 @@ public interface IScanTemplates
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the template.</returns>
 	[Put("api/3/scan_templates/{templateId}")]
-	Task<Links> UpdateAsync(string templateId, [Body] ScanTemplate scanTemplate, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(string templateId, [Body] ScanTemplate scanTemplate, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a custom scan template (<c>DELETE api/3/scan_templates/{id}</c>).</summary>
 	/// <param name="templateId">The template identifier.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/scan_templates/{templateId}")]
-	Task<Links> DeleteAsync(string templateId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(string templateId, CancellationToken cancellationToken);
 }

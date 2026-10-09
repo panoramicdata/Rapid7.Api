@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>Counts of compliance results: the total, and how many passed, failed or were not applicable.</summary>
-public class PolicyResultCounts : Links
+public class PolicyResultCounts : LinksResource
 {
 	/// <summary>The total number counted.</summary>
 	[JsonPropertyName("total")]

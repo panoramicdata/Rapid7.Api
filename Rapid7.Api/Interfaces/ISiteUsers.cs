@@ -26,7 +26,7 @@ public interface ISiteUsers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/users")]
-	Task<Links> ReplaceAllAsync(int siteId, [Body] IEnumerable<int> userIds, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceAllAsync(int siteId, [Body] IEnumerable<int> userIds, CancellationToken cancellationToken);
 
 	/// <summary>Grants a user access to the site (<c>POST api/3/sites/{id}/users</c>; the body is the bare user identifier).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -42,5 +42,5 @@ public interface ISiteUsers
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/users/{userId}")]
-	Task<Links> RemoveAsync(int siteId, int userId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAsync(int siteId, int userId, CancellationToken cancellationToken);
 }

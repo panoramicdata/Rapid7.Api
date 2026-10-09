@@ -90,7 +90,7 @@ public class AssetsTests
 			CreatedJson);
 
 		created.Id.Should().Be(282L);
-		created.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 
 	[Fact]

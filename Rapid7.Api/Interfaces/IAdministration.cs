@@ -42,7 +42,7 @@ public interface IAdministration
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Post("api/3/administration/license")]
-	Task<Links> ActivateLicenseAsync([Query][AliasAs("key")] string key, CancellationToken cancellationToken);
+	Task<LinksResource> ActivateLicenseAsync([Query][AliasAs("key")] string key, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Licenses the console with a licence (<c>.lic</c>) file, sent as the <c>license</c> part of a
@@ -54,7 +54,7 @@ public interface IAdministration
 	/// <returns>Related links.</returns>
 	[Multipart]
 	[Post("api/3/administration/license")]
-	Task<Links> UploadLicenseAsync([AliasAs("license")] StreamPart license, CancellationToken cancellationToken);
+	Task<LinksResource> UploadLicenseAsync([AliasAs("license")] StreamPart license, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Downloads console logs as one zip archive (<c>GET api/3/administration/logs</c>). The caller disposes the returned

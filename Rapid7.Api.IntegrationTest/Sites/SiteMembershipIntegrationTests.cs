@@ -62,7 +62,7 @@ public class SiteMembershipIntegrationTests(Rapid7Fixture fixture)
 
 		var connection = await fixture.Client.SiteDiscovery.GetConnectionAsync(site.Id, ct);
 
-		connection.Items.Should().NotBeEmpty();
+		connection.Links.Should().NotBeEmpty();
 	}
 
 	[Fact]

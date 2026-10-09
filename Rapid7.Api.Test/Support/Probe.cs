@@ -14,7 +14,7 @@ public interface IProbe
 	Task<CreatedReference<int>> CreateAsync(string name, [Body] Probe body, CancellationToken cancellationToken);
 
 	[Put("api/3/probe/{name}")]
-	Task<Links> UpdateAsync(string name, [Body] Probe body, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(string name, [Body] Probe body, CancellationToken cancellationToken);
 
 	[Get("api/3/probe/{name}")]
 	[Headers("Accept: text/csv")]

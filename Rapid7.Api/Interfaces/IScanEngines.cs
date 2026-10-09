@@ -40,7 +40,7 @@ public interface IScanEngines
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the engine.</returns>
 	[Put("api/3/scan_engines/{engineId}")]
-	Task<Links> UpdateAsync(int engineId, [Body] ScanEngineRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int engineId, [Body] ScanEngineRequest request, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes a scan engine from the console (<c>DELETE api/3/scan_engines/{id}</c>). Sites that scan with it must be
@@ -50,7 +50,7 @@ public interface IScanEngines
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/scan_engines/{engineId}")]
-	Task<Links> DeleteAsync(int engineId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int engineId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the engine pools a scan engine belongs to (<c>GET api/3/scan_engines/{id}/scan_engine_pools</c>).</summary>
 	/// <param name="engineId">The scan engine identifier.</param>

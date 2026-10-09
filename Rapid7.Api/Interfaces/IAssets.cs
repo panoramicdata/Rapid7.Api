@@ -39,7 +39,7 @@ public interface IAssets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/assets/{assetId}")]
-	Task<Links> DeleteAsync(long assetId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(long assetId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Imports an asset into a site from an external source (<c>POST api/3/sites/{id}/assets</c>): the console creates the

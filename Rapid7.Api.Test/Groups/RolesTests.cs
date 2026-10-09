@@ -21,7 +21,7 @@ public class RolesTests
 		var roles = await TestClient.ReadAsync((c, ct) => c.Roles.ListAsync(ct), UserJson.Roles);
 
 		ShouldBeTheAuditor(roles.Resources.Should().ContainSingle().Subject);
-		roles.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/roles");
+		roles.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/roles");
 	}
 
 	[Fact]
@@ -108,6 +108,6 @@ public class RolesTests
 		role.Description.Key.Should().BeNull();
 		role.Description.Arguments.Should().BeEmpty();
 		role.Privileges.Should().Equal("view-site-asset-data");
-		role.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		role.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 }

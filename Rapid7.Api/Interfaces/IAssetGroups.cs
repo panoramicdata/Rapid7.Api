@@ -38,14 +38,14 @@ public interface IAssetGroups
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/asset_groups/{assetGroupId}")]
-	Task<Links> UpdateAsync(int assetGroupId, [Body] AssetGroupRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int assetGroupId, [Body] AssetGroupRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes an asset group; its assets are not deleted (<c>DELETE api/3/asset_groups/{id}</c>).</summary>
 	/// <param name="assetGroupId">The identifier of the group.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/asset_groups/{assetGroupId}")]
-	Task<Links> DeleteAsync(int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Reads the search criteria of an asset group (<c>GET api/3/asset_groups/{id}/search_criteria</c>).</summary>
 	/// <param name="assetGroupId">The identifier of the group.</param>
@@ -63,5 +63,5 @@ public interface IAssetGroups
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/asset_groups/{assetGroupId}/search_criteria")]
-	Task<Links> SetSearchCriteriaAsync(int assetGroupId, [Body] SearchCriteria criteria, CancellationToken cancellationToken);
+	Task<LinksResource> SetSearchCriteriaAsync(int assetGroupId, [Body] SearchCriteria criteria, CancellationToken cancellationToken);
 }

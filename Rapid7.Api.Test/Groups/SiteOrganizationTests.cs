@@ -46,7 +46,7 @@ public class SiteOrganizationTests
 		organization.State.Should().Be("Greater London");
 		organization.ZipCode.Should().Be("N1 1AA");
 		organization.Country.Should().Be("United Kingdom");
-		organization.Items.Should().ContainSingle();
+		organization.Links.Should().ContainSingle();
 	}
 
 	[Fact]

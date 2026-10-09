@@ -40,8 +40,8 @@ public class SiteTagsTests
 		tag.Id.Should().Be(6);
 		tag.Name.Should().Be("My Custom Tag");
 		tag.Created.Should().Be(new DateTimeOffset(2017, 10, 7, 23, 50, 1, 205, TimeSpan.Zero));
-		tag.Items.Should().ContainSingle().Which.Href.Should().EndWith("/tags/6");
-		list.Items.Should().ContainSingle();
+		tag.Links.Should().ContainSingle().Which.Href.Should().EndWith("/tags/6");
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]

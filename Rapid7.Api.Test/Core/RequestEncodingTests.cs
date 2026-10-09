@@ -45,7 +45,7 @@ public class RequestEncodingTests
 
 		stub.Calls[0].ShouldBe(HttpMethod.Post, "/api/3/probe/a%2Fb%20c", body: """{"name":"x","enabled":false}""");
 		created.Id.Should().Be(42);
-		created.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 
 	[Fact]

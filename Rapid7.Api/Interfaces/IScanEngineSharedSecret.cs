@@ -34,7 +34,7 @@ public interface IScanEngineSharedSecret
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/scan_engines/shared_secret")]
-	Task<Links> RevokeAsync(CancellationToken cancellationToken);
+	Task<LinksResource> RevokeAsync(CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Gets how many seconds the current shared secret remains valid

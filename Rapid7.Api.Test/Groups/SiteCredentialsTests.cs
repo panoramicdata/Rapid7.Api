@@ -77,7 +77,7 @@ public class SiteCredentialsTests
 
 		var credential = list.Resources.Should().ContainSingle().Subject;
 		ShouldBeTheScannerCredential(credential);
-		list.Items.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/site_credentials");
+		list.Links.Should().ContainSingle().Which.Href.Should().EndWith("/sites/7/site_credentials");
 	}
 
 	[Fact]
@@ -104,7 +104,7 @@ public class SiteCredentialsTests
 			"""{"id":17,"links":[{"href":"https://console.test:3780/api/3/sites/7/site_credentials/17","rel":"self"}]}""");
 
 		created.Id.Should().Be(17);
-		created.Items.Should().ContainSingle().Which.Href.Should().EndWith("/site_credentials/17");
+		created.Links.Should().ContainSingle().Which.Href.Should().EndWith("/site_credentials/17");
 	}
 
 	[Fact]
@@ -173,8 +173,8 @@ public class SiteCredentialsTests
 		shared.Id.Should().Be(21);
 		shared.Name.Should().Be("Domain admin");
 		shared.Service.Should().Be(CredentialService.Cifs);
-		shared.Items.Should().ContainSingle().Which.Href.Should().EndWith("/shared_credentials/21");
-		list.Items.Should().ContainSingle();
+		shared.Links.Should().ContainSingle().Which.Href.Should().EndWith("/shared_credentials/21");
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]

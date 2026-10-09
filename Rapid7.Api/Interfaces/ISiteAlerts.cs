@@ -23,7 +23,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Delete("api/3/sites/{siteId}/alerts")]
-	Task<Links> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Lists a site's SMTP (email) alerts (<c>GET api/3/sites/{id}/alerts/smtp</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -40,7 +40,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's SMTP alerts.</returns>
 	[Put("api/3/sites/{siteId}/alerts/smtp")]
-	Task<Links> ReplaceSmtpAsync(int siteId, [Body] IEnumerable<SmtpAlert> alerts, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceSmtpAsync(int siteId, [Body] IEnumerable<SmtpAlert> alerts, CancellationToken cancellationToken);
 
 	/// <summary>Adds an SMTP alert to a site (<c>POST api/3/sites/{id}/alerts/smtp</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -55,7 +55,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/smtp")]
-	Task<Links> DeleteAllSmtpAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllSmtpAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Reads one of a site's SMTP alerts (<c>GET api/3/sites/{id}/alerts/smtp/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -72,7 +72,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the alert.</returns>
 	[Put("api/3/sites/{siteId}/alerts/smtp/{alertId}")]
-	Task<Links> UpdateSmtpAsync(int siteId, int alertId, [Body] SmtpAlert alert, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateSmtpAsync(int siteId, int alertId, [Body] SmtpAlert alert, CancellationToken cancellationToken);
 
 	/// <summary>Deletes one of a site's SMTP alerts (<c>DELETE api/3/sites/{id}/alerts/smtp/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -80,7 +80,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's SMTP alerts.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/smtp/{alertId}")]
-	Task<Links> DeleteSmtpAsync(int siteId, int alertId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteSmtpAsync(int siteId, int alertId, CancellationToken cancellationToken);
 
 	/// <summary>Lists a site's SNMP alerts (<c>GET api/3/sites/{id}/alerts/snmp</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -97,7 +97,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's SNMP alerts.</returns>
 	[Put("api/3/sites/{siteId}/alerts/snmp")]
-	Task<Links> ReplaceSnmpAsync(int siteId, [Body] IEnumerable<SnmpAlert> alerts, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceSnmpAsync(int siteId, [Body] IEnumerable<SnmpAlert> alerts, CancellationToken cancellationToken);
 
 	/// <summary>Adds an SNMP alert to a site (<c>POST api/3/sites/{id}/alerts/snmp</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -112,7 +112,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/snmp")]
-	Task<Links> DeleteAllSnmpAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllSnmpAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Reads one of a site's SNMP alerts (<c>GET api/3/sites/{id}/alerts/snmp/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -129,7 +129,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the alert.</returns>
 	[Put("api/3/sites/{siteId}/alerts/snmp/{alertId}")]
-	Task<Links> UpdateSnmpAsync(int siteId, int alertId, [Body] SnmpAlert alert, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateSnmpAsync(int siteId, int alertId, [Body] SnmpAlert alert, CancellationToken cancellationToken);
 
 	/// <summary>Deletes one of a site's SNMP alerts (<c>DELETE api/3/sites/{id}/alerts/snmp/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -137,7 +137,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's SNMP alerts.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/snmp/{alertId}")]
-	Task<Links> DeleteSnmpAsync(int siteId, int alertId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteSnmpAsync(int siteId, int alertId, CancellationToken cancellationToken);
 
 	/// <summary>Lists a site's syslog alerts (<c>GET api/3/sites/{id}/alerts/syslog</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -154,7 +154,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's syslog alerts.</returns>
 	[Put("api/3/sites/{siteId}/alerts/syslog")]
-	Task<Links> ReplaceSyslogAsync(int siteId, [Body] IEnumerable<SyslogAlert> alerts, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceSyslogAsync(int siteId, [Body] IEnumerable<SyslogAlert> alerts, CancellationToken cancellationToken);
 
 	/// <summary>Adds a syslog alert to a site (<c>POST api/3/sites/{id}/alerts/syslog</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -169,7 +169,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/syslog")]
-	Task<Links> DeleteAllSyslogAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAllSyslogAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Reads one of a site's syslog alerts (<c>GET api/3/sites/{id}/alerts/syslog/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -186,7 +186,7 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the alert.</returns>
 	[Put("api/3/sites/{siteId}/alerts/syslog/{alertId}")]
-	Task<Links> UpdateSyslogAsync(int siteId, int alertId, [Body] SyslogAlert alert, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateSyslogAsync(int siteId, int alertId, [Body] SyslogAlert alert, CancellationToken cancellationToken);
 
 	/// <summary>Deletes one of a site's syslog alerts (<c>DELETE api/3/sites/{id}/alerts/syslog/{alertId}</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>
@@ -194,5 +194,5 @@ public interface ISiteAlerts
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's syslog alerts.</returns>
 	[Delete("api/3/sites/{siteId}/alerts/syslog/{alertId}")]
-	Task<Links> DeleteSyslogAsync(int siteId, int alertId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteSyslogAsync(int siteId, int alertId, CancellationToken cancellationToken);
 }

@@ -165,7 +165,7 @@ public class UsersTests
 		user.Email.Should().Be("jsmith@example.test");
 		user.Enabled.Should().BeTrue();
 		user.Locked.Should().BeFalse();
-		user.Items.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
+		user.Links.Should().ContainSingle().Which.Href.Should().Be("https://console.test:3780/api/3/users/9");
 		user.Authentication!.Id.Should().Be(1);
 		user.Authentication.Name.Should().Be("Builtin Users");
 		user.Authentication.Type.Should().Be(AuthenticationSourceType.Normal);

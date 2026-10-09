@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>The benchmark a policy group or rule belongs to.</summary>
-public sealed class PolicyBenchmark : Links
+public sealed class PolicyBenchmark : LinksResource
 {
 	/// <summary>The name of the benchmark.</summary>
 	[JsonPropertyName("name")]

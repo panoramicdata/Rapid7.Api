@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Assets;
 
 /// <summary>A reference to a service on an asset: its protocol, port and network interface, with links to its details.</summary>
-public sealed class ServiceReference : Links
+public sealed class ServiceReference : LinksResource
 {
 	/// <summary>The network interface the service listens on, when known.</summary>
 	[JsonPropertyName("nic")]

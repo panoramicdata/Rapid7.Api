@@ -36,7 +36,7 @@ public interface IScans
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the scan.</returns>
 	[Post("api/3/scans/{scanId}/{status}")]
-	Task<Links> SetStatusAsync(long scanId, ScanStatusChange status, CancellationToken cancellationToken);
+	Task<LinksResource> SetStatusAsync(long scanId, ScanStatusChange status, CancellationToken cancellationToken);
 
 	/// <summary>Lists, a page at a time, the scans of one site (<c>GET api/3/sites/{id}/scans</c>).</summary>
 	/// <param name="siteId">The site identifier.</param>

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.ScanEngines;
 
 /// <summary>A scan engine paired with the Security Console.</summary>
-public sealed class ScanEngine : Links
+public sealed class ScanEngine : LinksResource
 {
 	/// <summary>The scan engine identifier.</summary>
 	[JsonPropertyName("id")]

@@ -26,7 +26,7 @@ public interface IRoles
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the role.</returns>
 	[Put("api/3/roles/{id}")]
-	Task<Links> UpdateAsync(string id, [Body] RoleRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(string id, [Body] RoleRequest request, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Deletes a role (<c>DELETE api/3/roles/{id}</c>). Built-in roles, and roles assigned to any user, cannot be deleted.
@@ -35,7 +35,7 @@ public interface IRoles
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Related links.</returns>
 	[Delete("api/3/roles/{id}")]
-	Task<Links> DeleteAsync(string id, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(string id, CancellationToken cancellationToken);
 
 	/// <summary>Lists the users assigned a role (<c>GET api/3/roles/{id}/users</c>).</summary>
 	/// <param name="id">The identifier of the role.</param>

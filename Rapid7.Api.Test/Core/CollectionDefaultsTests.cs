@@ -73,12 +73,12 @@ public class CollectionDefaultsTests
 		var list = JsonSerializer.Deserialize<ResourceList<string>>("""{"links":null,"resources":null}""", Rapid7Json.Options)!;
 		var created = JsonSerializer.Deserialize<CreatedReference<string>>("""{"id":"abc","links":null}""", Rapid7Json.Options)!;
 
-		page.Items.Should().BeEmpty();
+		page.Links.Should().BeEmpty();
 		page.Resources.Should().BeEmpty();
 		page.PageInfo.Should().BeNull();
-		list.Items.Should().BeEmpty();
+		list.Links.Should().BeEmpty();
 		list.Resources.Should().BeEmpty();
 		created.Id.Should().Be("abc");
-		created.Items.Should().BeEmpty();
+		created.Links.Should().BeEmpty();
 	}
 }

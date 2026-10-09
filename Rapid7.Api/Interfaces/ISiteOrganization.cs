@@ -23,5 +23,5 @@ public interface ISiteOrganization
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the organization details.</returns>
 	[Put("api/3/sites/{siteId}/organization")]
-	Task<Links> UpdateAsync(int siteId, [Body] SiteOrganization organization, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int siteId, [Body] SiteOrganization organization, CancellationToken cancellationToken);
 }

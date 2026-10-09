@@ -34,7 +34,7 @@ public class CloudSitesTests
 		page.Data.Should().OnlyContain(s => s.Type == "SITE");
 		page.Metadata!.Cursor.Should().Be("-760687744:::_S:::lab");
 		page.Metadata.TotalPages.Should().Be(1);
-		page.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		page.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 
 	[Fact]

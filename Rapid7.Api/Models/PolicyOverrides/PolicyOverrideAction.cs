@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.PolicyOverrides;
 
 /// <summary>The submission or review of a policy override: who acted, when, and their comment.</summary>
-public sealed class PolicyOverrideAction : Links
+public sealed class PolicyOverrideAction : LinksResource
 {
 	/// <summary>The comment (at most 1024 characters).</summary>
 	[JsonPropertyName("comment")]

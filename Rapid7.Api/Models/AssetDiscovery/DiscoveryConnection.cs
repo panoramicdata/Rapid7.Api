@@ -6,7 +6,7 @@ namespace Rapid7.Api.Models.AssetDiscovery;
 /// A discovery connection: a link to an external source (such as VMware vSphere, AWS, Active Directory, DHCP or an
 /// Exchange server) that the console discovers assets through. Which properties are set depends on the connection type.
 /// </summary>
-public sealed class DiscoveryConnection : Links
+public sealed class DiscoveryConnection : LinksResource
 {
 	/// <summary>The AWS access key identifier, for an AWS connection.</summary>
 	[JsonPropertyName("accessKeyId")]

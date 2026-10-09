@@ -30,8 +30,8 @@ public class RolesAndPrivilegesIntegrationTests(Rapid7Fixture fixture)
 		var users = await fixture.Client.Privileges.ListUsersAsync("all-permissions", Ct);
 
 		privileges.Resources.Should().Contain("all-permissions");
-		links.Items.Should().NotBeEmpty();
-		users.Items.Should().NotBeEmpty();
+		links.Links.Should().NotBeEmpty();
+		users.Links.Should().NotBeEmpty();
 	}
 
 	[Fact]
@@ -45,6 +45,6 @@ public class RolesAndPrivilegesIntegrationTests(Rapid7Fixture fixture)
 
 		source.Name.Should().Be(first.Name);
 		source.Type.Should().NotBe(Models.Users.AuthenticationSourceType.Unknown);
-		users.Items.Should().NotBeEmpty();
+		users.Links.Should().NotBeEmpty();
 	}
 }

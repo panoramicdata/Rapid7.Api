@@ -34,7 +34,7 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/included_targets")]
-	Task<Links> ReplaceIncludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceIncludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes targets from the site's included targets (<c>DELETE api/3/sites/{id}/included_targets</c>; unusually, the
@@ -45,7 +45,7 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/included_targets")]
-	Task<Links> RemoveIncludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveIncludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
 
 	/// <summary>Gets the site's excluded targets (<c>GET api/3/sites/{id}/excluded_targets</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -68,7 +68,7 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/excluded_targets")]
-	Task<Links> ReplaceExcludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceExcludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes targets from the site's excluded targets (<c>DELETE api/3/sites/{id}/excluded_targets</c>; unusually, the
@@ -79,7 +79,7 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/excluded_targets")]
-	Task<Links> RemoveExcludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveExcludedTargetsAsync(int siteId, [Body] IEnumerable<string> addresses, CancellationToken cancellationToken);
 
 	/// <summary>Lists the asset groups the site includes (<c>GET api/3/sites/{id}/included_asset_groups</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -97,14 +97,14 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/included_asset_groups")]
-	Task<Links> ReplaceIncludedAssetGroupsAsync(int siteId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceIncludedAssetGroupsAsync(int siteId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
 
 	/// <summary>Removes every included asset group from the site (<c>DELETE api/3/sites/{id}/included_asset_groups</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/included_asset_groups")]
-	Task<Links> RemoveAllIncludedAssetGroupsAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllIncludedAssetGroupsAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Removes one asset group from those the site includes (<c>DELETE api/3/sites/{id}/included_asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -112,7 +112,7 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/included_asset_groups/{assetGroupId}")]
-	Task<Links> RemoveIncludedAssetGroupAsync(int siteId, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveIncludedAssetGroupAsync(int siteId, int assetGroupId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the asset groups the site excludes (<c>GET api/3/sites/{id}/excluded_asset_groups</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -130,14 +130,14 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/excluded_asset_groups")]
-	Task<Links> ReplaceExcludedAssetGroupsAsync(int siteId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceExcludedAssetGroupsAsync(int siteId, [Body] IEnumerable<int> assetGroupIds, CancellationToken cancellationToken);
 
 	/// <summary>Removes every excluded asset group from the site (<c>DELETE api/3/sites/{id}/excluded_asset_groups</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/excluded_asset_groups")]
-	Task<Links> RemoveAllExcludedAssetGroupsAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllExcludedAssetGroupsAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>Removes one asset group from those the site excludes (<c>DELETE api/3/sites/{id}/excluded_asset_groups/{assetGroupId}</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -145,5 +145,5 @@ public interface ISiteTargets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/excluded_asset_groups/{assetGroupId}")]
-	Task<Links> RemoveExcludedAssetGroupAsync(int siteId, int assetGroupId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveExcludedAssetGroupAsync(int siteId, int assetGroupId, CancellationToken cancellationToken);
 }

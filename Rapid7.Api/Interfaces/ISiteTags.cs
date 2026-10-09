@@ -23,7 +23,7 @@ public interface ISiteTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/tags")]
-	Task<Links> ReplaceAllAsync(int siteId, [Body] IEnumerable<int> tagIds, CancellationToken cancellationToken);
+	Task<LinksResource> ReplaceAllAsync(int siteId, [Body] IEnumerable<int> tagIds, CancellationToken cancellationToken);
 
 	/// <summary>Applies a tag to the site (<c>PUT api/3/sites/{id}/tags/{tagId}</c>, with no body).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -31,7 +31,7 @@ public interface ISiteTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/tags/{tagId}")]
-	Task<Links> AddAsync(int siteId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> AddAsync(int siteId, int tagId, CancellationToken cancellationToken);
 
 	/// <summary>Removes a tag from the site (<c>DELETE api/3/sites/{id}/tags/{tagId}</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -39,5 +39,5 @@ public interface ISiteTags
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/tags/{tagId}")]
-	Task<Links> RemoveAsync(int siteId, int tagId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAsync(int siteId, int tagId, CancellationToken cancellationToken);
 }

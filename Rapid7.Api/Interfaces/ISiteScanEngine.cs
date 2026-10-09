@@ -23,5 +23,5 @@ public interface ISiteScanEngine
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the site's scan engine.</returns>
 	[Put("api/3/sites/{siteId}/scan_engine")]
-	Task<Links> SetAsync(int siteId, [Body] int scanEngineId, CancellationToken cancellationToken);
+	Task<LinksResource> SetAsync(int siteId, [Body] int scanEngineId, CancellationToken cancellationToken);
 }

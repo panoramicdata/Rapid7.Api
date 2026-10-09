@@ -95,7 +95,7 @@ public class ScanEnginesTests
 		engine.IsAwsPreAuthorizedEngine.Should().BeFalse();
 		engine.LastRefreshedDate.Should().Be(new DateTimeOffset(2026, 9, 1, 10, 0, 0, TimeSpan.Zero));
 		engine.LastUpdatedDate.Should().Be(new DateTimeOffset(2026, 9, 2, 11, 30, 0, 500, TimeSpan.Zero));
-		engine.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		engine.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 
 	[Fact]
@@ -157,7 +157,7 @@ public class ScanEnginesTests
 		site.ScanEngine.Should().Be(2);
 		site.ScanTemplate.Should().Be("full-audit-without-web-spider");
 		site.Vulnerabilities!.Total.Should().Be(6);
-		site.Items.Should().ContainSingle();
+		site.Links.Should().ContainSingle();
 		page.PageInfo!.Number.Should().Be(1);
 	}
 

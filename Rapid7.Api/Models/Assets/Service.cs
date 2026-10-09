@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Assets;
 
 /// <summary>A service discovered on an asset, with what was enumerated through it.</summary>
-public sealed class Service : Links
+public sealed class Service : LinksResource
 {
 	/// <summary>Settings enumerated on the service, as name and value pairs.</summary>
 	[JsonPropertyName("configurations")]

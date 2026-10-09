@@ -127,7 +127,7 @@ public class TagsTests
 		tag.RiskModifier.Should().Be(2);
 		tag.SearchCriteria!.Match.Should().Be(SearchMatch.All);
 		tag.SearchCriteria.Filters.Should().HaveCount(3);
-		tag.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		tag.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 	}
 
 	[Fact]

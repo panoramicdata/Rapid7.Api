@@ -64,8 +64,8 @@ public class SiteWebAuthenticationTests
 		form.LoginUrl.Should().Be("http://intranet.example.test/login");
 		form.Name.Should().Be("Intranet logon");
 		form.Service.Should().Be(WebAuthenticationService.HtmlForm);
-		form.Items.Should().ContainSingle().Which.Href.Should().EndWith("/html_forms/4");
-		list.Items.Should().ContainSingle();
+		form.Links.Should().ContainSingle().Which.Href.Should().EndWith("/html_forms/4");
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -90,7 +90,7 @@ public class SiteWebAuthenticationTests
 		header.LoginRegularExpression.Should().Be("denied");
 		header.Name.Should().Be("Portal session");
 		header.Service.Should().Be(WebAuthenticationService.HttpHeader);
-		header.Items.Should().ContainSingle().Which.Href.Should().EndWith("/http_headers/5");
+		header.Links.Should().ContainSingle().Which.Href.Should().EndWith("/http_headers/5");
 		var bare = list.Resources[1];
 		bare.Service.Should().Be(WebAuthenticationService.Unknown);
 		bare.Headers.Should().BeEmpty();

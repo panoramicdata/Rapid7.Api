@@ -30,7 +30,7 @@ public class PoliciesTests
 		var page = await TestClient.ReadAsync((c, ct) => c.Policies.GetPoliciesAsync(null, ct), PolicyJson.PolicyPage);
 
 		page.PageInfo!.TotalResources.Should().Be(1);
-		page.Items.Should().ContainSingle().Which.Rel.Should().Be("self");
+		page.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
 		page.Resources.Should().ContainSingle().Which.ShouldBeExamplePolicy();
 	}
 
@@ -109,7 +109,7 @@ public class PoliciesTests
 		{
 			DecreasedCompliance = 1,
 			IncreasedCompliance = 2,
-			Items = new[] { new { Rel = "self" } },
+			Links = new[] { new { Rel = "self" } },
 			NumberOfPolicies = 120,
 			OverallCompliance = 0.81,
 			ScannedPolicies = 5

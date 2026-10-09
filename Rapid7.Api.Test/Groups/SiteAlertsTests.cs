@@ -96,7 +96,7 @@ public partial class SiteAlertsTests
 		snmp.MaximumAlerts.Should().Be(3);
 		snmp.Recipients.Should().BeEmpty();
 		list.Resources[2].Notification.Should().Be(AlertNotificationType.Syslog);
-		list.Items.Should().ContainSingle();
+		list.Links.Should().ContainSingle();
 	}
 
 	[Fact]
@@ -238,7 +238,7 @@ public partial class SiteAlertsTests
 		alert.EnabledVulnerabilityEvents.ConfirmedVulnerabilities.Should().BeTrue();
 		alert.EnabledVulnerabilityEvents.UnconfirmedVulnerabilities.Should().BeFalse();
 		alert.EnabledVulnerabilityEvents.PotentialVulnerabilities.Should().BeTrue();
-		alert.Items.Should().ContainSingle();
+		alert.Links.Should().ContainSingle();
 	}
 
 	private static void ShouldBeEmailTheTeam(SmtpAlert alert)

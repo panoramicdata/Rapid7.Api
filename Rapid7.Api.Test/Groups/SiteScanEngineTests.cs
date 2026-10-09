@@ -48,7 +48,7 @@ public class SiteScanEngineTests
 		engine.LastRefreshedDate.Should().Be(new DateTimeOffset(2026, 10, 1, 8, 0, 0, TimeSpan.Zero));
 		engine.LastUpdatedDate.Should().Be(new DateTimeOffset(2026, 9, 28, 3, 30, 0, TimeSpan.Zero));
 		engine.Sites.Should().Equal(7, 9);
-		engine.Items.Should().ContainSingle();
+		engine.Links.Should().ContainSingle();
 	}
 
 	[Theory]

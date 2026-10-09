@@ -27,7 +27,7 @@ public interface ISiteDiscovery
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/discovery_connection")]
-	Task<Links> SetConnectionAsync(int siteId, [Body] long discoveryConnectionId, CancellationToken cancellationToken);
+	Task<LinksResource> SetConnectionAsync(int siteId, [Body] long discoveryConnectionId, CancellationToken cancellationToken);
 
 	/// <summary>Gets the dynamic site's discovery search (<c>GET api/3/sites/{id}/discovery_search_criteria</c>).</summary>
 	/// <param name="siteId">The identifier of the site.</param>
@@ -42,5 +42,5 @@ public interface ISiteDiscovery
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Put("api/3/sites/{siteId}/discovery_search_criteria")]
-	Task<Links> SetSearchCriteriaAsync(int siteId, [Body] DiscoverySearchCriteria criteria, CancellationToken cancellationToken);
+	Task<LinksResource> SetSearchCriteriaAsync(int siteId, [Body] DiscoverySearchCriteria criteria, CancellationToken cancellationToken);
 }

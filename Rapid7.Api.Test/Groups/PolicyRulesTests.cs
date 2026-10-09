@@ -99,7 +99,7 @@ public class PolicyRulesTests
 			CcePlatform = "cpe:/o:example:example_server",
 			ControlName = "AC-7",
 			Id = "AC-7",
-			Items = Array.Empty<object>(),
+			Links = Array.Empty<object>(),
 			PublishedDate = 1388534400000L
 		});
 	}

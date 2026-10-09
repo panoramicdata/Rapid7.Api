@@ -36,14 +36,14 @@ public interface IScanEnginePools
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the pool.</returns>
 	[Put("api/3/scan_engine_pools/{poolId}")]
-	Task<Links> UpdateAsync(int poolId, [Body] EnginePoolRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(int poolId, [Body] EnginePoolRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes an engine pool; its engines stay paired (<c>DELETE api/3/scan_engine_pools/{id}</c>).</summary>
 	/// <param name="poolId">The engine pool identifier.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/scan_engine_pools/{poolId}")]
-	Task<Links> DeleteAsync(int poolId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(int poolId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the identifiers of the scan engines in a pool (<c>GET api/3/scan_engine_pools/{id}/engines</c>).</summary>
 	/// <param name="poolId">The engine pool identifier.</param>
@@ -60,7 +60,7 @@ public interface IScanEnginePools
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the pool's engines.</returns>
 	[Put("api/3/scan_engine_pools/{poolId}/engines")]
-	Task<Links> SetEnginesAsync(int poolId, [Body] IEnumerable<int> engineIds, CancellationToken cancellationToken);
+	Task<LinksResource> SetEnginesAsync(int poolId, [Body] IEnumerable<int> engineIds, CancellationToken cancellationToken);
 
 	/// <summary>Adds a scan engine to a pool (<c>PUT api/3/scan_engine_pools/{id}/engines/{engineId}</c>).</summary>
 	/// <param name="poolId">The engine pool identifier.</param>
@@ -68,7 +68,7 @@ public interface IScanEnginePools
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the pool and engine.</returns>
 	[Put("api/3/scan_engine_pools/{poolId}/engines/{engineId}")]
-	Task<Links> AddEngineAsync(int poolId, int engineId, CancellationToken cancellationToken);
+	Task<LinksResource> AddEngineAsync(int poolId, int engineId, CancellationToken cancellationToken);
 
 	/// <summary>Removes a scan engine from a pool (<c>DELETE api/3/scan_engine_pools/{id}/engines/{engineId}</c>).</summary>
 	/// <param name="poolId">The engine pool identifier.</param>
@@ -76,7 +76,7 @@ public interface IScanEnginePools
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the pool.</returns>
 	[Delete("api/3/scan_engine_pools/{poolId}/engines/{engineId}")]
-	Task<Links> RemoveEngineAsync(int poolId, int engineId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveEngineAsync(int poolId, int engineId, CancellationToken cancellationToken);
 
 	/// <summary>Lists the identifiers of the sites that scan with a pool (<c>GET api/3/scan_engine_pools/{id}/sites</c>).</summary>
 	/// <param name="poolId">The engine pool identifier.</param>

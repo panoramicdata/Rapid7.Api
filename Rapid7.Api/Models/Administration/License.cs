@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Administration;
 
 /// <summary>The console licence: its status, expiry, features and limits (<c>GET api/3/administration/license</c>).</summary>
-public sealed class License : Links
+public sealed class License : LinksResource
 {
 	/// <summary>The status of the licence.</summary>
 	[JsonPropertyName("status")]

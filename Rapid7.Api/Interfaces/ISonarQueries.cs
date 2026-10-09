@@ -33,14 +33,14 @@ public interface ISonarQueries
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Put("api/3/sonar_queries/{queryId}")]
-	Task<Links> UpdateAsync(long queryId, [Body] SonarQueryRequest request, CancellationToken cancellationToken);
+	Task<LinksResource> UpdateAsync(long queryId, [Body] SonarQueryRequest request, CancellationToken cancellationToken);
 
 	/// <summary>Deletes a Sonar query (<c>DELETE api/3/sonar_queries/{id}</c>).</summary>
 	/// <param name="queryId">The identifier of the query.</param>
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to related resources.</returns>
 	[Delete("api/3/sonar_queries/{queryId}")]
-	Task<Links> DeleteAsync(long queryId, CancellationToken cancellationToken);
+	Task<LinksResource> DeleteAsync(long queryId, CancellationToken cancellationToken);
 
 	/// <summary>Runs a saved Sonar query and lists the assets it discovers (<c>GET api/3/sonar_queries/{id}/assets</c>).</summary>
 	/// <param name="queryId">The identifier of the query.</param>

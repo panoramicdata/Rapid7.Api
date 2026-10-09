@@ -91,7 +91,7 @@ public class TagMembersTests
 		assets.Resources[0].Sources.Should().Equal(TaggedAssetSource.Tag, TaggedAssetSource.Site);
 		assets.Resources[1].Sources.Should().Equal(
 			TaggedAssetSource.AssetGroup, TaggedAssetSource.Criteria, TaggedAssetSource.Unknown, TaggedAssetSource.Unknown);
-		assets.Items.Should().ContainSingle();
+		assets.Links.Should().ContainSingle();
 	}
 
 	[Fact]

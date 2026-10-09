@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>A rule or group directly under a policy or policy group, with a summary of its results.</summary>
-public sealed class PolicyItem : Links
+public sealed class PolicyItem : LinksResource
 {
 	/// <summary>The identifier of the rule or group.</summary>
 	[JsonPropertyName("id")]

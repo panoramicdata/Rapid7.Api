@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Users;
 
 /// <summary>A role: a named set of privileges that users are assigned.</summary>
-public sealed class Role : Links
+public sealed class Role : LinksResource
 {
 	/// <summary>The identifier of the role, such as <c>global-admin</c>.</summary>
 	[JsonPropertyName("id")]

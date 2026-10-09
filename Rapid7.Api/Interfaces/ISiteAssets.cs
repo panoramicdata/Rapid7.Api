@@ -24,7 +24,7 @@ public interface ISiteAssets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/assets")]
-	Task<Links> RemoveAllAsync(int siteId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAllAsync(int siteId, CancellationToken cancellationToken);
 
 	/// <summary>
 	/// Removes one asset from the site (<c>DELETE api/3/sites/{id}/assets/{assetId}</c>); the asset is deleted only when it
@@ -35,5 +35,5 @@ public interface ISiteAssets
 	/// <param name="cancellationToken">A cancellation token.</param>
 	/// <returns>Links to the affected resources.</returns>
 	[Delete("api/3/sites/{siteId}/assets/{assetId}")]
-	Task<Links> RemoveAsync(int siteId, long assetId, CancellationToken cancellationToken);
+	Task<LinksResource> RemoveAsync(int siteId, long assetId, CancellationToken cancellationToken);
 }
