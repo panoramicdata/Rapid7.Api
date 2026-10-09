@@ -124,11 +124,12 @@ internal sealed class RetryHandler(ILogger? logger, TimeSpan timeout, int maxRet
 	private TimeSpan NextBackoff(TimeSpan backoff) => backoff > _maxRetryDelay / 2 ? _maxRetryDelay : backoff * 2;
 
 	/// <summary>
-	/// Whether the body can be sent again unchanged: none, or buffered content (form fields and JSON bodies are both
-	/// buffered). Streams are not, since they may be read-once.
+	/// Whether the body can be sent again unchanged: none, buffered content (strings, bytes, form fields), or a JSON body,
+	/// which Refit sends as <see cref="System.Net.Http.Json.JsonContent"/> and which serializes its value afresh on every
+	/// send. Streams are not, since they may be read-once.
 	/// </summary>
 	internal static bool IsReplayable(HttpContent? content)
-		=> content is null or ByteArrayContent or ReadOnlyMemoryContent;
+		=> content is null or ByteArrayContent or ReadOnlyMemoryContent or System.Net.Http.Json.JsonContent;
 
 	/// <summary>
 	/// 429 and 503 mean the request was not processed, so any verb is retried. Other 5xx may follow a partial or complete
