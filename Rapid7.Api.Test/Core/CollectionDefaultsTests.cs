@@ -1,0 +1,84 @@
+using Rapid7.Api.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace Rapid7.Api.Test.Core;
+
+/// <summary>A JSON <c>null</c> for a collection property keeps the model's <c>[]</c> default.</summary>
+public class CollectionDefaultsTests
+{
+	private sealed class Lists
+	{
+		[JsonPropertyName("list")]
+		public IReadOnlyList<string> List { get; init; } = [];
+
+		[JsonPropertyName("ilist")]
+		public IList<int> MutableList { get; init; } = [];
+
+		[JsonPropertyName("sequence")]
+		public IEnumerable<string> Sequence { get; init; } = [];
+
+		[JsonPropertyName("array")]
+		public string[] Array { get; init; } = [];
+
+		[JsonPropertyName("map")]
+		public IReadOnlyDictionary<string, string> Map { get; init; } = new Dictionary<string, string>();
+
+		[JsonPropertyName("unset")]
+		public IReadOnlyList<string>? Unset { get; init; }
+
+		[JsonPropertyName("text")]
+		public string? Text { get; init; } = "initial";
+
+		[JsonPropertyName("computed")]
+		public IReadOnlyList<string> Computed => List;
+	}
+
+	private static Lists Read(string json) => JsonSerializer.Deserialize<Lists>(json, Rapid7Json.Options)!;
+
+	[Fact]
+	public void Null_KeepsTheInitialiser()
+	{
+		var lists = Read("""{"list":null,"ilist":null,"sequence":null,"array":null,"map":null,"unset":null,"computed":null}""");
+
+		lists.List.Should().BeEmpty();
+		lists.MutableList.Should().BeEmpty();
+		lists.Sequence.Should().BeEmpty();
+		lists.Array.Should().BeEmpty();
+		lists.Map.Should().BeEmpty();
+		lists.Unset.Should().BeNull();
+	}
+
+	[Fact]
+	public void Values_AreStillRead()
+	{
+		var lists = Read("""{"list":["a"],"ilist":[1],"sequence":["s"],"array":["x"],"map":{"k":"v"},"unset":["u"]}""");
+
+		lists.List.Should().Equal("a");
+		lists.MutableList.Should().Equal(1);
+		lists.Sequence.Should().Equal("s");
+		lists.Array.Should().Equal("x");
+		lists.Map.Should().Equal(new Dictionary<string, string> { ["k"] = "v" });
+		lists.Unset.Should().Equal("u");
+	}
+
+	[Fact]
+	public void NullStrings_AreStillNull()
+		=> Read("""{"text":null}""").Text.Should().BeNull();
+
+	[Fact]
+	public void SharedModels_KeepTheirDefaults()
+	{
+		var page = JsonSerializer.Deserialize<Page<string>>("""{"links":null,"resources":null,"page":null}""", Rapid7Json.Options)!;
+		var list = JsonSerializer.Deserialize<ResourceList<string>>("""{"links":null,"resources":null}""", Rapid7Json.Options)!;
+		var created = JsonSerializer.Deserialize<CreatedReference<string>>("""{"id":"abc","links":null}""", Rapid7Json.Options)!;
+
+		page.Items.Should().BeEmpty();
+		page.Resources.Should().BeEmpty();
+		page.PageInfo.Should().BeNull();
+		list.Items.Should().BeEmpty();
+		list.Resources.Should().BeEmpty();
+		created.Id.Should().Be("abc");
+		created.Items.Should().BeEmpty();
+	}
+}
