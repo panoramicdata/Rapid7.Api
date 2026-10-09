@@ -1,7 +1,7 @@
+using System.Net;
 using Rapid7.Api.Models;
 using Rapid7.Api.Models.Users;
 using Rapid7.Api.Test.Support;
-using System.Net;
 
 namespace Rapid7.Api.Test.Groups;
 

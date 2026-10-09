@@ -1,5 +1,5 @@
-using Rapid7.Api.Test.Support;
 using System.Net;
+using Rapid7.Api.Test.Support;
 
 namespace Rapid7.Api.Test.Groups;
 

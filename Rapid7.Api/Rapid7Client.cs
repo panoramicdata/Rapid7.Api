@@ -1,6 +1,6 @@
+using System.Text.RegularExpressions;
 using Rapid7.Api.Handlers;
 using Refit;
-using System.Text.RegularExpressions;
 
 namespace Rapid7.Api;
 

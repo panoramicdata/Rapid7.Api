@@ -1,8 +1,8 @@
+using System.Net;
+using System.Text.Json.Serialization;
 using Rapid7.Api.Models;
 using Rapid7.Api.Test.Support;
 using Refit;
-using System.Net;
-using System.Text.Json.Serialization;
 
 namespace Rapid7.Api.Test.Core;
 

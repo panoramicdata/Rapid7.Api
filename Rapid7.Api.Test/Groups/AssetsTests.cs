@@ -1,8 +1,8 @@
+using System.Net;
+using System.Text.Json;
 using Rapid7.Api.Models;
 using Rapid7.Api.Models.Assets;
 using Rapid7.Api.Test.Support;
-using System.Net;
-using System.Text.Json;
 using static Rapid7.Api.Test.Groups.AssetSamples;
 
 namespace Rapid7.Api.Test.Groups;

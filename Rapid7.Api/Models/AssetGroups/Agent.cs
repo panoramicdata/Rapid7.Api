@@ -1,5 +1,5 @@
-using Rapid7.Api.Models.Assets;
 using System.Text.Json.Serialization;
+using Rapid7.Api.Models.Assets;
 
 namespace Rapid7.Api.Models.AssetGroups;
 

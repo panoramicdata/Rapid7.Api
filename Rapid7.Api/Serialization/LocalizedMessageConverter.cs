@@ -1,6 +1,6 @@
-using Rapid7.Api.Models.Users;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Rapid7.Api.Models.Users;
 
 namespace Rapid7.Api.Serialization;
 

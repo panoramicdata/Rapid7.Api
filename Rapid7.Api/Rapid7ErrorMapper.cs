@@ -1,7 +1,7 @@
-using Rapid7.Api.Models;
 using System.Text.Json;
 using System.Xml;
 using System.Xml.Linq;
+using Rapid7.Api.Models;
 
 namespace Rapid7.Api;
 

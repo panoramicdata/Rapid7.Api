@@ -1,6 +1,6 @@
-using Refit;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Refit;
 
 namespace Rapid7.Api.Test.Core;
 

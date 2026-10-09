@@ -1,7 +1,7 @@
+using System.Text.RegularExpressions;
 using Rapid7.Api.Handlers;
 using Rapid7.Api.Serialization;
 using Refit;
-using System.Text.RegularExpressions;
 
 namespace Rapid7.Api;
 

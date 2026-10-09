@@ -1,6 +1,6 @@
-using Refit;
 using System.Globalization;
 using System.Reflection;
+using Refit;
 
 namespace Rapid7.Api.Serialization;
 

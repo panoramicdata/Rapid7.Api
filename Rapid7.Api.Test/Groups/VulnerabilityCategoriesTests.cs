@@ -1,6 +1,6 @@
+using System.Net;
 using Rapid7.Api.Models;
 using Rapid7.Api.Test.Support;
-using System.Net;
 using static Rapid7.Api.Test.Groups.VulnerabilitySamples;
 
 namespace Rapid7.Api.Test.Groups;

@@ -1,7 +1,7 @@
+using System.Net;
 using Rapid7.Api.Models.Administration;
 using Rapid7.Api.Test.Support;
 using Refit;
-using System.Net;
 
 namespace Rapid7.Api.Test.Groups;
 

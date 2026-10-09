@@ -1,5 +1,5 @@
-using Rapid7.Api.Test.Support;
 using System.Net;
+using Rapid7.Api.Test.Support;
 using static Rapid7.Api.Test.Groups.AssetSamples;
 
 namespace Rapid7.Api.Test.Groups;

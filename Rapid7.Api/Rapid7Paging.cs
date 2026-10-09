@@ -1,5 +1,5 @@
-using Rapid7.Api.Models;
 using System.Runtime.CompilerServices;
+using Rapid7.Api.Models;
 
 namespace Rapid7.Api;
 

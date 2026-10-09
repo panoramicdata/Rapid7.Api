@@ -1,5 +1,5 @@
-using Rapid7.Api.Models.Vulnerabilities;
 using System.Text.Json.Serialization;
+using Rapid7.Api.Models.Vulnerabilities;
 
 namespace Rapid7.Api.Models.Remediations;
 

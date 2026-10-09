@@ -1,6 +1,6 @@
+using System.Net;
 using Rapid7.Api.Models.Credentials;
 using Rapid7.Api.Test.Support;
-using System.Net;
 
 namespace Rapid7.Api.Test.Groups;
 

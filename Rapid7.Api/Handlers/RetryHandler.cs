@@ -1,5 +1,5 @@
-using Microsoft.Extensions.Logging;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
 namespace Rapid7.Api.Handlers;
 

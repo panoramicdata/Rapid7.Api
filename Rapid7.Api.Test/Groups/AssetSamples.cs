@@ -1,7 +1,7 @@
-using Rapid7.Api.Test.Support;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using Rapid7.Api.Test.Support;
 
 namespace Rapid7.Api.Test.Groups;
 
