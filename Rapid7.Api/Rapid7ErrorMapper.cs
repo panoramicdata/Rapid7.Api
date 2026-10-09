@@ -13,6 +13,8 @@ namespace Rapid7.Api;
 /// </summary>
 internal static class Rapid7ErrorMapper
 {
+	private static readonly XmlReaderSettings XmlSettings = new() { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+
 	public static async Task<Exception?> CreateAsync(HttpResponseMessage response)
 	{
 		if (response.IsSuccessStatusCode)
@@ -61,7 +63,9 @@ internal static class Rapid7ErrorMapper
 	{
 		try
 		{
-			var root = XDocument.Parse(body).Root!;
+			// XDocument.Parse processes DTDs (expanding entities up to 10 million characters); an error body never needs one.
+			using var reader = XmlReader.Create(new StringReader(body), XmlSettings);
+			var root = XDocument.Load(reader).Root!;
 			return new ErrorBody(
 				Element(root, "status"),
 				Element(root, "message"),
