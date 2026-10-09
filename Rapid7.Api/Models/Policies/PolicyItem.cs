@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace Rapid7.Api.Models.Policies;
 
 /// <summary>A rule or group directly under a policy or policy group, with a summary of its results.</summary>
-public sealed class PolicyItem : LinksResource
+public sealed class PolicyItem : PolicyContentResource
 {
 	/// <summary>The identifier of the rule or group.</summary>
 	[JsonPropertyName("id")]
@@ -16,22 +16,6 @@ public sealed class PolicyItem : LinksResource
 	/// <summary>The name.</summary>
 	[JsonPropertyName("name")]
 	public string? Name { get; init; }
-
-	/// <summary>The title shown to users.</summary>
-	[JsonPropertyName("title")]
-	public string? Title { get; init; }
-
-	/// <summary>A description.</summary>
-	[JsonPropertyName("description")]
-	public string? Description { get; init; }
-
-	/// <summary><c>Built-in</c> or <c>Custom</c>.</summary>
-	[JsonPropertyName("scope")]
-	public string? Scope { get; init; }
-
-	/// <summary>The compliance status (for an asset's view, that asset's status).</summary>
-	[JsonPropertyName("status")]
-	public PolicyComplianceStatus? Status { get; init; }
 
 	/// <summary>For a rule, whether an active policy override applies to it.</summary>
 	[JsonPropertyName("hasOverride")]
