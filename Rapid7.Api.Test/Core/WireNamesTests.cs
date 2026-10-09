@@ -35,4 +35,8 @@ public class WireNamesTests
 	[Fact]
 	public void Of_WritesTheWireName()
 		=> WireNames.Of(Level.High).Should().Be("H");
+
+	[Fact]
+	public void Of_WritesAnUndefinedValueAsItsNumber()
+		=> WireNames.Of((Level)42).Should().Be("42");
 }
