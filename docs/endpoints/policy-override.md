@@ -6,11 +6,11 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| GET | `api/3/assets/{id}/policy_overrides` |  |  |
-| GET | `api/3/policy_overrides` |  |  |
-| POST | `api/3/policy_overrides` |  |  |
-| DELETE | `api/3/policy_overrides/{id}` |  |  |
-| GET | `api/3/policy_overrides/{id}` |  |  |
-| POST | `api/3/policy_overrides/{id}/{status}` |  |  |
-| GET | `api/3/policy_overrides/{id}/expires` |  |  |
-| PUT | `api/3/policy_overrides/{id}/expires` |  |  |
+| GET | `api/3/assets/{id}/policy_overrides` | IPolicyOverrides.GetForAssetAsync | PolicyOverridesTests.GetForAssetAsync_SendsGet |
+| GET | `api/3/policy_overrides` | IPolicyOverrides.GetPolicyOverridesAsync | PolicyOverridesTests.GetPolicyOverridesAsync_SendsPaging |
+| POST | `api/3/policy_overrides` | IPolicyOverrides.CreateAsync | PolicyOverridesTests.CreateAsync_PostsTheOverride |
+| DELETE | `api/3/policy_overrides/{id}` | IPolicyOverrides.DeleteAsync | PolicyOverridesTests.DeleteAsync_SendsDelete |
+| GET | `api/3/policy_overrides/{id}` | IPolicyOverrides.GetAsync | PolicyOverridesTests.GetAsync_SendsGet |
+| POST | `api/3/policy_overrides/{id}/{status}` | IPolicyOverrides.SetStatusAsync | PolicyOverridesTests.SetStatusAsync_PostsTheCommentToTheStatusPath, PolicyOverridesTests.SetStatusAsync_WithoutAComment_SendsNoBody |
+| GET | `api/3/policy_overrides/{id}/expires` | IPolicyOverrides.GetExpirationAsync | PolicyOverridesTests.GetExpirationAsync_SendsGet |
+| PUT | `api/3/policy_overrides/{id}/expires` | IPolicyOverrides.SetExpirationAsync | PolicyOverridesTests.SetExpirationAsync_PutsTheDateAsAJsonString |
