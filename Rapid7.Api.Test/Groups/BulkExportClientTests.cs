@@ -230,6 +230,14 @@ public sealed class BulkExportClientTests : IDisposable
 	}
 
 	[Fact]
+	public void Client_BuildsItsOwnTransportFromOptions()
+	{
+		using var client = new Rapid7BulkExportClient(TestClient.PlatformOptions());
+
+		client.BaseAddress.Should().Be(new Uri(TestClient.PlatformUrl));
+	}
+
+	[Fact]
 	public void DefaultClient_UsesTheSystemClockAndTaskDelay()
 	{
 		using var client = TestClient.CreateBulkExport(_stub);

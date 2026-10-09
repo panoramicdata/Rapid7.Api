@@ -59,6 +59,14 @@ public class CloudHealthTests
 	}
 
 	[Fact]
+	public void Client_BuildsItsOwnTransportFromOptions()
+	{
+		using var client = new Rapid7CloudClient(TestClient.PlatformOptions());
+
+		client.BaseAddress.Should().Be(new Uri(TestClient.PlatformUrl + "vm/"));
+	}
+
+	[Fact]
 	public Task GetAsync_Unauthorized_RaisesRapid7ApiException()
 		=> TestClient.ShouldFailAsync(
 			TestClient.CreateCloud,
