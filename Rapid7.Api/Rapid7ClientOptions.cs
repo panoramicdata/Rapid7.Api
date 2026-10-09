@@ -47,6 +47,13 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 			throw new ArgumentException("Set both Username and Password.", nameof(Username));
 		}
 
+		// Basic credentials are "user:password", so the server would split a user name with a colon in the wrong place.
+		if (Username.Contains(':', StringComparison.Ordinal))
+		{
+			throw new ArgumentException("Username must not contain a colon (HTTP basic authentication cannot carry one).", nameof(Username));
+		}
+
+		ValidateHeaderValue(TwoFactorToken, nameof(TwoFactorToken));
 		ValidateConnection();
 	}
 

@@ -86,6 +86,18 @@ public abstract class Rapid7ConnectionOptions
 		}
 	}
 
+	/// <summary>
+	/// Checks a secret sent as a header value: control characters (such as a pasted line break) would otherwise fail every
+	/// request with a <see cref="FormatException"/> rather than failing here, and a line break could inject a header.
+	/// </summary>
+	private protected static void ValidateHeaderValue(string? value, string parameterName)
+	{
+		if (value is not null && value.Any(char.IsControl))
+		{
+			throw new ArgumentException($"{parameterName} must not contain control characters such as line breaks.", parameterName);
+		}
+	}
+
 	/// <summary>Masks a secret for display: <c>***</c> when set, <c>(none)</c> otherwise.</summary>
 	private protected static string Mask(string? secret) => string.IsNullOrEmpty(secret) ? "(none)" : "***";
 

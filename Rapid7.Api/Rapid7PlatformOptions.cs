@@ -67,6 +67,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 			throw new ArgumentException("Set ApiKey to an Insight platform API key.", nameof(ApiKey));
 		}
 
+		ValidateHeaderValue(ApiKey, nameof(ApiKey));
 		ValidateConnection();
 	}
 
