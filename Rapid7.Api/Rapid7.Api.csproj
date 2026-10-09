@@ -38,6 +38,7 @@
 
 	<ItemGroup>
 		<InternalsVisibleTo Include="Rapid7.Api.Test" />
+		<InternalsVisibleTo Include="Rapid7.Api.IntegrationTest" />
 	</ItemGroup>
 
 </Project>
