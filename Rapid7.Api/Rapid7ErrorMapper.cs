@@ -107,7 +107,7 @@ internal static class Rapid7ErrorMapper
 	private static string? Element(XElement root, string name)
 		=> root.Elements().FirstOrDefault(e => e.Name.LocalName == name)?.Value.Trim() is { Length: > 0 } text ? text : null;
 
-	private static async Task<string> ReadBodyAsync(HttpResponseMessage response)
+	internal static async Task<string> ReadBodyAsync(HttpResponseMessage response)
 	{
 		try
 		{

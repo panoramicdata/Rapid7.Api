@@ -6,8 +6,8 @@ Every operation is a GraphQL request (`POST`) to the regional endpoint `https://
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| POST | `export/graphql#createAssetSoftwareExport` |  |  |
-| POST | `export/graphql#createPolicyExport` |  |  |
-| POST | `export/graphql#createVulnerabilityExport` |  |  |
-| POST | `export/graphql#createVulnerabilityRemediationExport` |  |  |
-| POST | `export/graphql#export` |  |  |
+| POST | `export/graphql#createAssetSoftwareExport` | `IBulkExport.CreateAssetSoftwareExportAsync` | `BulkExportTests.CreateAssetSoftwareExportAsync_PostsTheMutation` |
+| POST | `export/graphql#createPolicyExport` | `IBulkExport.CreatePolicyExportAsync` | `BulkExportTests.CreatePolicyExportAsync_PostsTheMutation` |
+| POST | `export/graphql#createVulnerabilityExport` | `IBulkExport.CreateVulnerabilityExportAsync` | `BulkExportTests.CreateVulnerabilityExportAsync_PostsTheMutation` |
+| POST | `export/graphql#createVulnerabilityRemediationExport` | `IBulkExport.CreateVulnerabilityRemediationExportAsync` | `BulkExportTests.CreateVulnerabilityRemediationExportAsync_PostsTheMutationWithTheDateRange` |
+| POST | `export/graphql#export` | `IBulkExport.GetExportAsync` | `BulkExportTests.GetExportAsync_PostsTheQueryWithTheIdAsAStringLiteral` |

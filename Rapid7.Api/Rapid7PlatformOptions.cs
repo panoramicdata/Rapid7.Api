@@ -11,11 +11,11 @@ namespace Rapid7.Api;
 public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 {
 	/// <summary>The Insight platform regions, as used in host names such as <c>us.api.insight.rapid7.com</c>.</summary>
-	public static IReadOnlyList<string> Regions { get; } = ["us", "us2", "us3", "eu", "ca", "au", "ap"];
+	public static IReadOnlyList<string> Regions { get; } = ["us", "us2", "us3", "eu", "ca", "au", "ap", "aps2", "me1"];
 
 	/// <summary>
 	/// The region of your Insight platform organisation: one of <see cref="Regions"/> (<c>us</c>, <c>us2</c>, <c>us3</c>,
-	/// <c>eu</c>, <c>ca</c>, <c>au</c> or <c>ap</c>). Ignored when <see cref="BaseUrl"/> is set.
+	/// <c>eu</c>, <c>ca</c>, <c>au</c>, <c>ap</c>, <c>aps2</c> or <c>me1</c>). Ignored when <see cref="BaseUrl"/> is set.
 	/// </summary>
 	public string Region { get; set; } = string.Empty;
 

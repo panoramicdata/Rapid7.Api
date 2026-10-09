@@ -7,6 +7,7 @@
 		<!-- Rapid7.Api -->
 		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.12" />
 		<PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.94" />
+		<PackageVersion Include="Parquet.Net" Version="6.1.0" />
 		<PackageVersion Include="Refit" Version="16.3.0" />
 		<!-- Test projects -->
 		<PackageVersion Include="AwesomeAssertions" Version="9.6.0" />

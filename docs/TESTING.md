@@ -36,7 +36,7 @@ dotnet user-secrets set "Rapid7:TrustedServerCertificateThumbprint" "<sha256>" -
 dotnet user-secrets set "Rapid7:TwoFactorToken" "<current code>" --project Rapid7.Api.IntegrationTest
 
 # Insight platform (Cloud Integrations v4 and Bulk Export)
-dotnet user-secrets set "Rapid7Platform:Region" "<us|us2|us3|eu|ca|au|ap>" --project Rapid7.Api.IntegrationTest
+dotnet user-secrets set "Rapid7Platform:Region" "<us|us2|us3|eu|ca|au|ap|aps2|me1>" --project Rapid7.Api.IntegrationTest
 dotnet user-secrets set "Rapid7Platform:ApiKey" "<API key>" --project Rapid7.Api.IntegrationTest
 
 dotnet test --project Rapid7.Api.IntegrationTest/Rapid7.Api.IntegrationTest.csproj

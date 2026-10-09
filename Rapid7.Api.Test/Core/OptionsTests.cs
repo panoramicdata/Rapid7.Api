@@ -30,7 +30,7 @@ public partial class OptionsTests
 		options.TrustedServerCertificateThumbprint.Should().BeNull();
 		options.ServerCertificateValidationCallback.Should().BeNull();
 		new Rapid7PlatformOptions().Region.Should().BeEmpty();
-		Rapid7PlatformOptions.Regions.Should().Equal("us", "us2", "us3", "eu", "ca", "au", "ap");
+		Rapid7PlatformOptions.Regions.Should().Equal("us", "us2", "us3", "eu", "ca", "au", "ap", "aps2", "me1");
 	}
 
 	[Theory]
@@ -83,7 +83,7 @@ public partial class OptionsTests
 	[InlineData("uk")]
 	[InlineData(" us")]
 	public void Platform_RejectsAnUnknownRegion_WithoutABaseUrl(string region)
-		=> ShouldReject(() => Construct(TestClient.PlatformOptions(o => (o.BaseUrl, o.Region) = ("  ", region))), "Region", "Region must be one of us, us2, us3, eu, ca, au, ap, or set BaseUrl.*");
+		=> ShouldReject(() => Construct(TestClient.PlatformOptions(o => (o.BaseUrl, o.Region) = ("  ", region))), "Region", "Region must be one of us, us2, us3, eu, ca, au, ap, aps2, me1, or set BaseUrl.*");
 
 	[Theory]
 	[InlineData("not a url", "*absolute http or https*")]

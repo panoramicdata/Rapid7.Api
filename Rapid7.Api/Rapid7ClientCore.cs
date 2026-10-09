@@ -30,7 +30,10 @@ internal sealed class Rapid7ClientCore : IDisposable
 	}
 
 	/// <summary>Creates an endpoint group.</summary>
-	public T For<T>() => RestService.For<T>(_httpClient, Rapid7Pipeline.Settings);
+	public T For<T>() => For<T>(Rapid7Pipeline.Settings);
+
+	/// <summary>A Refit client over the shared pipeline, with settings other than the default (the GraphQL client's).</summary>
+	public T For<T>(RefitSettings settings) => RestService.For<T>(_httpClient, settings);
 
 	/// <inheritdoc />
 	public void Dispose()
