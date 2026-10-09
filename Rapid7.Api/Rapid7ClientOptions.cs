@@ -35,6 +35,9 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 	/// </summary>
 	public bool ReadOnly { get; set; }
 
+	/// <summary>The console address every endpoint path is appended to, always ending in <c>/</c>.</summary>
+	internal Uri BaseAddress => BaseAddressOf(BaseUrl);
+
 	/// <summary>The client core for a console client at <paramref name="baseAddress"/>, authenticating with these credentials.</summary>
 	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
 		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), readOnlyPosts, innerHandler);

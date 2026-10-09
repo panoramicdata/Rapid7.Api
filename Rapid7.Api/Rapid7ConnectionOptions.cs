@@ -87,6 +87,16 @@ public abstract class Rapid7ConnectionOptions
 	}
 
 	/// <summary>
+	/// The address a validated base URL stands for, always ending in <c>/</c>. Built from the parsed URL rather than the
+	/// text, so surrounding whitespace (which parsing ignores) cannot end up inside the address.
+	/// </summary>
+	private protected static Uri BaseAddressOf(string baseUrl)
+	{
+		var text = new Uri(baseUrl.Trim(), UriKind.Absolute).AbsoluteUri;
+		return new Uri(text.EndsWith('/') ? text : text + "/");
+	}
+
+	/// <summary>
 	/// Checks a secret sent as a header value: control characters (such as a pasted line break) would otherwise fail every
 	/// request with a <see cref="FormatException"/> rather than failing here, and a line break could inject a header.
 	/// </summary>

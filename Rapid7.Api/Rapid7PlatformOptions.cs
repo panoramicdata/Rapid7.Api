@@ -40,9 +40,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 
 	/// <summary>The platform address every API is reached through, always ending in <c>/</c>.</summary>
 	internal Uri PlatformAddress
-		=> new(string.IsNullOrWhiteSpace(BaseUrl)
-			? $"https://{Region}.api.insight.rapid7.com/"
-			: BaseUrl.EndsWith('/') ? BaseUrl : BaseUrl + "/");
+		=> string.IsNullOrWhiteSpace(BaseUrl) ? new Uri($"https://{Region}.api.insight.rapid7.com/") : BaseAddressOf(BaseUrl);
 
 	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
 	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)

@@ -37,7 +37,7 @@ public sealed partial class Rapid7Client : IDisposable
 	public Rapid7Client(Rapid7ClientOptions options, HttpMessageHandler innerHandler)
 	{
 		ArgumentNullException.ThrowIfNull(innerHandler);
-		BaseAddress = Rapid7Pipeline.WithTrailingSlash(Rapid7ConnectionOptions.Validated(options).BaseUrl);
+		BaseAddress = Rapid7ConnectionOptions.Validated(options).BaseAddress;
 		_core = options.CreateCore(BaseAddress, options.ReadOnly ? ReadOnlyPosts() : null, innerHandler);
 	}
 
