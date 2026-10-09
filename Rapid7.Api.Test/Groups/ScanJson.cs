@@ -1,3 +1,6 @@
+using Rapid7.Api.Models;
+using Rapid7.Api.Test.Support;
+
 namespace Rapid7.Api.Test.Groups;
 
 /// <summary>Responses shared by the scan, scan engine and engine pool tests, shaped as the Security Console returns them.</summary>
@@ -46,6 +49,10 @@ internal static class ScanJson
 
 	/// <summary>A reference list of identifiers.</summary>
 	public const string Ids = """{"resources":[2,3,11],"links":[{"href":"https://console.test:3780/api/3/scan_engine_pools/7/engines","rel":"self"}]}""";
+
+	/// <summary>Asserts that <paramref name="call"/>, answered with <see cref="Ids"/>, reads the identifiers 2, 3 and 11.</summary>
+	public static async Task ShouldReadIdsAsync(Func<Rapid7Client, CancellationToken, Task<ResourceList<int>>> call)
+		=> (await TestClient.ReadAsync(call, Ids)).Resources.Should().Equal(2, 3, 11);
 
 	/// <summary>One page of scans as listed across the console, with every documented field.</summary>
 	public const string GlobalScans = """

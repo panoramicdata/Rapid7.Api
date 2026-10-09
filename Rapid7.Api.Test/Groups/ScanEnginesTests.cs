@@ -95,7 +95,7 @@ public class ScanEnginesTests
 		engine.IsAwsPreAuthorizedEngine.Should().BeFalse();
 		engine.LastRefreshedDate.Should().Be(new DateTimeOffset(2026, 9, 1, 10, 0, 0, TimeSpan.Zero));
 		engine.LastUpdatedDate.Should().Be(new DateTimeOffset(2026, 9, 2, 11, 30, 0, 500, TimeSpan.Zero));
-		engine.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		engine.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]

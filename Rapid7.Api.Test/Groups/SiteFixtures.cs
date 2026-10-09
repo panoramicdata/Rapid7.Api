@@ -33,5 +33,5 @@ internal static class SiteFixtures
 
 	/// <summary>Asserts that a links-only answer was read.</summary>
 	public static void ShouldBeSiteLinks(this LinksResource links)
-		=> links.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		=> links.Links.ShouldBeSelfOnly();
 }

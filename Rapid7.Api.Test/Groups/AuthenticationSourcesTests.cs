@@ -61,6 +61,6 @@ public class AuthenticationSourcesTests
 		source.Name.Should().Be("Corporate LDAP");
 		source.Type.Should().Be(AuthenticationSourceType.Ldap);
 		source.External.Should().BeTrue();
-		source.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		source.Links.ShouldBeSelfOnly();
 	}
 }

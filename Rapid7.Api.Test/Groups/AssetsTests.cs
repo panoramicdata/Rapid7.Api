@@ -89,8 +89,7 @@ public class AssetsTests
 			(c, ct) => c.Assets.CreateAsync(7, new AssetCreateRequest { Date = DateTimeOffset.UnixEpoch }, ct),
 			CreatedJson);
 
-		created.Id.Should().Be(282L);
-		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(282L);
 	}
 
 	[Fact]
@@ -110,7 +109,7 @@ public class AssetsTests
 		asset.Services[0].Protocol.Should().Be(ServiceProtocol.Tcp);
 		asset.Services[0].WebApplications[0].Pages[0].LinkType.Should().Be(WebPageLinkType.HtmlReference);
 		asset.Vulnerabilities!.Exploits.Should().Be(4);
-		asset.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		asset.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]

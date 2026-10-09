@@ -53,10 +53,7 @@ public class CloudAssetsTests
 	[Fact]
 	public async Task SearchAsync_MapsThePage()
 	{
-		var page = await TestClient.ReadAsync(
-			TestClient.CreateCloud,
-			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
-			CloudJson.AssetPage);
+		var page = await ReadAssetPageAsync();
 
 		page.Data.Should().HaveCount(2);
 		page.Metadata!.Number.Should().Be(0);
@@ -74,10 +71,7 @@ public class CloudAssetsTests
 	[Fact]
 	public async Task SearchAsync_ReadsASingleUniqueIdentifierObjectAsAList()
 	{
-		var page = await TestClient.ReadAsync(
-			TestClient.CreateCloud,
-			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
-			CloudJson.AssetPage);
+		var page = await ReadAssetPageAsync();
 
 		var identifier = page.Data[1].UniqueIdentifiers.Should().ContainSingle().Subject;
 		identifier.Id.Should().Be("4421d73d");
@@ -197,4 +191,10 @@ public class CloudAssetsTests
 		finding.SolutionFix.Should().Be("Take a look at all possible solutions");
 		finding.SolutionType.Should().Be("workaround");
 	}
+
+	private static Task<CursorPage<CloudAsset>> ReadAssetPageAsync()
+		=> TestClient.ReadAsync(
+			TestClient.CreateCloud,
+			(c, ct) => c.Assets.SearchAsync(new CloudAssetSearch(), null, null, ct),
+			CloudJson.AssetPage);
 }

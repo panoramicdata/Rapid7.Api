@@ -30,7 +30,7 @@ public class PoliciesTests
 		var page = await TestClient.ReadAsync((c, ct) => c.Policies.GetPoliciesAsync(null, ct), PolicyJson.PolicyPage);
 
 		page.PageInfo!.TotalResources.Should().Be(1);
-		page.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		page.Links.ShouldBeSelfOnly();
 		page.Resources.Should().ContainSingle().Which.ShouldBeExamplePolicy();
 	}
 

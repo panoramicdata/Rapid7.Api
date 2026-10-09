@@ -48,8 +48,7 @@ public class ReportsTests
 	{
 		var created = await TestClient.ReadAsync((c, ct) => c.Reports.CreateAsync(SqlReport, ct), ReportJson.Created);
 
-		created.Id.Should().Be(17);
-		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(17);
 	}
 
 	[Fact]

@@ -93,14 +93,12 @@ public class ScanEnginePoolsTests
 	}
 
 	[Fact]
-	public async Task ListEnginesAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.ScanEnginePools.ListEnginesAsync(7, ct), ScanJson.Ids))
-			.Resources.Should().Equal(2, 3, 11);
+	public Task ListEnginesAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.ScanEnginePools.ListEnginesAsync(7, ct));
 
 	[Fact]
-	public async Task ListSitesAsync_MapsTheIdentifiers()
-		=> (await TestClient.ReadAsync((c, ct) => c.ScanEnginePools.ListSitesAsync(7, ct), ScanJson.Ids))
-			.Resources.Should().Equal(2, 3, 11);
+	public Task ListSitesAsync_MapsTheIdentifiers()
+		=> ScanJson.ShouldReadIdsAsync((c, ct) => c.ScanEnginePools.ListSitesAsync(7, ct));
 
 	[Fact]
 	public async Task CreateAsync_ReadsTheNewIdentifier()

@@ -108,6 +108,6 @@ public class RolesTests
 		role.Description.Key.Should().BeNull();
 		role.Description.Arguments.Should().BeEmpty();
 		role.Privileges.Should().Equal("view-site-asset-data");
-		role.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		role.Links.ShouldBeSelfOnly();
 	}
 }

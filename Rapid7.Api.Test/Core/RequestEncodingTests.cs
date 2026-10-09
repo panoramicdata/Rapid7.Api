@@ -44,8 +44,7 @@ public class RequestEncodingTests
 		var created = await probe.CreateAsync("a/b c", new Probe { Name = "x", Enabled = false }, TestContext.Current.CancellationToken);
 
 		stub.Calls[0].ShouldBe(HttpMethod.Post, "/api/3/probe/a%2Fb%20c", body: """{"name":"x","enabled":false}""");
-		created.Id.Should().Be(42);
-		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(42);
 	}
 
 	[Fact]

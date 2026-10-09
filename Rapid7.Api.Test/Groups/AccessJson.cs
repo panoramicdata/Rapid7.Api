@@ -1,3 +1,5 @@
+using Rapid7.Api.Test.Support;
+
 namespace Rapid7.Api.Test.Groups;
 
 /// <summary>Response shapes shared by the user, credential and administration tests (hosts replaced).</summary>
@@ -23,6 +25,6 @@ internal static class AccessJson
 	public static void ShouldBeTheIds(Models.ResourceList<int> ids)
 	{
 		ids.Resources.Should().Equal(9, 12, 37);
-		ids.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		ids.Links.ShouldBeSelfOnly();
 	}
 }

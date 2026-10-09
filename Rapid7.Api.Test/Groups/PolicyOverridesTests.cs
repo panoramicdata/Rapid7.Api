@@ -103,8 +103,7 @@ public class PolicyOverridesTests
 
 		var created = await TestClient.ReadAsync((c, ct) => c.PolicyOverrides.CreateAsync(request, ct), """{"id":420,"links":[{"href":"https://console.test:3780/api/3/policy_overrides/420","rel":"self"}]}""");
 
-		created.Id.Should().Be(420);
-		created.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		created.ShouldBeCreated(420);
 	}
 
 	[Fact]

@@ -101,7 +101,7 @@ public class ScansTests
 		scan.Vulnerabilities.Total.Should().Be(95);
 		scan.SiteId.Should().Be(5);
 		scan.SiteName.Should().Be("External");
-		scan.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		scan.Links.ShouldBeSelfOnly();
 		page.Resources[1].Status.Should().Be(ScanStatus.Integrating);
 		page.Resources[1].SiteId.Should().BeNull();
 		page.PageInfo!.TotalPages.Should().Be(1);

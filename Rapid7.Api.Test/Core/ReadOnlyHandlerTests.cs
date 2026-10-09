@@ -50,16 +50,16 @@ public partial class ReadOnlyHandlerTests
 	{
 		var stub = new StubHandler();
 		stub.Enqueue(HttpStatusCode.OK);
-		return kind switch
+		Rapid7ClientBase client = kind switch
 		{
-			"console" => Wrap(TestClient.Create(stub, o => (o.ReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)), c => c.For<IRaw>(), stub),
-			"cloud" => Wrap(TestClient.CreateCloud(stub, o => (o.ReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)), c => c.For<IRaw>(), stub),
-			_ => Wrap(TestClient.CreateBulkExport(stub, o => (o.ReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)), c => c.For<IRaw>(), stub)
+			"console" => TestClient.Create(stub, o => (o.ReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)),
+			"cloud" => TestClient.CreateCloud(stub, Platform),
+			_ => TestClient.CreateBulkExport(stub, Platform)
 		};
-	}
+		return (client, client.For<IRaw>(), stub);
 
-	private static (IDisposable, IRaw, StubHandler) Wrap<T>(T client, Func<T, IRaw> raw, StubHandler stub) where T : IDisposable
-		=> (client, raw(client), stub);
+		void Platform(Rapid7PlatformOptions options) => (options.ReadOnly, options.BaseUrl) = (readOnly, baseUrl ?? options.BaseUrl);
+	}
 
 	[Theory]
 	[InlineData("console", "GET", "api/3/sites")]

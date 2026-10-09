@@ -39,7 +39,7 @@ public class ClientTests
 	public async Task Console_EndpointPaths_AreAppendedToAPathPrefix()
 	{
 		var call = await TestClient.CaptureAsync(
-			(StubHandler stub, Action<Rapid7ClientOptions>? _) => TestClient.Create(stub, o => o.BaseUrl = "https://proxy.test/rapid7"),
+			stub => TestClient.Create(stub, o => o.BaseUrl = "https://proxy.test/rapid7"),
 			(c, ct) => c.Root.GetAsync(ct),
 			"""{"links":[]}""");
 

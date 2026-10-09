@@ -91,7 +91,7 @@ public class SharedCredentialsTests
 		var credentials = await TestClient.ReadAsync((c, ct) => c.SharedCredentials.ListAsync(ct), CredentialsJson);
 
 		ShouldBeTheLinuxCredential(credentials.Resources.Should().ContainSingle().Subject);
-		credentials.Links.Should().ContainSingle().Which.Rel.Should().Be("self");
+		credentials.Links.ShouldBeSelfOnly();
 	}
 
 	[Fact]
