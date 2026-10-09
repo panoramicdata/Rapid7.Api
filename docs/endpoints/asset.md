@@ -6,28 +6,28 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| GET | `api/3/assets` |  |  |
-| DELETE | `api/3/assets/{id}` |  |  |
-| GET | `api/3/assets/{id}` |  |  |
-| GET | `api/3/assets/{id}/databases` |  |  |
-| GET | `api/3/assets/{id}/files` |  |  |
-| GET | `api/3/assets/{id}/services` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/configurations` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/databases` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/user_groups` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/users` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/web_applications` |  |  |
-| GET | `api/3/assets/{id}/services/{protocol}/{port}/web_applications/{webApplicationId}` |  |  |
-| GET | `api/3/assets/{id}/software` |  |  |
-| GET | `api/3/assets/{id}/tags` |  |  |
-| DELETE | `api/3/assets/{id}/tags/{tagId}` |  |  |
-| PUT | `api/3/assets/{id}/tags/{tagId}` |  |  |
-| GET | `api/3/assets/{id}/user_groups` |  |  |
-| GET | `api/3/assets/{id}/users` |  |  |
-| POST | `api/3/assets/search` |  |  |
-| GET | `api/3/operating_systems` |  |  |
-| GET | `api/3/operating_systems/{id}` |  |  |
-| POST | `api/3/sites/{id}/assets` |  |  |
-| GET | `api/3/software` |  |  |
-| GET | `api/3/software/{id}` |  |  |
+| GET | `api/3/assets` | IAssets.ListAsync | AssetsTests.ListAsync_SendsGetWithPaging |
+| DELETE | `api/3/assets/{id}` | IAssets.DeleteAsync | AssetsTests.DeleteAsync_SendsDelete |
+| GET | `api/3/assets/{id}` | IAssets.GetAsync | AssetsTests.GetAsync_SendsGet |
+| GET | `api/3/assets/{id}/databases` | IAssetDetails.ListDatabasesAsync | AssetDetailsTests.ListDatabasesAsync_SendsGet |
+| GET | `api/3/assets/{id}/files` | IAssetDetails.ListFilesAsync | AssetDetailsTests.ListFilesAsync_SendsGet |
+| GET | `api/3/assets/{id}/services` | IAssetServices.ListAsync | AssetServicesTests.ListAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}` | IAssetServices.GetAsync | AssetServicesTests.GetAsync_SendsGetWithTheNic |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/configurations` | IAssetServices.ListConfigurationsAsync | AssetServicesTests.ListConfigurationsAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/databases` | IAssetServices.ListDatabasesAsync | AssetServicesTests.ListDatabasesAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/user_groups` | IAssetServices.ListUserGroupsAsync | AssetServicesTests.ListUserGroupsAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/users` | IAssetServices.ListUsersAsync | AssetServicesTests.ListUsersAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/web_applications` | IAssetServices.ListWebApplicationsAsync | AssetServicesTests.ListWebApplicationsAsync_SendsGet |
+| GET | `api/3/assets/{id}/services/{protocol}/{port}/web_applications/{webApplicationId}` | IAssetServices.GetWebApplicationAsync | AssetServicesTests.GetWebApplicationAsync_SendsGet |
+| GET | `api/3/assets/{id}/software` | IAssetDetails.ListSoftwareAsync | AssetDetailsTests.ListSoftwareAsync_SendsGet |
+| GET | `api/3/assets/{id}/tags` | IAssetDetails.ListTagsAsync | AssetDetailsTests.ListTagsAsync_SendsGet |
+| DELETE | `api/3/assets/{id}/tags/{tagId}` | IAssetDetails.RemoveTagAsync | AssetDetailsTests.RemoveTagAsync_SendsDelete |
+| PUT | `api/3/assets/{id}/tags/{tagId}` | IAssetDetails.AddTagAsync | AssetDetailsTests.AddTagAsync_SendsPutWithoutABody |
+| GET | `api/3/assets/{id}/user_groups` | IAssetDetails.ListUserGroupsAsync | AssetDetailsTests.ListUserGroupsAsync_SendsGet |
+| GET | `api/3/assets/{id}/users` | IAssetDetails.ListUsersAsync | AssetDetailsTests.ListUsersAsync_SendsGet |
+| POST | `api/3/assets/search` | IAssets.SearchAsync | AssetsTests.SearchAsync_PostsTheCriteriaWithPaging |
+| GET | `api/3/operating_systems` | IAssetCatalog.ListOperatingSystemsAsync | AssetCatalogTests.ListOperatingSystemsAsync_SendsGetWithPaging |
+| GET | `api/3/operating_systems/{id}` | IAssetCatalog.GetOperatingSystemAsync | AssetCatalogTests.GetOperatingSystemAsync_SendsGet |
+| POST | `api/3/sites/{id}/assets` | IAssets.CreateAsync | AssetsTests.CreateAsync_PostsTheAssetToTheSite |
+| GET | `api/3/software` | IAssetCatalog.ListSoftwareAsync | AssetCatalogTests.ListSoftwareAsync_SendsGetWithPaging |
+| GET | `api/3/software/{id}` | IAssetCatalog.GetSoftwareAsync | AssetCatalogTests.GetSoftwareAsync_SendsGet |
