@@ -6,8 +6,8 @@ Paths are relative to the Security Console base address (`https://<host>:<port>/
 
 | Method | Path | Client method | Test |
 |---|---|---|---|
-| GET | `api/3/scan_templates` |  |  |
-| POST | `api/3/scan_templates` |  |  |
-| DELETE | `api/3/scan_templates/{id}` |  |  |
-| GET | `api/3/scan_templates/{id}` |  |  |
-| PUT | `api/3/scan_templates/{id}` |  |  |
+| GET | `api/3/scan_templates` | IScanTemplates.ListAsync | ScanTemplatesTests.ListAsync_SendsGet |
+| POST | `api/3/scan_templates` | IScanTemplates.CreateAsync | ScanTemplatesTests.CreateAsync_PostsOnlyWhatWasSet |
+| DELETE | `api/3/scan_templates/{id}` | IScanTemplates.DeleteAsync | ScanTemplatesTests.DeleteAsync_SendsDelete |
+| GET | `api/3/scan_templates/{id}` | IScanTemplates.GetAsync | ScanTemplatesTests.GetAsync_SendsGet |
+| PUT | `api/3/scan_templates/{id}` | IScanTemplates.UpdateAsync | ScanTemplatesTests.UpdateAsync_PutsTheTemplate |
