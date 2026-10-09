@@ -100,17 +100,12 @@ public abstract class Rapid7ConnectionOptions
 			return "(none)";
 		}
 
-		var start = url.IndexOf("://", StringComparison.Ordinal);
-		if (start < 0)
-		{
-			return url;
-		}
-
-		start += 3;
-		var end = url.IndexOfAny(['/', '?', '#'], start);
-		var authority = end < 0 ? url[start..] : url[start..end];
-		var at = authority.LastIndexOf('@');
-		return at < 0 ? url : $"{url[..start]}***{url[(start + at)..]}";
+		// Everything between the scheme (if any) and the last '@' is masked. The authority is not delimited at '/', since an
+		// unescaped '/' in a password would end it early; a valid base URL has no '@' in its path, query or fragment.
+		var scheme = url.IndexOf("://", StringComparison.Ordinal);
+		var start = scheme < 0 ? 0 : scheme + 3;
+		var at = url.LastIndexOf('@');
+		return at < start ? url : $"{url[..start]}***{url[at..]}";
 	}
 
 	/// <summary>
