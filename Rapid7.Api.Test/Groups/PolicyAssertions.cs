@@ -1,3 +1,4 @@
+using Rapid7.Api.Models.Assets;
 using Rapid7.Api.Models.Policies;
 
 namespace Rapid7.Api.Test.Groups;
@@ -96,7 +97,7 @@ internal static class PolicyAssertions
 				Other = "other-info",
 				Part = CpePart.OperatingSystem,
 				Product = "example_server",
-				SwEdition = "server",
+				SoftwareEdition = "server",
 				TargetHardware = "x64",
 				TargetSoftware = "none",
 				Update = "sp1",

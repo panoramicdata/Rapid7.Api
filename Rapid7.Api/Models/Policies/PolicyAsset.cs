@@ -1,3 +1,4 @@
+using Rapid7.Api.Models.Assets;
 using System.Text.Json.Serialization;
 
 namespace Rapid7.Api.Models.Policies;
@@ -19,7 +20,7 @@ public sealed class PolicyAsset : Links
 
 	/// <summary>The operating system of the asset.</summary>
 	[JsonPropertyName("os")]
-	public OperatingSystem? Os { get; init; }
+	public OperatingSystemFingerprint? Os { get; init; }
 
 	/// <summary>The asset's overall compliance status.</summary>
 	[JsonPropertyName("status")]
