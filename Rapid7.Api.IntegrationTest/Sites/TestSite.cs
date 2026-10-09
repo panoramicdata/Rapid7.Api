@@ -10,7 +10,7 @@ internal sealed class TestSite : IAsyncDisposable
 {
 	private readonly Rapid7Client _client;
 
-	private TestSite(Rapid7Client client, int id, string name)
+	internal TestSite(Rapid7Client client, int id, string name)
 	{
 		_client = client;
 		Id = id;
