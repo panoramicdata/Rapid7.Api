@@ -81,7 +81,8 @@ internal static class Rapid7ErrorMapper
 	/// <summary>A string property's text, or a number's digits; <see langword="null"/> when absent or empty.</summary>
 	private static string? ReadText(JsonElement element, string name)
 	{
-		if (element.ValueKind != JsonValueKind.Object || !element.TryGetProperty(name, out var property))
+		// Only ever called on objects: the root of a body that starts with "{", and the link objects.
+		if (!element.TryGetProperty(name, out var property))
 		{
 			return null;
 		}
@@ -96,8 +97,7 @@ internal static class Rapid7ErrorMapper
 	}
 
 	private static List<Link> ReadLinks(JsonElement root)
-		=> root.ValueKind == JsonValueKind.Object
-			&& root.TryGetProperty("links", out var links)
+		=> root.TryGetProperty("links", out var links)
 			&& links.ValueKind == JsonValueKind.Array
 				? [.. links.EnumerateArray()
 					.Where(l => l.ValueKind == JsonValueKind.Object)
