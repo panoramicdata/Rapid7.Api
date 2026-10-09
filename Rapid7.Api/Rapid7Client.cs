@@ -17,10 +17,8 @@ namespace Rapid7.Api;
 /// For the Insight platform APIs, use <see cref="Rapid7CloudClient"/> and <see cref="Rapid7BulkExportClient"/>.
 /// </para>
 /// </remarks>
-public sealed partial class Rapid7Client : IDisposable
+public sealed partial class Rapid7Client : Rapid7ClientBase
 {
-	private readonly Rapid7ClientCore _core;
-
 	/// <summary>Creates a client.</summary>
 	/// <param name="options">Connection options.</param>
 	public Rapid7Client(Rapid7ClientOptions options) : this(options, Rapid7Transport.Create(Rapid7ConnectionOptions.Validated(options)))
@@ -35,21 +33,11 @@ public sealed partial class Rapid7Client : IDisposable
 	/// <param name="options">Connection options.</param>
 	/// <param name="innerHandler">The handler that sends requests to the network.</param>
 	public Rapid7Client(Rapid7ClientOptions options, HttpMessageHandler innerHandler)
+		: base(options, Rapid7ConnectionOptions.Validated(options).BaseAddress, ReadOnlyPosts(), innerHandler)
 	{
-		ArgumentNullException.ThrowIfNull(innerHandler);
-		BaseAddress = Rapid7ConnectionOptions.Validated(options).BaseAddress;
-		_core = options.CreateCore(BaseAddress, options.ReadOnly ? ReadOnlyPosts() : null, innerHandler);
 	}
-
-	/// <summary>The console address every endpoint path is appended to, always ending in <c>/</c>.</summary>
-	public Uri BaseAddress { get; }
 
 	/// <summary>POSTs that only read: searches.</summary>
 	[GeneratedRegex("^api/3/(assets/search|sonar_queries/search)$", RegexOptions.CultureInvariant)]
 	private static partial Regex ReadOnlyPosts();
-
-	internal T For<T>() => _core.For<T>();
-
-	/// <inheritdoc />
-	public void Dispose() => _core.Dispose();
 }

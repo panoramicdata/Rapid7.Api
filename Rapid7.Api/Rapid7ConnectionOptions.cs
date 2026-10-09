@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 
 namespace Rapid7.Api;
@@ -144,6 +145,12 @@ public abstract class Rapid7ConnectionOptions
 
 	/// <summary>Checks every setting, throwing an <see cref="ArgumentException"/> for the first invalid one.</summary>
 	internal abstract void Validate();
+
+	/// <summary>
+	/// The client core for a client at <paramref name="baseAddress"/>: these options' authentication over
+	/// <paramref name="innerHandler"/>, allowing only <paramref name="readOnlyPosts"/> among POSTs when read-only.
+	/// </summary>
+	internal abstract Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler);
 
 	/// <summary>Checks the certificate, timeout and retry settings.</summary>
 	private protected void ValidateConnection()

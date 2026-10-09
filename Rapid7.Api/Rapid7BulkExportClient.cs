@@ -14,9 +14,8 @@ namespace Rapid7.Api;
 /// API key: the URLs are pre-signed and point at another host. A client is thread-safe and intended to be long-lived;
 /// dispose it when done.
 /// </remarks>
-public sealed partial class Rapid7BulkExportClient : IDisposable
+public sealed partial class Rapid7BulkExportClient : Rapid7ClientBase
 {
-	private readonly Rapid7ClientCore _core;
 	private readonly HttpMessageHandler _downloadPipeline;
 	private readonly HttpClient _downloadClient;
 
@@ -33,29 +32,24 @@ public sealed partial class Rapid7BulkExportClient : IDisposable
 	/// <param name="options">Platform options: region (or base URL) and API key.</param>
 	/// <param name="innerHandler">The handler that sends requests to the network.</param>
 	public Rapid7BulkExportClient(Rapid7PlatformOptions options, HttpMessageHandler innerHandler)
+		: base(options, Rapid7ConnectionOptions.Validated(options).PlatformAddress, ReadOnlyPosts(), innerHandler)
 	{
-		ArgumentNullException.ThrowIfNull(innerHandler);
-		BaseAddress = Rapid7ConnectionOptions.Validated(options).PlatformAddress;
-		_core = options.CreateCore(BaseAddress, options.ReadOnly ? ReadOnlyPosts() : null, innerHandler);
 		// Downloads share the transport and retries, but not the authentication: pre-signed URLs must not get the API key.
 		_downloadPipeline = new RetryHandler(options) { InnerHandler = innerHandler };
 		_downloadClient = new HttpClient(_downloadPipeline, disposeHandler: false) { Timeout = System.Threading.Timeout.InfiniteTimeSpan };
 	}
 
-	/// <summary>The platform address the GraphQL path (<c>export/graphql</c>) is appended to, always ending in <c>/</c>.</summary>
-	public Uri BaseAddress { get; }
-
 	/// <summary>Exports only read data, so the GraphQL endpoint stays usable when the client is read-only.</summary>
 	[GeneratedRegex("^export/graphql$", RegexOptions.CultureInvariant)]
 	private static partial Regex ReadOnlyPosts();
 
-	internal T For<T>() => _core.For<T>(Rapid7GraphQL.Settings);
+	internal override T For<T>() => Core.For<T>(Rapid7GraphQL.Settings);
 
 	/// <inheritdoc />
-	public void Dispose()
+	protected override void Dispose(bool disposing)
 	{
 		_downloadClient.Dispose();
-		_core.Dispose();
+		base.Dispose(disposing);
 		// Disposes the transport a second time (the GraphQL pipeline already did), which handlers tolerate.
 		_downloadPipeline.Dispose();
 	}

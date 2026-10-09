@@ -39,8 +39,8 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 	internal Uri BaseAddress => BaseAddressOf(BaseUrl);
 
 	/// <summary>The client core for a console client at <paramref name="baseAddress"/>, authenticating with these credentials.</summary>
-	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
-		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), readOnlyPosts, innerHandler);
+	internal override Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), ReadOnly ? readOnlyPosts : null, innerHandler);
 
 	internal override void Validate()
 	{

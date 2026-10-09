@@ -43,8 +43,8 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 		=> string.IsNullOrWhiteSpace(BaseUrl) ? new Uri($"https://{Region}.api.insight.rapid7.com/") : BaseAddressOf(BaseUrl);
 
 	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
-	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
-		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), readOnlyPosts, innerHandler);
+	internal override Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), ReadOnly ? readOnlyPosts : null, innerHandler);
 
 	internal override void Validate()
 	{
