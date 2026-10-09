@@ -1,3 +1,6 @@
+using Rapid7.Api.Handlers;
+using System.Text.RegularExpressions;
+
 namespace Rapid7.Api;
 
 /// <summary>
@@ -37,11 +40,13 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 
 	/// <summary>The platform address every API is reached through, always ending in <c>/</c>.</summary>
 	internal Uri PlatformAddress
-		=> new(string.IsNullOrWhiteSpace(BaseUrl)
-			? $"https://{Region}.api.insight.rapid7.com/"
-			: BaseUrl.EndsWith('/') ? BaseUrl : BaseUrl + "/");
+		=> string.IsNullOrWhiteSpace(BaseUrl) ? new Uri($"https://{Region}.api.insight.rapid7.com/") : BaseAddressOf(BaseUrl);
 
-	internal void Validate()
+	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
+	internal Rapid7ClientCore CreateCore(Uri baseAddress, Regex? readOnlyPosts, HttpMessageHandler innerHandler)
+		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), readOnlyPosts, innerHandler);
+
+	internal override void Validate()
 	{
 		if (string.IsNullOrWhiteSpace(BaseUrl))
 		{
@@ -60,6 +65,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 			throw new ArgumentException("Set ApiKey to an Insight platform API key.", nameof(ApiKey));
 		}
 
+		ValidateHeaderValue(ApiKey, nameof(ApiKey));
 		ValidateConnection();
 	}
 

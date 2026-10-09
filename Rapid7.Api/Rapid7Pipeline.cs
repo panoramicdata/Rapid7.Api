@@ -47,7 +47,4 @@ internal static class Rapid7Pipeline
 			// The per-attempt timeout is applied inside RetryHandler so retries and Retry-After waits are not cut short.
 			Timeout = System.Threading.Timeout.InfiniteTimeSpan
 		};
-
-	/// <summary>A base address that always ends in <c>/</c>.</summary>
-	internal static Uri WithTrailingSlash(string baseUrl) => new(baseUrl.EndsWith('/') ? baseUrl : baseUrl + "/");
 }

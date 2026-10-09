@@ -1,6 +1,4 @@
 using System.Text.RegularExpressions;
-using Rapid7.Api.Handlers;
-using Refit;
 
 namespace Rapid7.Api;
 
@@ -15,12 +13,11 @@ namespace Rapid7.Api;
 /// </remarks>
 public sealed partial class Rapid7CloudClient : IDisposable
 {
-	private readonly HttpMessageHandler _pipeline;
-	private readonly HttpClient _httpClient;
+	private readonly Rapid7ClientCore _core;
 
 	/// <summary>Creates a client.</summary>
 	/// <param name="options">Platform options: region (or base URL) and API key.</param>
-	public Rapid7CloudClient(Rapid7PlatformOptions options) : this(options, Rapid7Transport.Create(Validated(options)))
+	public Rapid7CloudClient(Rapid7PlatformOptions options) : this(options, Rapid7Transport.Create(Rapid7ConnectionOptions.Validated(options)))
 	{
 	}
 
@@ -33,15 +30,8 @@ public sealed partial class Rapid7CloudClient : IDisposable
 	public Rapid7CloudClient(Rapid7PlatformOptions options, HttpMessageHandler innerHandler)
 	{
 		ArgumentNullException.ThrowIfNull(innerHandler);
-		Validated(options);
-		BaseAddress = new Uri(options.PlatformAddress, "vm/");
-		_pipeline = Rapid7Pipeline.Create(
-			options,
-			BaseAddress,
-			new ApiKeyAuthenticationHandler(options.ApiKey),
-			options.ReadOnly ? ReadOnlyPosts() : null,
-			innerHandler);
-		_httpClient = Rapid7Pipeline.CreateHttpClient(_pipeline, BaseAddress);
+		BaseAddress = new Uri(Rapid7ConnectionOptions.Validated(options).PlatformAddress, "vm/");
+		_core = options.CreateCore(BaseAddress, options.ReadOnly ? ReadOnlyPosts() : null, innerHandler);
 	}
 
 	/// <summary>The Cloud Integrations address every endpoint path is appended to, always ending in <c>vm/</c>.</summary>
@@ -51,19 +41,8 @@ public sealed partial class Rapid7CloudClient : IDisposable
 	[GeneratedRegex("^v4/integration/(assets|sites|vulnerabilities)$", RegexOptions.CultureInvariant)]
 	private static partial Regex ReadOnlyPosts();
 
-	private static Rapid7PlatformOptions Validated(Rapid7PlatformOptions options)
-	{
-		ArgumentNullException.ThrowIfNull(options);
-		options.Validate();
-		return options;
-	}
-
-	internal T For<T>() => RestService.For<T>(_httpClient, Rapid7Pipeline.Settings);
+	internal T For<T>() => _core.For<T>();
 
 	/// <inheritdoc />
-	public void Dispose()
-	{
-		_httpClient.Dispose();
-		_pipeline.Dispose();
-	}
+	public void Dispose() => _core.Dispose();
 }

@@ -86,6 +86,28 @@ public abstract class Rapid7ConnectionOptions
 		}
 	}
 
+	/// <summary>
+	/// The address a validated base URL stands for, always ending in <c>/</c>. Built from the parsed URL rather than the
+	/// text, so surrounding whitespace (which parsing ignores) cannot end up inside the address.
+	/// </summary>
+	private protected static Uri BaseAddressOf(string baseUrl)
+	{
+		var text = new Uri(baseUrl.Trim(), UriKind.Absolute).AbsoluteUri;
+		return new Uri(text.EndsWith('/') ? text : text + "/");
+	}
+
+	/// <summary>
+	/// Checks a secret sent as a header value: control characters (such as a pasted line break) would otherwise fail every
+	/// request with a <see cref="FormatException"/> rather than failing here, and a line break could inject a header.
+	/// </summary>
+	private protected static void ValidateHeaderValue(string? value, string parameterName)
+	{
+		if (value is not null && value.Any(char.IsControl))
+		{
+			throw new ArgumentException($"{parameterName} must not contain control characters such as line breaks.", parameterName);
+		}
+	}
+
 	/// <summary>Masks a secret for display: <c>***</c> when set, <c>(none)</c> otherwise.</summary>
 	private protected static string Mask(string? secret) => string.IsNullOrEmpty(secret) ? "(none)" : "***";
 
@@ -100,18 +122,28 @@ public abstract class Rapid7ConnectionOptions
 			return "(none)";
 		}
 
-		var start = url.IndexOf("://", StringComparison.Ordinal);
-		if (start < 0)
-		{
-			return url;
-		}
-
-		start += 3;
-		var end = url.IndexOfAny(['/', '?', '#'], start);
-		var authority = end < 0 ? url[start..] : url[start..end];
-		var at = authority.LastIndexOf('@');
-		return at < 0 ? url : $"{url[..start]}***{url[(start + at)..]}";
+		// Everything between the scheme (if any) and the last '@' is masked. The authority is not delimited at '/', since an
+		// unescaped '/' in a password would end it early; a valid base URL has no '@' in its path, query or fragment.
+		var scheme = url.IndexOf("://", StringComparison.Ordinal);
+		var start = scheme < 0 ? 0 : scheme + 3;
+		var at = url.LastIndexOf('@');
+		return at < start ? url : $"{url[..start]}***{url[at..]}";
 	}
+
+	/// <summary>
+	/// Validates <paramref name="options"/> and returns them. Clients call this before creating the network handler, so
+	/// invalid options do not leave an undisposed handler behind.
+	/// </summary>
+	/// <exception cref="ArgumentNullException"><paramref name="options"/> is <see langword="null"/>.</exception>
+	internal static T Validated<T>(T options) where T : Rapid7ConnectionOptions
+	{
+		ArgumentNullException.ThrowIfNull(options);
+		options.Validate();
+		return options;
+	}
+
+	/// <summary>Checks every setting, throwing an <see cref="ArgumentException"/> for the first invalid one.</summary>
+	internal abstract void Validate();
 
 	/// <summary>Checks the certificate, timeout and retry settings.</summary>
 	private protected void ValidateConnection()

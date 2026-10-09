@@ -13,6 +13,8 @@ namespace Rapid7.Api;
 /// </summary>
 internal static class Rapid7ErrorMapper
 {
+	private static readonly XmlReaderSettings XmlSettings = new() { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+
 	public static async Task<Exception?> CreateAsync(HttpResponseMessage response)
 	{
 		if (response.IsSuccessStatusCode)
@@ -61,7 +63,9 @@ internal static class Rapid7ErrorMapper
 	{
 		try
 		{
-			var root = XDocument.Parse(body).Root!;
+			// XDocument.Parse processes DTDs (expanding entities up to 10 million characters); an error body never needs one.
+			using var reader = XmlReader.Create(new StringReader(body), XmlSettings);
+			var root = XDocument.Load(reader).Root!;
 			return new ErrorBody(
 				Element(root, "status"),
 				Element(root, "message"),
@@ -77,7 +81,8 @@ internal static class Rapid7ErrorMapper
 	/// <summary>A string property's text, or a number's digits; <see langword="null"/> when absent or empty.</summary>
 	private static string? ReadText(JsonElement element, string name)
 	{
-		if (element.ValueKind != JsonValueKind.Object || !element.TryGetProperty(name, out var property))
+		// Only ever called on objects: the root of a body that starts with "{", and the link objects.
+		if (!element.TryGetProperty(name, out var property))
 		{
 			return null;
 		}
@@ -92,8 +97,7 @@ internal static class Rapid7ErrorMapper
 	}
 
 	private static List<Link> ReadLinks(JsonElement root)
-		=> root.ValueKind == JsonValueKind.Object
-			&& root.TryGetProperty("links", out var links)
+		=> root.TryGetProperty("links", out var links)
 			&& links.ValueKind == JsonValueKind.Array
 				? [.. links.EnumerateArray()
 					.Where(l => l.ValueKind == JsonValueKind.Object)

@@ -6,7 +6,7 @@ namespace Rapid7.Api.Test.Support;
 /// <summary>Self-signed certificates created in memory, for certificate validation tests.</summary>
 internal static class TestCertificates
 {
-	public static X509Certificate2 Create(string subject = "CN=splunk.test")
+	public static X509Certificate2 Create(string subject = "CN=console.test")
 	{
 		using var key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
 		var request = new CertificateRequest(subject, key, HashAlgorithmName.SHA256);
