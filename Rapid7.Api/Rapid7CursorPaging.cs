@@ -28,7 +28,9 @@ public static class Rapid7CursorPaging
 		ArgumentNullException.ThrowIfNull(getPage);
 		ArgumentOutOfRangeException.ThrowIfLessThan(pageSize, 1);
 		string? cursor = null;
-		for (var number = 0; ; number++)
+		var number = 0;
+		var more = true;
+		while (more)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			var options = new CursorPageOptions { Page = number, Size = pageSize, Cursor = cursor };
@@ -38,10 +40,8 @@ public static class Rapid7CursorPaging
 				yield return resource;
 			}
 
-			if (IsLast(page, number, pageSize))
-			{
-				yield break;
-			}
+			more = !IsLast(page, number, pageSize);
+			number++;
 
 			// Collections that page by number alone return no cursor; keep the last one for those that do.
 			cursor = page.Metadata?.Cursor ?? cursor;

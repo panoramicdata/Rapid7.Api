@@ -7,7 +7,7 @@ namespace Rapid7.Api;
 public static class Rapid7Paging
 {
 	/// <summary>The largest page size the Security Console accepts.</summary>
-	public const int MaxPageSize = 500;
+	public static int MaxPageSize { get; } = 500;
 
 	/// <summary>
 	/// Streams every resource of a paged collection, requesting page after page until the last. For example:
@@ -42,7 +42,9 @@ public static class Rapid7Paging
 		int pageSize,
 		[EnumeratorCancellation] CancellationToken cancellationToken)
 	{
-		for (var number = 0; ; number++)
+		var number = 0;
+		var more = true;
+		while (more)
 		{
 			cancellationToken.ThrowIfCancellationRequested();
 			var page = await getPage(new PageOptions { Page = number, Size = pageSize }, cancellationToken).ConfigureAwait(false)
@@ -55,10 +57,8 @@ public static class Rapid7Paging
 			// The last page: the console says so, the page is empty (the collection shrank while being read), or (when the
 			// console omits page metadata) the page came back short.
 			var count = page.Resources.Count;
-			if (count == 0 || (page.PageInfo is { } info ? number + 1 >= info.TotalPages : count < pageSize))
-			{
-				yield break;
-			}
+			more = count > 0 && (page.PageInfo is { } info ? number + 1 < info.TotalPages : count >= pageSize);
+			number++;
 		}
 	}
 }

@@ -84,7 +84,7 @@ public class PagingTests
 	[Theory]
 	[InlineData(0)]
 	[InlineData(-1)]
-	[InlineData(Rapid7Paging.MaxPageSize + 1)]
+	[InlineData(501)]
 	public void AnInvalidPageSize_IsRejectedWhenCalled(int pageSize)
 	{
 		var act = () => Rapid7Paging.ReadAllAsync(new PageSource().GetAsync, pageSize, CancellationToken.None);
