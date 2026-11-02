@@ -33,14 +33,24 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 	/// sent) every request that could change the console: any PUT or DELETE, and any POST except searches
 	/// (<c>api/3/assets/search</c>, <c>api/3/sonar_queries/search</c>).
 	/// </summary>
-	public bool ReadOnly { get; set; }
+	public bool IsReadOnly { get; set; }
+
+	/// <summary>
+	/// Use <see cref="IsReadOnly"/>.
+	/// </summary>
+	[Obsolete("Use IsReadOnly")]
+	public bool ReadOnly
+	{
+		get => IsReadOnly;
+		set => IsReadOnly = value;
+	}
 
 	/// <summary>The console address every endpoint path is appended to, always ending in <c>/</c>.</summary>
 	internal Uri BaseAddress => BaseAddressOf(BaseUrl);
 
 	/// <summary>The client core for a console client at <paramref name="baseAddress"/>, authenticating with these credentials.</summary>
 	internal override Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler)
-		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), ReadOnly ? readOnlyPosts : null, innerHandler);
+		=> new(this, baseAddress, new BasicAuthenticationHandler(Username, Password, TwoFactorToken), IsReadOnly ? readOnlyPosts : null, innerHandler);
 
 	internal override void Validate()
 	{
@@ -62,5 +72,5 @@ public class Rapid7ClientOptions : Rapid7ConnectionOptions
 
 	/// <inheritdoc />
 	public override string ToString()
-		=> $"Rapid7ClientOptions {{ BaseUrl = {MaskBaseUrl(BaseUrl)}, Username = {Username}, Password = {Mask(Password)}, TwoFactorToken = {Mask(TwoFactorToken)}, ReadOnly = {ReadOnly} }}";
+		=> $"Rapid7ClientOptions {{ BaseUrl = {MaskBaseUrl(BaseUrl)}, Username = {Username}, Password = {Mask(Password)}, TwoFactorToken = {Mask(TwoFactorToken)}, ReadOnly = {IsReadOnly} }}";
 }

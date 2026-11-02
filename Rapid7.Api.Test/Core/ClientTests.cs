@@ -110,7 +110,7 @@ public class ClientTests
 		using var client = new Rapid7Client(options, stub);
 		options.Username = "changed";
 		options.Password = "changed";
-		options.ReadOnly = true;
+		options.IsReadOnly = true;
 		options.BaseUrl = "https://elsewhere.test/";
 
 		await client.Root.GetAsync(TestContext.Current.CancellationToken);

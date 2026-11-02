@@ -261,7 +261,7 @@ public class BulkExportTests
 	public async Task Exports_AreAllowedOnAReadOnlyClient()
 	{
 		var stub = TestClient.Stub(BulkExportJson.Created("createPolicyExport"));
-		using var client = TestClient.CreateBulkExport(stub, o => o.ReadOnly = true);
+		using var client = TestClient.CreateBulkExport(stub, o => o.IsReadOnly = true);
 
 		await client.Exports.CreatePolicyExportAsync(new CreatePolicyExportRequest(), TestContext.Current.CancellationToken);
 

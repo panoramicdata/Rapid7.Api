@@ -138,7 +138,7 @@ public class CloudScanEnginesTests
 	public async Task RemoveConfigurationAsync_IsRefusedByAReadOnlyClient()
 	{
 		var stub = new StubHandler();
-		using var client = TestClient.CreateCloud(stub, o => o.ReadOnly = true);
+		using var client = TestClient.CreateCloud(stub, o => o.IsReadOnly = true);
 
 		var act = () => client.ScanEngines.RemoveConfigurationAsync(
 			"e",

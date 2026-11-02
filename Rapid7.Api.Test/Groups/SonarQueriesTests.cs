@@ -68,7 +68,7 @@ public class SonarQueriesTests
 	public async Task SearchAsync_IsAllowedOnAReadOnlyClient()
 	{
 		var stub = TestClient.Stub($"[{DiscoveredAsset}]");
-		using var client = TestClient.Create(stub, o => o.ReadOnly = true);
+		using var client = TestClient.Create(stub, o => o.IsReadOnly = true);
 
 		var assets = await client.SonarQueries.SearchAsync(new SonarCriteria(), TestContext.Current.CancellationToken);
 

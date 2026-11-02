@@ -11,7 +11,7 @@ public partial class OptionsTests
 			Username = "nxadmin",
 			Password = "hunter2",
 			TwoFactorToken = "123456",
-			ReadOnly = true
+			IsReadOnly = true
 		};
 
 		options.ToString().Should().Be("Rapid7ClientOptions { BaseUrl = https://console.test:3780/, Username = nxadmin, Password = ***, TwoFactorToken = ***, ReadOnly = True }");
@@ -26,7 +26,7 @@ public partial class OptionsTests
 	{
 		new Rapid7PlatformOptions { Region = "eu", ApiKey = "secret-key" }.ToString()
 			.Should().Be("Rapid7PlatformOptions { Region = eu, BaseUrl = (none), ApiKey = ***, ReadOnly = False }");
-		new Rapid7PlatformOptions { BaseUrl = "https://k:secret@proxy.test/r7", ReadOnly = true }.ToString()
+		new Rapid7PlatformOptions { BaseUrl = "https://k:secret@proxy.test/r7", IsReadOnly = true }.ToString()
 			.Should().Be("Rapid7PlatformOptions { Region = , BaseUrl = https://***@proxy.test/r7, ApiKey = (none), ReadOnly = True }");
 	}
 

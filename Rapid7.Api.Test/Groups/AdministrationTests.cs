@@ -124,7 +124,7 @@ public partial class AdministrationTests
 	public async Task ReadOnlyClient_RefusesToActivateALicence()
 	{
 		var stub = new StubHandler();
-		using var client = TestClient.Create(stub, o => o.ReadOnly = true);
+		using var client = TestClient.Create(stub, o => o.IsReadOnly = true);
 
 		var act = () => client.Administration.ActivateLicenseAsync("FAKE-KEY", TestContext.Current.CancellationToken);
 

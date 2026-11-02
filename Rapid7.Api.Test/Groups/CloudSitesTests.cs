@@ -41,7 +41,7 @@ public class CloudSitesTests
 	public async Task ListAsync_IsAllowedOnAReadOnlyClient()
 	{
 		var stub = TestClient.Stub(CloudJson.SitePage);
-		using var client = TestClient.CreateCloud(stub, o => o.ReadOnly = true);
+		using var client = TestClient.CreateCloud(stub, o => o.IsReadOnly = true);
 
 		await client.Sites.ListAsync(null, TestContext.Current.CancellationToken);
 

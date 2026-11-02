@@ -142,7 +142,7 @@ public class AssetsTests
 	public async Task SearchAsync_IsAllowedOnAReadOnlyClient()
 	{
 		var stub = TestClient.Stub(EmptyPage);
-		using var client = TestClient.Create(stub, o => o.ReadOnly = true);
+		using var client = TestClient.Create(stub, o => o.IsReadOnly = true);
 
 		await client.Assets.SearchAsync(new SearchCriteria(), null, TestContext.Current.CancellationToken);
 
@@ -153,7 +153,7 @@ public class AssetsTests
 	public async Task DeleteAsync_IsRefusedOnAReadOnlyClient()
 	{
 		var stub = TestClient.Stub(LinksJson);
-		using var client = TestClient.Create(stub, o => o.ReadOnly = true);
+		using var client = TestClient.Create(stub, o => o.IsReadOnly = true);
 
 		var act = () => client.Assets.DeleteAsync(282, TestContext.Current.CancellationToken);
 

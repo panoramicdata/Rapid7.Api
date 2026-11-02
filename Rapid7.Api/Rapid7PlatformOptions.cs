@@ -36,7 +36,17 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 	/// sent) every request that could change InsightVM: starting or stopping scans, changing or removing scan engine
 	/// configuration, and any other PUT or DELETE. Searches and exports, which only read, are allowed.
 	/// </summary>
-	public bool ReadOnly { get; set; }
+	public bool IsReadOnly { get; set; }
+
+	/// <summary>
+	/// Use <see cref="IsReadOnly"/>.
+	/// </summary>
+	[Obsolete("Use IsReadOnly")]
+	public bool ReadOnly
+	{
+		get => IsReadOnly;
+		set => IsReadOnly = value;
+	}
 
 	/// <summary>The platform address every API is reached through, always ending in <c>/</c>.</summary>
 	internal Uri PlatformAddress
@@ -44,7 +54,7 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 
 	/// <summary>The client core for a platform client at <paramref name="baseAddress"/>, authenticating with the API key.</summary>
 	internal override Rapid7ClientCore CreateCore(Uri baseAddress, Regex readOnlyPosts, HttpMessageHandler innerHandler)
-		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), ReadOnly ? readOnlyPosts : null, innerHandler);
+		=> new(this, baseAddress, new ApiKeyAuthenticationHandler(ApiKey), IsReadOnly ? readOnlyPosts : null, innerHandler);
 
 	internal override void Validate()
 	{
@@ -71,5 +81,5 @@ public class Rapid7PlatformOptions : Rapid7ConnectionOptions
 
 	/// <inheritdoc />
 	public override string ToString()
-		=> $"Rapid7PlatformOptions {{ Region = {Region}, BaseUrl = {MaskBaseUrl(BaseUrl)}, ApiKey = {Mask(ApiKey)}, ReadOnly = {ReadOnly} }}";
+		=> $"Rapid7PlatformOptions {{ Region = {Region}, BaseUrl = {MaskBaseUrl(BaseUrl)}, ApiKey = {Mask(ApiKey)}, ReadOnly = {IsReadOnly} }}";
 }
