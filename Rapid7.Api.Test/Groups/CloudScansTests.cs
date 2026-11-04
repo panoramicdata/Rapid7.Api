@@ -131,7 +131,7 @@ public class CloudScansTests
 	public async Task StartAsync_IsRefusedByAReadOnlyClient()
 	{
 		var stub = new StubHandler();
-		using var client = TestClient.CreateCloud(stub, o => o.ReadOnly = true);
+		using var client = TestClient.CreateCloud(stub, o => o.IsReadOnly = true);
 
 		var act = () => client.Scans.StartAsync(new CloudScanRequest(), TestContext.Current.CancellationToken);
 

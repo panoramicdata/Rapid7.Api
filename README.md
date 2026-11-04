@@ -120,7 +120,7 @@ GraphQL errors raise `Rapid7GraphQLException`; an export that fails raises `Rapi
 
 ## Read-only mode
 
-Set `ReadOnly = true` on the options and the client refuses, before anything is sent, every request that could change
+Set `IsReadOnly = true` on the options and the client refuses, before anything is sent, every request that could change
 InsightVM: any PUT or DELETE, and any POST other than searches (and, for Bulk Export, exports). It raises
 `Rapid7ReadOnlyException`.
 

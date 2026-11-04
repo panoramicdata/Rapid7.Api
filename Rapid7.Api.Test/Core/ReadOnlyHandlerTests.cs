@@ -52,13 +52,13 @@ public partial class ReadOnlyHandlerTests
 		stub.Enqueue(HttpStatusCode.OK);
 		Rapid7ClientBase client = kind switch
 		{
-			"console" => TestClient.Create(stub, o => (o.ReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)),
+			"console" => TestClient.Create(stub, o => (o.IsReadOnly, o.BaseUrl) = (readOnly, baseUrl ?? o.BaseUrl)),
 			"cloud" => TestClient.CreateCloud(stub, Platform),
 			_ => TestClient.CreateBulkExport(stub, Platform)
 		};
 		return (client, client.For<IRaw>(), stub);
 
-		void Platform(Rapid7PlatformOptions options) => (options.ReadOnly, options.BaseUrl) = (readOnly, baseUrl ?? options.BaseUrl);
+		void Platform(Rapid7PlatformOptions options) => (options.IsReadOnly, options.BaseUrl) = (readOnly, baseUrl ?? options.BaseUrl);
 	}
 
 	[Theory]

@@ -25,13 +25,36 @@ public partial class OptionsTests
 		options.MaxRetries.Should().Be(3);
 		options.RetryBaseDelay.Should().Be(TimeSpan.FromSeconds(1));
 		options.MaxRetryDelay.Should().Be(TimeSpan.FromSeconds(30));
-		options.ReadOnly.Should().BeFalse();
+		options.IsReadOnly.Should().BeFalse();
 		options.Logger.Should().BeNull();
 		options.TrustedServerCertificateThumbprint.Should().BeNull();
 		options.ServerCertificateValidationCallback.Should().BeNull();
 		new Rapid7PlatformOptions().Region.Should().BeEmpty();
 		Rapid7PlatformOptions.Regions.Should().Equal("us", "us2", "us3", "eu", "ca", "au", "ap", "aps2", "me1");
 	}
+
+	[Fact]
+	public void IsReadOnly_DefaultsToFalse_OnBothOptionsClasses()
+	{
+		new Rapid7ClientOptions().IsReadOnly.Should().BeFalse();
+		new Rapid7PlatformOptions().IsReadOnly.Should().BeFalse();
+	}
+
+#pragma warning disable CS0618 // The obsolete alias is under test
+	[Fact]
+	public void ReadOnlyAlias_ReadsAndWritesIsReadOnly_OnBothOptionsClasses()
+	{
+		var console = new Rapid7ClientOptions { ReadOnly = true };
+		var platform = new Rapid7PlatformOptions { ReadOnly = true };
+
+		console.IsReadOnly.Should().BeTrue();
+		platform.IsReadOnly.Should().BeTrue();
+		console.IsReadOnly = false;
+		platform.IsReadOnly = false;
+		console.ReadOnly.Should().BeFalse();
+		platform.ReadOnly.Should().BeFalse();
+	}
+#pragma warning restore CS0618
 
 	[Theory]
 	[InlineData("")]

@@ -1,7 +1,7 @@
 namespace Rapid7.Api;
 
 /// <summary>
-/// Raised, before anything is sent, when a client created with a <c>ReadOnly</c> option is asked to make a request that
+/// Raised, before anything is sent, when a client created with an <c>IsReadOnly</c> option is asked to make a request that
 /// could change InsightVM.
 /// </summary>
 /// <param name="method">The refused HTTP method.</param>
