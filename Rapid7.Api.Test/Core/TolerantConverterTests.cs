@@ -13,6 +13,7 @@ public class TolerantConverterTests
 	[InlineData("1", true)]
 	[InlineData("0", false)]
 	[InlineData("0.0", false)]
+	[InlineData("-0", false)]
 	[InlineData("-2.5", true)]
 	[InlineData("\"1\"", true)]
 	[InlineData("\" TRUE \"", true)]
