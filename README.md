@@ -2,7 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/Rapid7.Api.svg)](https://www.nuget.org/packages/Rapid7.Api)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![.NET 10](https://img.shields.io/badge/.NET-10.0-512BD4.svg)](https://dotnet.microsoft.com/)
+[![.NET 11.0](https://img.shields.io/badge/.NET-10.0-512BD4.svg)](https://dotnet.microsoft.com/)
 [![CI](https://github.com/panoramicdata/Rapid7.Api/actions/workflows/ci.yml/badge.svg)](https://github.com/panoramicdata/Rapid7.Api/actions/workflows/ci.yml)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4f07e5acaee648f8820686b8cfcdfee4)](https://app.codacy.com/gh/panoramicdata/Rapid7.Api/dashboard)
 [![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/4f07e5acaee648f8820686b8cfcdfee4)](https://app.codacy.com/gh/panoramicdata/Rapid7.Api/dashboard)
@@ -10,6 +10,8 @@
 A typed, modern .NET client for [Rapid7 InsightVM](https://docs.rapid7.com/insightvm/restful-api/): the Security
 Console API (v3), the Cloud Integrations API (v4) and the Bulk Export API, with typed Parquet records. Built on Refit and
 System.Text.Json.
+
+Supports .NET 11.0.
 
 Rapid7.Api is an independent open-source project by Panoramic Data Limited. It is not made, endorsed or supported by
 Rapid7. Rapid7 and InsightVM are trademarks of Rapid7.
@@ -20,7 +22,7 @@ Rapid7. Rapid7 and InsightVM are trademarks of Rapid7.
 dotnet add package Rapid7.Api
 ```
 
-Rapid7.Api targets .NET 10. The package version follows the Security Console API version it implements: `3.0.x` is
+Rapid7.Api targets .NET 11.0. The package version follows the Security Console API version it implements: `3.0.x` is
 API v3.
 
 ## Three APIs, three clients
