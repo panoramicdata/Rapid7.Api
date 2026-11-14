@@ -7,6 +7,8 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4f07e5acaee648f8820686b8cfcdfee4)](https://app.codacy.com/gh/panoramicdata/Rapid7.Api/dashboard)
 [![Codacy Coverage](https://app.codacy.com/project/badge/Coverage/4f07e5acaee648f8820686b8cfcdfee4)](https://app.codacy.com/gh/panoramicdata/Rapid7.Api/dashboard)
 
+> **Need help with APIs or .NET?** Panoramic Data are experts in APIs and .NET, and we can help with your development. [Contact us](https://www.panoramicdata.com/contact-us) or see our [software services](https://www.panoramicdata.com/services/software).
+
 A typed, modern .NET client for [Rapid7 InsightVM](https://docs.rapid7.com/insightvm/restful-api/): the Security
 Console API (v3), the Cloud Integrations API (v4) and the Bulk Export API, with typed Parquet records. Built on Refit and
 System.Text.Json.
