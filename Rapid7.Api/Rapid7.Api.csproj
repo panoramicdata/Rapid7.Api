@@ -27,6 +27,7 @@
     <PackageReference Include="Nerdbank.GitVersioning" PrivateAssets="all" />
     <PackageReference Include="Parquet.Net" />
     <PackageReference Include="Refit" />
+    <PackageReference Include="Refit.Reflection" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />

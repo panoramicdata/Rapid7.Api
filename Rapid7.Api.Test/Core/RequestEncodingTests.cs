@@ -150,7 +150,7 @@ public class RequestEncodingTests
 		CultureInfo.CurrentCulture = new CultureInfo("de-DE");
 		try
 		{
-			string? Format(object? value) => formatter.Format(value, typeof(RequestEncodingTests), value?.GetType() ?? typeof(object));
+			string? Format(object? value) => formatter.Format(value, Refit.GeneratedParameterAttributeProvider.Empty, value?.GetType() ?? typeof(object));
 
 			Format(null).Should().BeNull();
 			Format(true).Should().Be("true");

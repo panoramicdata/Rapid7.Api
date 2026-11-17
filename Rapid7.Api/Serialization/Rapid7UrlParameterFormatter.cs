@@ -11,7 +11,7 @@ namespace Rapid7.Api.Serialization;
 internal sealed class Rapid7UrlParameterFormatter : DefaultUrlParameterFormatter
 {
 	/// <inheritdoc />
-	public override string? Format(object? value, ICustomAttributeProvider attributeProvider, Type type)
+	public override string? Format(object? value, IParameterAttributeProvider attributeProvider, Type type)
 		=> value switch
 		{
 			null => null,
